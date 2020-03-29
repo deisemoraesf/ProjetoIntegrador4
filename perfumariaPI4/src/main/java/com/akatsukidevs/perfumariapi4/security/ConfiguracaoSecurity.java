@@ -2,7 +2,6 @@ package com.akatsukidevs.perfumariapi4.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -28,7 +27,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				//.antMatchers("/usuarios/cadastrarUsuario").hasAnyRole("admin")
 				//.antMatchers("/usuarios/deletarUsuarios").hasAnyRole("admin")
 				//.antMatchers("/produtos/cadastrarProdutos").hasAnyRole("admin", "estoque")
-				//.antMatchers("/produtos/listarProdutos").hasAnyRole("admin", "estoque")
+				.antMatchers("/produtos/listarProdutos").hasAnyRole("admin", "estoque")
 				// autenticação de telas por pessas
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 				// se a pessoa quer sair só apertar "/logout"
