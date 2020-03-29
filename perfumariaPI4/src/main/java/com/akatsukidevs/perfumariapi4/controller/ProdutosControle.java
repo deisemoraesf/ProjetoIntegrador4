@@ -35,6 +35,7 @@ public class ProdutosControle {
 		ModelAndView mv =  new ModelAndView("/admin/produtos/cadastroProdutos");
 		mv.addObject("produtos", produtos);
 		return mv;
+		
 	}
 	
 	@GetMapping("/produtos/listarProdutos")
