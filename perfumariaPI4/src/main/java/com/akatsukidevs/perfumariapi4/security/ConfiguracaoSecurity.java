@@ -27,7 +27,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				//.antMatchers("/usuarios/cadastrarUsuario").hasAnyRole("admin")
 				//.antMatchers("/usuarios/deletarUsuarios").hasAnyRole("admin")
 				//.antMatchers("/produtos/cadastrarProdutos").hasAnyRole("admin", "estoque")
-				.antMatchers("/produtos/listarProdutos").hasAnyRole("admin", "estoque")
+				//.antMatchers("/produtos/listarProdutos").hasAnyRole("admin", "estoque")
 				// autenticação de telas por pessas
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 				// se a pessoa quer sair só apertar "/logout"

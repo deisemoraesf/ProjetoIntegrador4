@@ -4,7 +4,7 @@
 					xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-     <title>Loja Virtual</title>
+     <title>Perfumaria</title>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -52,7 +52,7 @@
 	                    </li>
 	                </ul>
 	                <a href="/admin/" class="btn btn-primary">Voltar</a>&nbsp;&nbsp;
-	                <a class="btn btn-primary btn-md" href="/produtos/cadastrarProdutos" role="button">
+	                <a class="btn btn-primary btn-md" href="/produtos/cadastrarProduto" role="button">
 	                    <span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
 	                    <span>Cadastrar Produtos</span>
 	                </a>
@@ -89,29 +89,23 @@
 	                    </tr>
 	                  
 	                  
-	                    
-	              
-		                    <tr th:each="produtos : ${produtos}">
-		                        <td><span th:text="${produtos.id}"></span></td>
-		                        <td><span th:text="${produtos.nome_produto}"></span></td>
-		                        <td><span th:text="${produtos.desc_produto}"></span></td>
-		                        <td><span th:text="${produtos.preco}"></span></td>
+		                    <tr th:each="produto : ${produtos}">
+		                        <td><span th:text="${produto.id_produto}"></span></td>
+		                        <td><span th:text="${produto.nome_produto}"></span></td>
+		                        <td><span th:text="${produto.desc_produto}"></span></td>
+		                        <td><span th:text="${produto.preco}"></span></td>
 
-		                        <td colspan="2">
-		                            <a class="btn btn-info btn-sm" href="/funcionarios/editar/1" role="button">
+		                        <td colspan="2"><a class="btn btn-info btn-sm" role="button"
+		                        		th:href="@{/produtos/editarProdutos/{id_produto}(id_produto=${produto.id_produto})}">
 		                                <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 		                            </a></td>
-		                          <td>  <button id="btn_funcionarios/excluir/1" type="button" class="btn btn-danger btn-sm"
-		                                    data-toggle="modal" data-target="#myModal">
+		                          <td><a class="btn btn-danger btn-sm"
+		                        		  th:href="@{/produtos/deletarProdutos/{id_produto}(id_produto=${produto.id_produto})}">
 		                                <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
 		                            </button>
 		                        </td>
 		                    </tr>
-	               
-	                  
-	                   
-	                  
-	                   
+                  
 	                </table>
 	            </div>
 	        </div>
