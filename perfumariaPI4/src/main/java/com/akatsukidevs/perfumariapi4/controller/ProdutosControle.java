@@ -30,14 +30,14 @@ public class ProdutosControle {
 	@Autowired
 	private ProdutoRepositorios produtoRepositorios;
 	
-	@GetMapping("cadastrarProdutos")
+	@GetMapping("/produtos/cadastrarProdutos")
 	public ModelAndView cadastrar(Produtos produtos) {
 		ModelAndView mv =  new ModelAndView("/admin/produtos/cadastroProdutos");
 		mv.addObject("produtos", produtos);
 		return mv;
 	}
 	
-	@GetMapping("/listarProdutos")
+	@GetMapping("/produtos/listarProdutos")
 	public ModelAndView listar() {
 		ModelAndView mv = new ModelAndView("/admin/produtos/listaProdutos");
 		List<Produtos> produtos = produtoRepositorios.findAll();
@@ -45,13 +45,13 @@ public class ProdutosControle {
 		return mv;
 	}
 	
-	@GetMapping("/admin/produtos/editar/{id}")
+	@GetMapping("/produtos/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") Long id) {
 		Optional<Produtos> produtos = produtoRepositorios.findById(id);
 		return cadastrar(produtos.get());		
 	}
 	
-	@GetMapping("/admin/produtos/remover/{id}")
+	@GetMapping("/produtos/remover/{id}")
 	public ModelAndView remover(@PathVariable("id") Long id) {
 		Optional<Produtos> produtos = produtoRepositorios.findById(id);
 		produtoRepositorios.delete(produtos.get());

@@ -1,7 +1,8 @@
 <!doctype html>
-<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="pt-br"  xmlns="http://www.w3.org/1999/xhtml"
 					xmlns:th="http://www.thymeleaf.org"
-					xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+					xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+					xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <title>Entre</title>
 <!-- Required meta tags -->
@@ -104,8 +105,8 @@
 								</div>
 								<div class="form-group">
 									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="rememberPasswordCheck"> <label
-											class="custom-control-label" for="rememberPasswordCheck" name="lembre">Lembre-se de mim.</label>
+										<input type="checkbox" class="custom-control-input" id="remember-me"> <label
+											class="custom-control-label" for="remember-me" name="lembre">Lembre-se de mim.</label>
 									</div>
 								</div>
 								<div
@@ -122,6 +123,7 @@
 									</div>
 								</div>
 							</fieldset>
+							
 						</form>
 
 

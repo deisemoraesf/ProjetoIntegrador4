@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
-				mlns:th="http://www.thymeleaf.org"
-				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+				xmlns:th="http://www.thymeleaf.org"
+				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title>Loja Virtual</title>
     <meta charset="UTF-8"/>
@@ -88,7 +89,7 @@
 	                         <br>
 	                         <input type="hidden" id="id" name="id" value=""/>
 	                         <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
-	                         <a href="/listarProdutos" class="btn btn-primary btn-sm">Voltar</a>
+	                         <a href="/produtos/listarProdutos" class="btn btn-primary btn-sm">Voltar</a>
 	                    </div>	 
 	                             
 	                </div>

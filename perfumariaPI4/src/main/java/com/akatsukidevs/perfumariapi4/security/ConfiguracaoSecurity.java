@@ -23,20 +23,18 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests()
 				// todas as paginas que tem"/" vão ser autenticados por todos
 				// As restantes com hasRole eu identifico quem usar
-				.antMatchers(HttpMethod.GET, "/").permitAll()
-				.antMatchers(HttpMethod.GET, "/admin").hasAnyRole("admin", "estoque")
-				.antMatchers(HttpMethod.GET, "/admin").hasRole("estoque")
-				.antMatchers(HttpMethod.POST, "/admin").hasRole("admin")
-				.antMatchers(HttpMethod.GET, "/cadatrarUsuario").hasAnyRole("admin")
-				.antMatchers(HttpMethod.POST, "/cadatrarUsuario").hasAnyRole("admin")
-				.antMatchers(HttpMethod.POST, "/editarUsuario/**").hasAnyRole("admin")
-				.antMatchers(HttpMethod.GET, "/cadastrarProduto").hasAnyRole("admin")
-				.antMatchers(HttpMethod.POST, "/cadastrarProduto").hasAnyRole("admin")
+				.antMatchers("/").permitAll()
+				.antMatchers("/usuarios/editarUsuarios").hasAnyRole("admin")
+				//.antMatchers("/usuarios/cadastrarUsuario").hasAnyRole("admin")
+				//.antMatchers("/usuarios/deletarUsuarios").hasAnyRole("admin")
+				//.antMatchers("/produtos/cadastrarProdutos").hasAnyRole("admin", "estoque")
+				//.antMatchers("/produtos/listarProdutos").hasAnyRole("admin", "estoque")
 				// autenticação de telas por pessas
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 				// se a pessoa quer sair só apertar "/logout"
 				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/login?logout").permitAll();
+				.logoutSuccessUrl("/login?logout").permitAll()
+				.and().rememberMe().userDetailsService(userDetailsService);
        
 	}
 

@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,13 +22,13 @@ public class UsuarioController {
 	private UsuarioRepository ur;
 	
 	
-	@RequestMapping(value="/cadastrarUsuario", method=RequestMethod.GET)
+	@RequestMapping(value="/usuarios/cadastrarUsuario", method=RequestMethod.GET)
 	public String salvar() {
 		return("/admin/usuarios/cadastroUsuarios");
 	}
 	
 	//para cadastro do usuario solicitando o post
-	@RequestMapping(value="/cadastrarUsuario", method=RequestMethod.POST)
+	@RequestMapping(value="/usuarios/cadastrarUsuario", method=RequestMethod.POST)
 	public String salvar(Usuario usuario, BindingResult result, RedirectAttributes attribute) {
 		if(result.hasErrors()) {
 			attribute.addFlashAttribute("mensagem: ", "Verifique os campos em branco"); 
@@ -49,7 +47,7 @@ public class UsuarioController {
 		
 	}
 	
-	@RequestMapping(value="/editarUsuarios/{id_usuario}", method=RequestMethod.GET)
+	@RequestMapping(value="/usuarios/editarUsuarios/{id_usuario}", method=RequestMethod.GET)
 	public ModelAndView editarUsuario(@PathVariable ("id_usuario") Long id_usuario, RedirectAttributes attribute ) {
 		ModelAndView mv = new ModelAndView("/admin/usuarios/editarUsuario");
 		Optional<Usuario> u = ur.findById(id_usuario);
@@ -60,13 +58,13 @@ public class UsuarioController {
 		
 	}
 	
-	@RequestMapping(value="/editarUsuarios/{id_usuario}", method=RequestMethod.POST)
+	@RequestMapping(value="/usuarios/editarUsuarios/{id_usuario}", method=RequestMethod.POST)
 	public String salvaEdicao(Usuario u) {
 		ur.save(u);
-		return ("redirect:/editarUsuarios/{id_usuario}");
+		return ("redirect:/usuarios/editarUsuarios/{id_usuario}");
 	}
 	
-	@GetMapping("/deletarUsuarios/{id_usuario}")
+	@GetMapping("/usuarios/deletarUsuarios/{id_usuario}")
 	public String deletarUsuarios(@PathVariable ("id_usuario") Long id_usuario, RedirectAttributes attribute) {
 		Optional<Usuario> u = ur.findById(id_usuario);
 		Usuario usu = u.get();

@@ -150,7 +150,7 @@ public class Usuario implements UserDetails, Serializable, GrantedAuthority{
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return true;
+		return this.status;
 	}
 
 	@Override
