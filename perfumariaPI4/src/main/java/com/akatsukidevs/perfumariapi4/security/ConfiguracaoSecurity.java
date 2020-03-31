@@ -23,9 +23,8 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				// todas as paginas que tem"/" vão ser autenticados por todos
 				// As restantes com hasRole eu identifico quem usar
 				.antMatchers("/").permitAll()
-				.antMatchers("/usuarios/editarUsuarios").hasAnyRole("admin")
-				//.antMatchers("/usuarios/cadastrarUsuario").hasAnyRole("admin")
-				//.antMatchers("/usuarios/deletarUsuarios").hasAnyRole("admin")
+				.antMatchers("/usuarios/**").hasAnyRole("admin")
+				.antMatchers("/produtos/**").hasAnyRole("admin", "estoque")
 				//.antMatchers("/produtos/cadastrarProdutos").hasAnyRole("admin", "estoque")
 				//.antMatchers("/produtos/listarProdutos").hasAnyRole("admin", "estoque")
 				// autenticação de telas por pessas

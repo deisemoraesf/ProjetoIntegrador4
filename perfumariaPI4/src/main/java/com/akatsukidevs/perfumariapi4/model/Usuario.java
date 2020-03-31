@@ -1,7 +1,8 @@
 package com.akatsukidevs.perfumariapi4.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +11,13 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Entity
-public class Usuario implements UserDetails, Serializable, GrantedAuthority{
+public class Usuario implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -30,7 +32,9 @@ public class Usuario implements UserDetails, Serializable, GrantedAuthority{
 	private String tipo;
 	private Boolean status=true;
 	
+	private transient List<SimpleGrantedAuthority> authorities;
 	
+			
 	public Usuario() {
 		
 	}
@@ -42,8 +46,10 @@ public class Usuario implements UserDetails, Serializable, GrantedAuthority{
 		this.senha =bspe.encode(senha);
 		this.tipo = tipo;
 		this.status=true;
+		this.authorities = Arrays.asList(new SimpleGrantedAuthority(this.tipo));
 	}
-
+	
+	
 	public Long getId_usuario() {
 		return id_usuario;
 	}
@@ -75,6 +81,7 @@ public class Usuario implements UserDetails, Serializable, GrantedAuthority{
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+		this.authorities = Arrays.asList(new SimpleGrantedAuthority(this.tipo));
 	}
 	
 	public boolean isStatus() {
@@ -84,8 +91,8 @@ public class Usuario implements UserDetails, Serializable, GrantedAuthority{
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-
-
+	
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -109,12 +116,6 @@ public class Usuario implements UserDetails, Serializable, GrantedAuthority{
 		} else if (!id_usuario.equals(other.id_usuario))
 			return false;
 		return true;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -154,11 +155,9 @@ public class Usuario implements UserDetails, Serializable, GrantedAuthority{
 	}
 
 	@Override
-	public String getAuthority() {
-		// TODO Auto-generated method stub
-		return this.tipo;
+	public List<SimpleGrantedAuthority> getAuthorities() {
+		return authorities;
 	}
 
-	
 	
 }
