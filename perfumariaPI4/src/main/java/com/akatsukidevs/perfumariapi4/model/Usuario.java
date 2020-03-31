@@ -158,6 +158,7 @@ public class Usuario implements UserDetails, Serializable {
 	public List<SimpleGrantedAuthority> getAuthorities() {
 		return authorities;
 	}
+	
 
 	
 }
