@@ -23,10 +23,12 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				// todas as paginas que tem"/" vão ser autenticados por todos
 				// As restantes com hasRole eu identifico quem usar
 				.antMatchers("/").permitAll()
-				.antMatchers("/usuarios/**").hasAnyRole("admin")
-				.antMatchers("/produtos/**").hasAnyRole("admin", "estoque")
-				//.antMatchers("/produtos/cadastrarProdutos").hasAnyRole("admin", "estoque")
-				//.antMatchers("/produtos/listarProdutos").hasAnyRole("admin", "estoque")
+				.antMatchers("/admin/").hasAnyAuthority("ADMIN", "ESTOQUE")
+				.antMatchers("/usuarios").hasAuthority("ADMIN")
+				.antMatchers("/produtos/listarProdustos").hasAnyAuthority("ADMIN", "ESTOQUE")
+				//.antMatchers("/produtos/listarProdutos").hasAnyAuthority("estoque")
+				//.antMatchers("/produtos/cadastrarProduto").hasAnyAuthority("admin")
+				//.antMatchers("/produtos/cadastrarProduto").hasAuthority("estoque")
 				// autenticação de telas por pessas
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 				// se a pessoa quer sair só apertar "/logout"
