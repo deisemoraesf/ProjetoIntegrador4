@@ -10,6 +10,8 @@ import javax.validation.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
 
+
+
 @Entity
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,6 +26,8 @@ public class Produto implements Serializable {
 	private String desc_produto;
 	@NotNull
 	private double preco;
+	//private String marca;
+	//private String categoria;
 	private boolean status=true;
 	
 	
@@ -91,7 +95,7 @@ public class Produto implements Serializable {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-
+	
 	
 
 }
