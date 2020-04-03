@@ -1,6 +1,7 @@
 package com.akatsukidevs.perfumariapi4.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Entity
-public class Usuario implements UserDetails, Serializable {
+public class Usuario implements UserDetails, Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -36,16 +37,17 @@ public class Usuario implements UserDetails, Serializable {
 			
 	public Usuario() {
 		
+			
 	}
-
-	public Usuario(Long id_usuario, String email, String senha, String tipo) {
+	
+	public Usuario(Long id_usuario,@NotEmpty String email,@NotEmpty String senha,@NotEmpty String tipo) {
 		BCryptPasswordEncoder bspe = new BCryptPasswordEncoder();
 		this.id_usuario = id_usuario;
 		this.email = email;
 		this.senha =bspe.encode(senha);
 		this.tipo = tipo;
 		this.status=true;
-		this.authorities = Arrays.asList(new SimpleGrantedAuthority(this.tipo));
+		//this.authorities = Arrays.asList(new SimpleGrantedAuthority(this.tipo));
 	}
 	
 	
@@ -80,7 +82,7 @@ public class Usuario implements UserDetails, Serializable {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-		this.authorities = Arrays.asList(new SimpleGrantedAuthority(this.tipo));
+		//this.authorities = Arrays.asList(new SimpleGrantedAuthority(this.tipo));
 	}
 	
 	public boolean isStatus() {
@@ -155,6 +157,7 @@ public class Usuario implements UserDetails, Serializable {
 
 	@Override
 	public List<SimpleGrantedAuthority> getAuthorities() {
+		authorities= Arrays.asList(new SimpleGrantedAuthority(this.tipo));
 		return authorities;
 	}
 	
