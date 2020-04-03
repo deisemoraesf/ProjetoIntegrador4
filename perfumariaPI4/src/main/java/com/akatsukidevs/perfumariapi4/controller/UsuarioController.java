@@ -31,10 +31,10 @@ public class UsuarioController {
 	@RequestMapping(value="/usuarios/cadastrarUsuario", method=RequestMethod.POST)
 	public String salvar(Usuario usuario, BindingResult result, RedirectAttributes attribute) {
 		if(result.hasErrors()) {
-			attribute.addFlashAttribute("mensagem: ", "Verifique os campos em branco"); 
+			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
 		}
 		ur.save(usuario);
-		attribute.addFlashAttribute("mensagem: ", "Salvo com sucesso");
+		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/usuarios/cadastrarUsuario");
 	}
 
@@ -53,7 +53,7 @@ public class UsuarioController {
 		Optional<Usuario> u = ur.findById(id_usuario);
 		Usuario usu = u.get();
 		mv.addObject("usuario", usu);
-		attribute.addFlashAttribute("mensagem: ", "Editado com sucesso");
+		attribute.addFlashAttribute("mensagem", "Editado com sucesso");
 		return mv;
 		
 	}
@@ -70,7 +70,7 @@ public class UsuarioController {
 		Usuario usu = u.get();
 		usu.setStatus(false);
 		ur.save(usu);
-		attribute.addFlashAttribute("mensagem: ", "Deletado com sucesso");
+		attribute.addFlashAttribute("mensagem", "Deletado com sucesso");
 		return ("redirect:/usuarios");
 		
 	}

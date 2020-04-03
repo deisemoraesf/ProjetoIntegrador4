@@ -25,7 +25,7 @@ public class ImplementarUsuario implements UserDetailsService {
 		if(usuario==null) {
 			throw new UsernameNotFoundException("Usuario não encontrado");
 		}
-		//return usuario;
+		
 		return new User(usuario.getEmail(),usuario.getSenha(),usuario.isEnabled(), true, true,true,usuario.getAuthorities());
 	}
 	

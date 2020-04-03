@@ -30,11 +30,14 @@
 					<a class="navbar-brand " href="#">Painel de Controle</a>
 				
 				</div>
-
+				
 				
 				<ul class="navbar-nav ml-auto"> 
-                    <li class="nav-item dropdown">
-                    	
+				
+									
+                    <li class="nav-item dropdown" style="color:white">Seja Bem vindo,
+                    	<span class="badge badge-dark" sec:authentication="name"></span>
+                    	<span class="badge badge-dark" sec:authentication="principal.authorities"></span>
                         <a class="btn btn-outline-light" href="/logout" >Sair</a>
                         
                     </li>
@@ -72,7 +75,7 @@
 				
 				
 						<ul class="nav nav-pills">
-					<li class="nav-item"><a href="/usuarios"><span class="nav-link active">Usuários</span></a></li>
+					<li class="nav-item"><a href="/usuarios"><span class="nav-link active" sec:authorize="hasRole('ADMIN')">Usuários</span></a></li>
 					
 				</ul>
 				

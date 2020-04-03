@@ -30,12 +30,12 @@
 					<button type="button" class="btn btn-dark navbar-toggle pull-left">
 						<i class="oi oi-menu"></i>
 					</button>
-					<a class="navbar-brand navbar-toggle pull-left" href="/admin/">Painel
-						de Controle</a>
+					<a class="navbar-brand navbar-toggle pull-left" href="/admin/">Painel de Controle</a>
 				</div>
 				<ul class="navbar-nav ml-auto"> 
-                    <li class="nav-item dropdown">
-                    	
+                     <li class="nav-item dropdown" style="color:white">Seja Bem vindo,
+                    	<span class="badge badge-dark" sec:authentication="name"></span>
+                    	<span class="badge badge-dark" sec:authentication="principal.authorities"></span>
                         <a class="btn btn-outline-light" href="/logout" >Sair</a>
                         
                     </li>
@@ -61,25 +61,33 @@
 			</div>
 
 			<div class="container" id="cadastro">
+				
+			
 
 				<form method="POST" th:object="${usuario}">
+				
+				
+				
+			    	
+				
+				
 					<div class="form-row">
 
 						<div class="form-group col-md-6">
 							<label for="nome">Id</label> <input type="text"
 								class="form-control" id="id_usuario" placeholder="Id Usuário"
-								utofocus="autofocus" name="id_usuario" value=""
+								autofocus="autofocus" name="id_usuario" value=""
 								th:field="*{id_usuario}" readonly="readonly" />
 							<div class="invalid-feedback"></div>
 
 							<label for="nome">Email</label> <input type="text"
 								class="form-control" id="email" placeholder="Email"
-								utofocus="autofocus" name="email" value="" th:field="*{email}" />
+								autofocus="autofocus" name="email" value="" th:field="*{email}" />
 							<div class="invalid-feedback"></div>
 
 							<label for="nome">Senha</label> <input type="text"
 								class="form-control" id="senha" placeholder="Senha"
-								utofocus="autofocus" name="senha" size="20" value=""
+								autofocus="autofocus" name="senha" size="20" value=""
 								th:field="*{senha}" />
 							<div class="invalid-feedback"></div>
 

@@ -19,6 +19,11 @@ public class IndexController {
 		return ("admin/home");
 	}
 	
+	//Acesso Negado
+	@GetMapping("/acessoNegado")
+	public String acessoNegado() {
+		return ("admin/acessoNegado");
+	}
 	
 
 }
