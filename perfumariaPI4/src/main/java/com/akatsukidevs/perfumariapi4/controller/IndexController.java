@@ -25,5 +25,11 @@ public class IndexController {
 		return ("admin/acessoNegado");
 	}
 	
+	//Direcionar pagina de detalhes do Produto
+	@GetMapping("/detalhesProduto")
+	public String detalhesProduto() {
+		return ("admin/produtos/detalhesProduto");
+	}
+	
 
 }
