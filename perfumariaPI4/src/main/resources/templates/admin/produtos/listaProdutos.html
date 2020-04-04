@@ -82,7 +82,9 @@
 	                        <th>Id</th>
 	                        <th>Nome do Produto</th>
 	                        <th>Descrição do Produto</th>
-	                        <th>Preço</th>	 
+	                        <th>Preço</th>
+	                        <th>Marca</th>
+	                        <th>Categoria</th>	                        	 
 	                        <th>Editar</th>
 							<th><br></th>
 							<th>Excluir</th>
@@ -94,6 +96,9 @@
 		                        <td><span th:text="${produto.nome_produto}"></span></td>
 		                        <td><span th:text="${produto.desc_produto}"></span></td>
 		                        <td><span th:text="${produto.preco}"></span></td>
+		                        <td><span th:text="${produto.marca}"></span></td>
+		                        <td><span th:text="${produto.categoria}"></span></td>
+		                        
 
 		                        <td colspan="2"><a class="btn btn-info btn-sm" role="button"
 		                        		th:href="@{/produtos/editarProdutos/{id_produto}(id_produto=${produto.id_produto})}">

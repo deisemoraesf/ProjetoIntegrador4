@@ -26,23 +26,32 @@ public class Produto implements Serializable {
 	private String desc_produto;
 	@NotNull
 	private double preco;
-	//private String marca;
-	//private String categoria;
+	private String marca;
+	private String categoria;
+	private boolean destaque=false;
+	private String perg_resp;
 	private boolean status=true;
+	
+
 	
 	
 	public Produto() {
 		
-	}	
-	
-	
-	public Produto(Long id_produto, @NotEmpty String nome_produto, @NotEmpty String desc_produto,
-			@NotEmpty double preco, boolean status) {
+	}
+
+
+
+	public Produto(Long id_produto, @NotEmpty String nome_produto, @NotEmpty String desc_produto, double preco,
+			String marca, String categoria, boolean destaque, String perg_resp, boolean status) {
 		super();
 		this.id_produto = id_produto;
 		this.nome_produto = nome_produto;
 		this.desc_produto = desc_produto;
 		this.preco = preco;
+		this.marca = marca;
+		this.categoria = categoria;
+		this.destaque = destaque;
+		this.perg_resp = perg_resp;
 		this.status = status;
 	}
 
@@ -95,6 +104,56 @@ public class Produto implements Serializable {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+
+
+
+	public String getMarca() {
+		return marca;
+	}
+
+
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+
+
+	public boolean isDestaque() {
+		return destaque;
+	}
+
+
+
+	public void setDestaque(boolean destaque) {
+		this.destaque = destaque;
+	}
+
+
+
+	public String getPerg_resp() {
+		return perg_resp;
+	}
+
+
+
+	public void setPerg_resp(String perg_resp) {
+		this.perg_resp = perg_resp;
+	}
+	
+	
 	
 	
 

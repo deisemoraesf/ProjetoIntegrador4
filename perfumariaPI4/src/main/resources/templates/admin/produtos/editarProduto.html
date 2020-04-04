@@ -70,28 +70,56 @@
 								class="form-control" id="id_produto" placeholder="Id Produto"
 								utofocus="autofocus" name="id_produto" value=""
 								th:field="*{id_produto}" readonly="readonly" />
-							<div class="invalid-feedback"></div>
+							<div class="invalid-feedback"></div></br>
 
-							<label for="nome">Nome Produto</label> <input type="text"
+							<label for="nome">Nome do Produto</label> <input type="text"
 								class="form-control" id="nome_produto" placeholder="nome_produto"
 								utofocus="autofocus" name="nome_produto" value="" th:field="*{nome_produto}" />
-							<div class="invalid-feedback"></div>
+							<div class="invalid-feedback"></div></br>
 							
-							<label for="nome">Descricao</label> <input type="text"
-								class="form-control" id="desc_produto" placeholder="desc_produto"
-								utofocus="autofocus" name="desc_produto" value="" th:field="*{desc_produto}" />
-							<div class="invalid-feedback"></div>
-
-							<label for="nome">Preço</label> <input type="text"
+						    <label for="nome">Preço do Produto</label> <input type="text"
 								class="form-control" id="preco" placeholder="preco"
 								utofocus="autofocus" name="preco" size="20" value=""
 								th:field="*{preco}" />
-							<div class="invalid-feedback"></div>
+							<div class="invalid-feedback"></div></br>
+							
+							<label for="nome">Descrição do Produto</label>			
+							<textarea class="form-control" id="desc_produto" placeholder=""
+							  	 utofocus="autofocus" name="desc_produto" value="" th:field="*{desc_produto}" rows="4" cols="50">								
+							</textarea></br>  
+							
+						   	<label for="nome">Marca</label> <select
+								class="form-control" id="marca" name="marca" th:field="*{marca}">
+								<option value="teste"></option>
+								<option value="Bvlgari">Bvlgari</option>
+								<option value="Carolina Herrera">Carolina Herrera</option>
+								<option value="Calvin Klein">Calvin Klein</option>
+								<option value="Chanel">Chanel</option>
+								<option value="Dior">Dior</option>
+								<option value="Dolce & Gabanna">Dolce & Gabanna</option>
+								<option value="Giorgio Armani">Giorgio Armani</option>
+								<option value="Paco Rabanne">Paco Rabanne</option>
+								<option value="Ralph Lauren">Ralph Lauren</option>
+							</select><br>
+							
+					    	<label for="nome">Categoria</label> <select
+								class="form-control" id="categoria" name="categoria" th:field="*{categoria}">
+							<option value="teste"></option>
+								<option value="Feminino">Feminino</option>
+								<option value="Feminino">Masculino</option>
+								<option value="Feminino">Infantil</option>
+							</select><br>
+												
+							<label for="nome">Perguntas e Respostas</label>			
+							<textarea class="form-control" id="perg_resp" placeholder=""
+							  	 utofocus="autofocus" name="perg_resp" value="" th:field="*{perg_resp}" rows="4" cols="50">								
+							</textarea></br></br>  
 						
 																
-							<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
-							<a href="/produtos/listarProdutos" class="btn btn-primary btn-sm">Voltar</a>
+								<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+							<a href="/usuarios" class="btn btn-primary btn-sm">Voltar</a>
 						</div>
+						
 					</div>
 				</form>
 			</div>
