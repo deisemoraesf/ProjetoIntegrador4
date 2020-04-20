@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,8 +61,9 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value="/usuarios/editarUsuarios/{id_usuario}", method=RequestMethod.POST)
-	public String salvaEdicao(Usuario u) {
+	public String salvaEdicao(Usuario u, RedirectAttributes attribute) {
 		ur.save(u);
+		attribute.addFlashAttribute("mensagem", "Editado com Sucesso");
 		return ("redirect:/usuarios/editarUsuarios/{id_usuario}");
 	}
 	
@@ -75,12 +78,12 @@ public class UsuarioController {
 		
 	}
 	
-	
-	//@PostMapping("**/pesquisaUsuario")
-	/*public ModelAndView pesquisar(@RequestParam ("pesquisaemail") String pesquisaemail) {
+	//tem que melhorar o método
+	@PostMapping("**/pesquisaUsuario")
+	public ModelAndView pesquisar(@RequestParam ("pesquisaemail") String pesquisaemail) {
 		ModelAndView mv = new ModelAndView("/admin/usuarios/listaUsuarios");
 		mv.addObject("usuario", ur.findByEmail(pesquisaemail));
 		return mv;
-	}*/
+	}
 	
 }

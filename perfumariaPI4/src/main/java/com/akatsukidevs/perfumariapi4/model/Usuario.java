@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,7 +35,27 @@ public class Usuario implements UserDetails, Serializable{
 	
 	private transient List<SimpleGrantedAuthority> authorities;
 	
+	@OneToOne(mappedBy="usuario")
+	@JoinColumn(name= "id_cliente")
+	private PessoaFisica pessoaFisica;
+	
 			
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public PessoaFisica getCliente() {
+		return pessoaFisica;
+	}
+
+	public void setCliente(PessoaFisica pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
+	}
+
 	public Usuario() {
 		
 			

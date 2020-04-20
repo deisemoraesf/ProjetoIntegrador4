@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:th="http://www.thymeleaf.org"
 				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
@@ -56,29 +56,22 @@
 					<li class="nav-item"><a class="nav-link " href="/admin/"> <i
 							class="oi oi-home"></i> <span>Home</span>
 					</a></li>
-				</ul>
-				
-								<ul class="nav nav-pills">
-					<li class="nav-item"><a href="/listarCategorias"><span class="nav-link active">Categorias</span></a></li>
-					
-				</ul>
-				
+				</ul>				
 				<ul class="nav nav-pills">
-					<li class="nav-item"><a href="/listarMarcas"><span class="nav-link active">Marcas</span></a></li>
+					
+					<li class="nav-item"><a href="/produtos/listarProdutos"><span class="nav-link active">Produtos</span></a></li>
 					
 				</ul>
+				<ul class="nav nav-pills">
 				
-						<ul class="nav nav-pills">
-					<li class="nav-item"><a href="/produtos/listarProdutos"><span class="nav-link active">Produto</span></a></li>
-					
-				</ul>
-				
-				
-						<ul class="nav nav-pills">
 					<li class="nav-item"><a href="/usuarios"><span class="nav-link active" sec:authorize="hasRole('ADMIN')">Usuários</span></a></li>
 					
 				</ul>
+				<ul class="nav nav-pills">
 				
+					<li class="nav-item"><a href="/clientesAdm"><span class="nav-link active" sec:authorize="hasRole('ADMIN')">Clientes</span></a></li>
+					
+				</ul>
 				
 			</nav>
 		</aside>
@@ -90,7 +83,7 @@
 	</section>		
 	
 	</div>
-		<footer class="layout-footer">
+		<footer class="layout-footer relative">
 		<div class="container">
 			<span class="footer-copy">&copy; 2020 Akatsuki. @Todos os direitos reservados.</span>
 		</div>

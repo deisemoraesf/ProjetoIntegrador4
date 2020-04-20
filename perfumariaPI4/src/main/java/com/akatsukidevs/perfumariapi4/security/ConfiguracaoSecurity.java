@@ -23,15 +23,20 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				// todas as paginas que tem"/" vão ser autenticados por todos
 				// As restantes com hasRole eu identifico quem usar
 				.antMatchers("/").permitAll()
+				.antMatchers("/index").permitAll()
+				.antMatchers("/clientes/**").permitAll()
 				.antMatchers("/admin/").hasAnyRole("ADMIN", "ESTOQUE")
 				.antMatchers("/usuarios/**").hasAnyRole("ADMIN")
+				.antMatchers("/clientesAdm/**").hasAnyRole("ADMIN")
 				.antMatchers("/produtos/**").hasAnyRole("ADMIN", "ESTOQUE")
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 				// se a pessoa quer sair só apertar "/logout"
 				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/login?logout").permitAll()
 				.and().rememberMe().userDetailsService(userDetailsService);
+				
 		
+				//Caso entre em alguma pagina que não tenha permissão
 				http.exceptionHandling().accessDeniedPage("/acessoNegado");
        
 	}

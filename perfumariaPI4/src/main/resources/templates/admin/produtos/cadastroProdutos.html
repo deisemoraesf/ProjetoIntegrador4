@@ -4,7 +4,7 @@
 				xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>Loja Virtual</title>
+    <title>Perfumaria</title>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -67,15 +67,15 @@
 	                                        
 	                        <label for="nome">Nome do Produto</label>
 	                        <input type="text" class="form-control" id="nome_produto" placeholder="Nome do Produto" utofocus="autofocus" name="nome_produto" value=""/>
-	                        <div class="invalid-feedback"></div></br>  
+	                        <div class="invalid-feedback"></div>
 	                        
 	                         <label for="nome">Preço do Produto</label>
 						       <input type="text" class="form-control" id="preco" placeholder="R$" utofocus="autofocus" name="preco"  size="20" value=""/>
-							 <div class="invalid-feedback"></div></br>   
+							 <div class="invalid-feedback"></div>  
 	                     
 							<label for="nome">Descrição do Produto</label>	                         
-	                         <textarea  class="form-control" id="desc_produto" placeholder="Descrição do Produto" utofocus="autofocus" name="desc_produto" value="" rows="4" cols="50" />								
-							</textarea></br>
+	                         <textarea  class="form-control" id="desc_produto" placeholder="Descrição do Produto" utofocus="autofocus" name="desc_produto" value="" rows="4" cols="50">								
+							</textarea>
 							
 		                	<label for="nome">Marca</label> <select
 								class="form-control" id="marca" name="marca">
@@ -102,11 +102,12 @@
 							<div>
   							<input type="checkbox" id="destaque" name="destaque">
   								<label for="destaque">Exibir na Tela Principal</label>
-							</div></br>                        
+							</div>                       
 	        
 	                        
 	                        <label for="nome">Perguntas e Respostas</label>	                         
-	                         <textarea  class="form-control" id="perg_resp" placeholder="Perguntas e Respostas" utofocus="autofocus" name="perg_resp" value="" rows="4" cols="50" />								
+	                         <textarea  class="form-control" id="perg_resp" placeholder="Perguntas e Respostas" 
+	                         autofocus="autofocus" name="perg_resp" value="" rows="4" cols="50" >								
 							</textarea>   
 																					
 							<br>

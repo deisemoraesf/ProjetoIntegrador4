@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LoginController {
 	
-	@RequestMapping("/login")//toda vez que digitar / vai para o Index
+		
+	@RequestMapping("/login")
 	public String index() {
 		return("login");
 	}
-
+	
 }

@@ -65,18 +65,21 @@
 			
 			
 				<form method="POST">
+				
+				<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert">
+					</div>
 					<div class="form-row">
 
 						<div class="form-group col-md-6">
 
 							<label for="nome">Email</label> <input type="text"
 								class="form-control" id="email" placeholder="Email"
-								utofocus="autofocus" name="email" value="" />
+								autofocus="autofocus" name="email" value="" />
 							<div class="invalid-feedback"></div>
 
 							<label for="nome">Senha</label> <input type="text"
 								class="form-control" id="senha" placeholder="Senha"
-								utofocus="autofocus" name="senha" size="20" value="" />
+								autofocus="autofocus" name="senha" size="20" value="" />
 							<div class="invalid-feedback"></div>
 
 

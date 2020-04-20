@@ -62,15 +62,12 @@
 
 			<div class="container" id="cadastro">
 				
-			
-
 				<form method="POST" th:object="${usuario}">
 				
-				
-				
-			    	
-				
-				
+					<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert">
+						
+					</div>	
+							
 					<div class="form-row">
 
 						<div class="form-group col-md-6">
