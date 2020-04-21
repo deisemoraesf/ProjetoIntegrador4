@@ -26,11 +26,9 @@
 	<script th:inline="javascript">
     $(function() {
         $('#excluir').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var idUsuario = button.data('id') // Extract info from data-* attributes
+            var button = $(event.relatedTarget)
+            var idUsuario = button.data('id')
             var actionUrl = button.data('actionurl');
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this);
             modal.find('.modal-title').text('Apagar Usuário');
             modal.find('.modal-body p').text('Deseja apagar o Usuário '+ idUsuario+'?');
@@ -87,11 +85,11 @@
 				<form class="form-inline" method="POST" action="pesquisaUsuario">
 					
 					
-										
+									
 					<input class="form-control mr-sm-2" type="" aria-label="Search"
 						name="pesquisaemail" placeholder="Pesquisa por e-mail"/> 
+					<div class="col-12 alert alert-success" th:if="*{pesquisaemail != null}" role="alert">Digite email</div>
 					
-
 
 					<button class="btn btn-primary" type="submit">
 						<i class="oi oi-magnifying-glass"></i>Pesquisar

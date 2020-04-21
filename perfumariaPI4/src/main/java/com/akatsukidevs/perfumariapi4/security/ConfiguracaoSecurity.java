@@ -25,6 +25,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/").permitAll()
 				.antMatchers("/index").permitAll()
 				.antMatchers("/clientes/**").permitAll()
+				.antMatchers("https://viacep.com.br/**").permitAll()
 				.antMatchers("/admin/").hasAnyRole("ADMIN", "ESTOQUE")
 				.antMatchers("/usuarios/**").hasAnyRole("ADMIN")
 				.antMatchers("/clientesAdm/**").hasAnyRole("ADMIN")

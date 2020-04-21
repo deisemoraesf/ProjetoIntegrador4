@@ -172,55 +172,56 @@
 
 						</div>
 					</div>
-					<div class="card shadow-lg border-0 rounded-lg mt-4">
+					<div class="card shadow-lg border-0 rounded-lg mt-4" >
 
 						<div class="card-header">
 							<h3 class="text-center font-weight-light my-10">Endereço</h3>
 						</div>
 						<div class="card-body">
-
-							<div class="form-group">
+						<div class="form-group  mr-sm-2" th:action="@{https://viacep.com.br/ws/{cep}/json/}">
+								
 								<label class="small mb-1" for="local">Local:</label> <input
 									type="text" class="form-control py-4" id="local" name="local"
 									placeholder="Exemplo: Casa, Comercial" value="">
-							</div>
-							<div class="form-group">
-								<label class="small mb-1" for="cep">CEP:</label> <input
-									type="text" class="form-control py-4" id="cep" name="cep"
-									placeholder="Digite seu CEP" value="">
-							</div>
-							<div class="form-group">
+							
+							
+											
+								<label class="small mb-1" for="cep">CEP:</label> 
+								<input type="text" class="form-control py-4" id="cep" name="cep"
+									placeholder="Digite seu CEP" >
+									    <button class="btn btn-primary" type="submit">
+												<i class="oi oi-magnifying-glass"></i>Ok
+										</button>
+										
+												
+								<br>
 								<label class="small mb-1" for="endereco">Endereço:</label> <input
 									type="text" class="form-control py-4" id="rua" name="rua"
 									placeholder="Digite lograduro" value="">
-							</div>
-							<div class="form-group">
+							
 								<label class="small mb-1" for="numero">Número:</label> <input
 									type="text" class="form-control py-4" id="numero" name="numero"
 									placeholder="Digite número" value="">
-							</div>
-							<div class="form-group">
+							
 								<label class="small mb-1" for="complemento">Complemento:</label>
 								<input type="text" class="form-control py-4" id="complemento"
 									name="complemento" placeholder="Digite Complemento" value="">
-							</div>
-							<div class="form-group">
+							
 								<label class="small mb-1" for="bairro">Bairro:</label> <input
 									type="text" class="form-control py-4" id="bairro" name="bairro"
-									placeholder="Digite Bairro" value="">
-							</div>
-							<div class="form-group">
+									placeholder="Digite Bairro" value="" >
+							
 								<label class="small mb-1" for="cidade">Cidade:</label> <input
 									type="text" class="form-control py-4" id="estado"
-									name="cidade" placeholder="Digite Cidade" value="">
-							</div>
-							<div class="form-group">
+									name="cidade" placeholder="Digite Cidade" value="" >
+							
 								<label class="small mb-1" for="estado">Estado:</label> <input
 									type="text" class="form-control py-4" id="estado"
 									name="estado" placeholder="Digite Estado" value="">
 							</div>
-
+						
 						</div>
+						
 					</div>
 
 					<div class="row justify-content-center">
