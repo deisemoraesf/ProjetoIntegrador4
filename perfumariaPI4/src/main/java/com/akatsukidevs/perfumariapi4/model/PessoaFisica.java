@@ -16,7 +16,7 @@ public class PessoaFisica extends Pessoa implements Serializable{
 	private String cpf;
 	
 	@NotBlank
-	private Date dtnascimento;
+	private String dtnascimento;
 	
 	@NotBlank
 	private String genero;
@@ -25,12 +25,14 @@ public class PessoaFisica extends Pessoa implements Serializable{
 		
 	}
 	
-	public PessoaFisica(@NotBlank String cpf, @NotBlank Date dtnascimento, @NotBlank String genero) {
+	
+	public PessoaFisica(@NotBlank String cpf, @NotBlank String dtnascimento, @NotBlank String genero) {
 		super();
 		this.cpf = cpf;
 		this.dtnascimento = dtnascimento;
 		this.genero = genero;
 	}
+
 
 	public String getCpf() {
 		return cpf;
@@ -38,12 +40,17 @@ public class PessoaFisica extends Pessoa implements Serializable{
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public Date getDtnascimento() {
+	
+	public String getDtnascimento() {
 		return dtnascimento;
 	}
-	public void setDtnascimento(Date dtnascimento) {
+
+
+	public void setDtnascimento(String dtnascimento) {
 		this.dtnascimento = dtnascimento;
 	}
+
+
 	public String getGenero() {
 		return genero;
 	}
