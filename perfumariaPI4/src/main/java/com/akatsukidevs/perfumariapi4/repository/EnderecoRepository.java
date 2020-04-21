@@ -5,5 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import com.akatsukidevs.perfumariapi4.model.Endereco;
 
 public interface EnderecoRepository extends CrudRepository<Endereco, Long> {
-
+	
+	Endereco findByCep(String cep);
 }

@@ -11,36 +11,43 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnoreProperties(ignoreUnknown = true)
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+	
 	private String tipo;
 	
-	@NotBlank
+	
+	@JsonProperty("logradouro")
 	private String rua;
 	
-	@NotBlank
+	
 	private String numero;
 	
 	private String complemento;
 	
-	@NotBlank
+	
+	@JsonProperty("bairro")
 	private String bairro;
 	
-	@NotBlank
+	
+	@JsonProperty("localidade")
 	private String cidade;
 	
-	@NotBlank
+	
 	private String estado;
 	
-	@NotBlank
+	
 	private String cep;
 	
 	private boolean status=true;
