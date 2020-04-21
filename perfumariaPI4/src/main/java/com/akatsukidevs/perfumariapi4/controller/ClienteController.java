@@ -125,9 +125,9 @@ public class ClienteController {
 		if (usu != null && usu.isStatus()==true) {
 			attribute.addFlashAttribute("mensagem", "Você já possui uma conta");
 			return ("redirect:/clientes/verificarCliente");
-		//}else if (usu == null) {
-			//attribute.addFlashAttribute("mensagem", "Digite um email válido");
-			//return ("redirect:/clientes/verificarCliente");
+		/*}else if (usu == null) {
+			attribute.addFlashAttribute("mensagem", "Digite um email válido");
+			return ("redirect:/clientes/verificarCliente");*/
 		}else {	
 			return ("redirect:/clientes/cadastrarCliente");
 		}
