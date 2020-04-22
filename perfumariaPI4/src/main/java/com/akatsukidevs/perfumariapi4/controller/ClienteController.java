@@ -67,7 +67,7 @@ public class ClienteController {
 		er.save(endereco);
 		ur.save(usuario);
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
-		return ("redirect:/cliente/cadastrarCliente");
+		return ("redirect:/clientes/cadastrarCliente");
 	}
 	
 	@RequestMapping(value="/clientes/cadastrarCliente/PJ", method=RequestMethod.POST)
@@ -79,7 +79,7 @@ public class ClienteController {
 		er.save(endereco);
 		ur.save(usuario);
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
-		return ("redirect:/cliente/cadastrarCliente");
+		return ("redirect:/clientes/cadastrarCliente");
 	}
 
 	@GetMapping("/clientesAdm")

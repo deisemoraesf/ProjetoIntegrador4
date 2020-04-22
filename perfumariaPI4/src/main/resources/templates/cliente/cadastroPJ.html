@@ -95,6 +95,7 @@
 		<div class="row justify-content-center">
 			<div class="col-lg-10">
 				<form method="POST">
+					<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert"></div>
 					<div class="card shadow-lg border-0 rounded-lg mt-10">
 
 						<div class="card-header">
@@ -106,11 +107,11 @@
 								
 								
 								<label class="small mb-1" for="inputEmailAdress">E-mail:</label>
-								<input type="email" class="form-control py-4" id="email"
+								<input type="email" class="form-control py-4" id="email" name="email"
 									placeholder="Digite seu e-mail">
 							
 								<label class="small mb-1" for="password">Senha:</label> <input
-									type="password" class="form-control py-4" id="senha"
+									type="password" class="form-control py-4" id="senha" name="senha"
 									placeholder="Digite sua senha">
 							
 								<input type="hidden" id="tipo" name="tipo"
