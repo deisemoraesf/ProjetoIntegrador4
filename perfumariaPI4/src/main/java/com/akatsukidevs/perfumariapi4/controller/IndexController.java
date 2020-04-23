@@ -37,5 +37,25 @@ public class IndexController {
 		return ("admin/produtos/detalhesProduto");
 	}
 	
+	//Direcionar pagina de categoria
+	@GetMapping("cliente/masculino")
+	public String masculino() {
+		return ("clienteProdutos/masculino");
+	}
+	
+	
+	//Direcionar pagina de categoria
+	@GetMapping("cliente/feminino")
+	public String feminino() {
+		return ("clienteProdutos/feminino");
+	}
+	
+	
+	//Direcionar pagina de categoria
+	@GetMapping("cliente/infantil")
+	public String infantil() {
+		return ("clienteProdutos/infantil");
+	}
+	
 
 }

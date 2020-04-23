@@ -29,6 +29,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				// As restantes com hasRole eu identifico quem usar
 				.antMatchers("/").permitAll()
 				.antMatchers("/index").permitAll()
+				.antMatchers("/cliente/**").permitAll()
 				.antMatchers("/clientes/**").permitAll()
 				.antMatchers("https://viacep.com.br/**").permitAll()
 				.antMatchers("/admin/").hasAnyRole("ADMIN", "ESTOQUE")
