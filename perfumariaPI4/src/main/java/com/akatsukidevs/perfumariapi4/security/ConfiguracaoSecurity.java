@@ -1,13 +1,18 @@
 package com.akatsukidevs.perfumariapi4.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -27,20 +32,48 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/clientes/**").permitAll()
 				.antMatchers("https://viacep.com.br/**").permitAll()
 				.antMatchers("/admin/").hasAnyRole("ADMIN", "ESTOQUE")
+				.antMatchers("/indexLog").hasAnyRole("ADMIN", "ESTOQUE", "COMPRADOR")
 				.antMatchers("/usuarios/**").hasAnyRole("ADMIN")
 				.antMatchers("/clientesAdm/**").hasAnyRole("ADMIN")
 				.antMatchers("/produtos/**").hasAnyRole("ADMIN", "ESTOQUE")
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
+				.successHandler(myAuthenticationSuccessHandler())
+				//.and().logout().logoutSuccessHandler((LogoutSuccessHandler) myAuthenticationSuccessHandler())
 				// se a pessoa quer sair só apertar "/logout"
-				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/login?logout").permitAll()
+				.and().logout().clearAuthentication(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				//.logoutSuccessHandler(myAuthenticationSuccessHandlerLogout())
+				.logoutSuccessUrl("/login?logout").clearAuthentication(true).permitAll()
 				.and().rememberMe().userDetailsService(userDetailsService);
 				
 		
 				//Caso entre em alguma pagina que não tenha permissão
 				http.exceptionHandling().accessDeniedPage("/acessoNegado");
+				
+				http.sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+                .expiredUrl("/login")
+                .sessionRegistry(sessionRegistry());
        
 	}
+	
+	@Bean
+    SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+	
+	 
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
+    }
+    
+    @Bean
+    public LogoutSuccessHandler myAuthenticationSuccessHandlerLogout(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
+    }
+    
+    
 
 	// autenticação com base em senha codificada
 	@Override

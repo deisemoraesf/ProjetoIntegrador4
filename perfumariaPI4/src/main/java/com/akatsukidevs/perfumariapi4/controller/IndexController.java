@@ -13,6 +13,12 @@ public class IndexController {
 		return("index");
 	}
 	
+	//Index Cliente
+	@RequestMapping("/indexLog")//toda vez que digitar / vai para o Index
+	public String indexLogado() {
+		return("indexLogado");
+		}
+	
 	//Index Administrativo
 	@GetMapping("/admin/")
 	public String admin() {
