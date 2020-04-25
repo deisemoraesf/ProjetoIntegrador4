@@ -118,7 +118,7 @@
 						
 							
 					</div>		
-					<div th:if="${pessoaFisica}" >			
+					<div th:unless="${pessoaJuridica==null}" >			
 					
 							<label>Razão Social:</label> <input type="text"
 								class="form-control" id="nome" readonly="readonly"
