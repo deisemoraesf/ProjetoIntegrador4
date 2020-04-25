@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,7 +24,7 @@ public class Endereco implements Serializable {
 	private Long id;
 	
 	
-	private String tipo;
+	private String tipoend;
 	
 	
 	@JsonProperty("logradouro")
@@ -60,12 +59,10 @@ public class Endereco implements Serializable {
 	}
 
 	
-	public Endereco(Long id, @NotBlank String tipo, @NotBlank String rua, @NotBlank String numero, String complemento,
-			@NotBlank String bairro, @NotBlank String cidade, @NotBlank String estado, @NotBlank String cep,
-			boolean status) {
-		super();
+	public Endereco(Long id, String tipoend, String rua, String numero, String complemento, String bairro,
+			String cidade, String estado, String cep, boolean status) {
 		this.id = id;
-		this.tipo = tipo;
+		this.tipoend = tipoend;
 		this.rua = rua;
 		this.numero = numero;
 		this.complemento = complemento;
@@ -74,6 +71,21 @@ public class Endereco implements Serializable {
 		this.estado = estado;
 		this.cep = cep;
 		this.status = status;
+	}
+	
+	public Endereco(Long id, String tipoend, String rua, String numero, String complemento, String bairro,
+			String cidade, String estado, String cep, boolean status, Set<Pessoa> clientes) {
+		this.id = id;
+		this.tipoend = tipoend;
+		this.rua = rua;
+		this.numero = numero;
+		this.complemento = complemento;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.cep = cep;
+		this.status = status;
+		this.clientes = clientes;
 	}
 
 
@@ -85,12 +97,12 @@ public class Endereco implements Serializable {
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getTipoend() {
+		return tipoend;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTipo(String tipoend) {
+		this.tipoend = tipoend;
 	}
 	
 	public String getRua() {

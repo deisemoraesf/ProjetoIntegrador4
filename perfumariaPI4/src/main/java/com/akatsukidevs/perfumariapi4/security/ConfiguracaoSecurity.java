@@ -39,21 +39,22 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/produtos/**").hasAnyRole("ADMIN", "ESTOQUE")
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 				.successHandler(myAuthenticationSuccessHandler())
-				//.and().logout().logoutSuccessHandler((LogoutSuccessHandler) myAuthenticationSuccessHandler())
 				// se a pessoa quer sair só apertar "/logout"
-				.and().logout().clearAuthentication(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				//.logoutSuccessHandler(myAuthenticationSuccessHandlerLogout())
-				.logoutSuccessUrl("/login?logout").clearAuthentication(true).permitAll()
+				.and().logout()//.clearAuthentication(true)
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				//.logoutSuccessHandler(LogoutSucessHandler())
+				.logoutSuccessUrl("/login?logout").permitAll()
 				.and().rememberMe().userDetailsService(userDetailsService);
 				
 		
 				//Caso entre em alguma pagina que não tenha permissão
 				http.exceptionHandling().accessDeniedPage("/acessoNegado");
 				
+				//O usuário pode estar logado somente com 1 sessão
 				http.sessionManagement()
                 .maximumSessions(1)
-                .maxSessionsPreventsLogin(true)
-                .expiredUrl("/login")
+                .maxSessionsPreventsLogin(false)
+                .expiredUrl("/login?logout")
                 .sessionRegistry(sessionRegistry());
        
 	}
@@ -70,7 +71,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
     }
     
     @Bean
-    public LogoutSuccessHandler myAuthenticationSuccessHandlerLogout(){
+    public LogoutSuccessHandler LogoutSucessHandler(){
         return new MySimpleUrlAuthenticationSuccessHandler();
     }
     

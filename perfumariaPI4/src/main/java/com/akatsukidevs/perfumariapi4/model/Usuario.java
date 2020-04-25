@@ -41,7 +41,7 @@ public class Usuario implements UserDetails, Serializable{
 	
 	@OneToOne(mappedBy="usuario")
 	@JoinColumn(name= "id_cliente")
-	private PessoaFisica pessoaFisica;
+	private Pessoa pessoa;
 	
 			
 	public Boolean getStatus() {
@@ -52,12 +52,13 @@ public class Usuario implements UserDetails, Serializable{
 		this.status = status;
 	}
 
-	public PessoaFisica getCliente() {
-		return pessoaFisica;
+	
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setCliente(PessoaFisica pessoaFisica) {
-		this.pessoaFisica = pessoaFisica;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public Usuario() {
@@ -76,6 +77,18 @@ public class Usuario implements UserDetails, Serializable{
 	}
 	
 	
+	
+	public Usuario(Long id_usuario, @Email @NotEmpty String email, @NotEmpty String senha, @NotEmpty String tipo,
+			Boolean status, Pessoa pessoa) {
+		super();
+		this.id_usuario = id_usuario;
+		this.email = email;
+		this.senha = senha;
+		this.tipo = tipo;
+		this.status = status=true;
+		this.pessoa = pessoa;
+	}
+
 	public Long getId_usuario() {
 		return id_usuario;
 	}

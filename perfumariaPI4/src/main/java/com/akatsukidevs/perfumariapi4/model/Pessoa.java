@@ -46,7 +46,7 @@ public class Pessoa implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL)
 	private Usuario usuario;
 	
-	@ManyToMany
+	@ManyToMany 
 	@JoinTable(name = "tb_pessoa_endereco", joinColumns = @JoinColumn(name="id_pessoa"),
 			   inverseJoinColumns = @JoinColumn(name="id_endereco"))
 	private Set<Endereco> enderecos = new HashSet<>();
@@ -65,7 +65,20 @@ public class Pessoa implements Serializable {
 		this.telefonefixo = telefonefixo;
 		this.status = status=true;
 	}
-
+	
+	
+	public Pessoa(Long id_pessoa, @NotBlank String nome, @NotBlank String nome2, @NotBlank String celular,
+			@NotBlank String telefonefixo, boolean status, Usuario usuario, Set<Endereco> enderecos) {
+		super();
+		this.id_pessoa = id_pessoa;
+		this.nome = nome;
+		this.nome2 = nome2;
+		this.celular = celular;
+		this.telefonefixo = telefonefixo;
+		this.status = status;
+		this.usuario = usuario;
+		this.enderecos = enderecos;
+	}
 
 	public Long getId_pessoa() {
 		return id_pessoa;

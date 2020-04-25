@@ -1,8 +1,11 @@
 package com.akatsukidevs.perfumariapi4.controller;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,9 +66,15 @@ public class ClienteController {
 		if(result.hasErrors()) {
 			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
 		}
+		
+		if (pessoaFisica.getEnderecos() != null && !pessoaFisica.getEnderecos().isEmpty()) {
+	            Set<Endereco> enderecosadicionado = new HashSet<>();
+				enderecosadicionado.add(endereco);
+				pessoaFisica.setEnderecos(enderecosadicionado);
+				
+		}
+		
 		pfr.save(pessoaFisica);
-		er.save(endereco);
-		ur.save(usuario);
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/clientes/cadastrarCliente");
 	}
@@ -86,17 +95,37 @@ public class ClienteController {
 	public ModelAndView listaClientes() {
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/listaClientes");
 		Iterable<Pessoa> clientes = pr.findByStatus(true); 
-		mv.addObject("clientes", clientes);
+		mv.addObject("pessoas", clientes);
 		return mv;
 		
 	}
 	
-	@RequestMapping(value="/clientes/editarClientes/{id_cliente}", method=RequestMethod.GET)
-	public ModelAndView editarCliente(@PathVariable ("id_cliente") Long id_cliente, RedirectAttributes attribute ) {
-		ModelAndView mv = new ModelAndView("/cliente/editarCliente");
-		Optional<PessoaFisica> c = pfr.findById(id_cliente);
-		PessoaFisica cli = c.get();
-		mv.addObject("clientes", cli);
+	@GetMapping("/clientes/minhaConta")
+	public ModelAndView MinhaConta(@AuthenticationPrincipal Usuario usuario, RedirectAttributes attribute) {
+		ModelAndView mv = new ModelAndView("/cliente/minhaConta");
+		Optional<Usuario> u = ur.findById(usuario.getId_usuario());
+		Usuario usu = u.get();
+		mv.addObject("pessoas", usu);
+		return mv;
+		
+	}
+	
+	
+	@RequestMapping(value="/clientesAdm/visualizarClientes/{id_pessoa}", method=RequestMethod.GET)
+	public ModelAndView visualizarCliente(@PathVariable ("id_pessoa") Long id_pessoa) {
+		ModelAndView mv = new ModelAndView("/admin/clienteAdm/visualizarCliente");
+		Optional<Pessoa> p = pr.findById(id_pessoa);
+		Pessoa cliente = p.get();
+		mv.addObject("pessoas", cliente);
+		return mv;
+	}
+	
+	@RequestMapping(value="/clientesAdm/editarClientes/{id_pessoa}", method=RequestMethod.GET)
+	public ModelAndView editarCliente(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
+		ModelAndView mv = new ModelAndView("/admin/clienteAdm/editarCliente");
+		Optional<Pessoa> p = pr.findById(id_pessoa);
+		Pessoa cli = p.get();
+		mv.addObject("pessoas", cli);
 		attribute.addFlashAttribute("mensagem", "Editado com sucesso");
 		return mv;
 		
@@ -108,16 +137,17 @@ public class ClienteController {
 		return ("redirect:/clientes/editarClientes/{id_cliente}");
 	}
 	
-	@GetMapping("/clientes/deletarClientes/{id_cliente}")
-	public String deletarClientes(@PathVariable ("id_cliente") Long id_cliente, RedirectAttributes attribute) {
-		Optional<PessoaFisica> c = pfr.findById(id_cliente);
-		PessoaFisica cli = c.get();
+	@GetMapping("/clientesAdm/deletarClientes/{id_pessoa}")
+	public String deletarClientes(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute) {
+		Optional<Pessoa> c = pr.findById(id_pessoa);
+		Pessoa cli = c.get();
 		cli.setStatus(false);
-		pfr.save(cli);
+		pr.save(cli);
 		attribute.addFlashAttribute("mensagem", "Deletado com sucesso");
-		return ("redirect:/clientes");
+		return ("redirect:/clientesAdm");
 		
 	}
+	
 	
 	@PostMapping("/clientes/verificarCliente")
 	public String verificaCliente(String email, RedirectAttributes attribute) {

@@ -112,41 +112,38 @@
 														
 						</tr>
 				
-						<tr th:each="pessoa, stat:${pessoas}">
-							<td th:text="${pessoa.id_usuario}"></td>
+						<tr th:each="pessoa : ${pessoas}">
+							<td th:text="${pessoa.id_pessoa}"></td>
 							<td th:text="${pessoa.nome}"></td>
-							<td th:if="${pessoa.cpf !=null">
-								<td	th:text="${pessoa.cpf}">
-								<td th:else>
-								<td	th:text="${pessoa.cnpj}">
-							</td>	
-							<td th:text="${pessoa.tipo_pessoa}"></td>
+							<td th:text="*{cpf}"></td>
+							<td th:text="*{tipo_pessoa}"></td>
 							
+												
 							<td colspan="2">
 								<a  class="btn btn-info btn-sm" role="button"
-									th:href="@{/clientesAdm/Visualizar}">
+									th:href="@{/clientesAdm/visualizarClientes/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">
 									<span class="oi oi-magnifying-glass" title="Visualizar" aria-hidden="true"></span>
 								</a>
 							</td>
 							
 							<td colspan="2">
 								<a  class="btn btn-info btn-sm" role="button"
-									th:href="@{/usuarios/editarUsuarios/{id_usuario}(id_usuario=${usuario.id_usuario})}">
+									th:href="@{/clientesAdm/editarClientes/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">
 									<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 								</a>
 							</td>
 							
 							<td>
 							
-							<!-- <a class="btn btn-danger btn-sm"
-								th:href="@{/usuarios/deletarUsuarios/{id_usuario}(id_usuario=${usuario.id_usuario})}">
+							 <a class="btn btn-danger btn-sm"
+								th:href="@{/clientesAdm/deletarClientes/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">
 									<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
-							</a>   -->
+							</a>  
 							
-							<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
-							th:attr="data-id=${usuario.id_usuario}, data-actionurl=@{/usuarios/deletarUsuarios/{id_usuario}(id_usuario=${usuario.id_usuario})}">
+							<!--<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
+							th:attr="data-id=${pessoa.id_pessoa}, data-actionurl=@{/clientes/deletarClientes/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">
 							<i class="oi oi-circle-x"></i></a>
-							</td>
+							</td> -->
 				
 						</tr>
 	
@@ -157,7 +154,7 @@
 
 	</div>
 	
-	  <div layout:fragment="modal-area">
+	  <div>
 	    <div class="modal fade" tabindex="-1" role="dialog" id="excluir">
 	        <div class="modal-dialog" role="document">
 	            <div class="modal-content">
@@ -202,8 +199,8 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-	<!--	$(function() {
+	<!--<script type="text/javascript">
+		$(function() {
 			$('[data-toggle="popover"]').popover();
 		});
 
@@ -211,7 +208,7 @@
 			$(".navbar-toggle").click(function() {
 				$(".sidebar").toggleClass("sidebar-open");
 			})
-		}); -->
-	</script>
+		});
+	</script> -->
 </body>
 </html>
