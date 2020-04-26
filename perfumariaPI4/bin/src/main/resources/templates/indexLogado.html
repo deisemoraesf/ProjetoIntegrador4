@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Perfumaria</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
+
+<style>
+.footer {
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	height: 30px;
+}
+</style>
+
+</head>
+<body style="background: #FFF5EE;">
+
+	<!--NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_-->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+
+			<img height="80px" src="imgCarousel/logoakatsukidevs.jpg"
+				alt="akatsukidevs" class="rounded-sm">
+
+
+			<div class="collapse navbar navbar-collapse" id="navbarSite">
+				<ul class="navbar-nav mr-auto">
+					<!--mr-auto deixa a margem a direita (ml-auto na esquerda)-->
+					<li class="nav-iem"><a class="nav-link" href="#">Masculino</a>
+					</li>
+					<li class="nav-iem"><a class="nav-link" href="#">Feminino</a>
+					</li>
+					<li class="nav-iem"><a class="nav-link" href="#">Infantil</a>
+					</li>
+				</ul>
+
+				<form class="form-inline" action="">
+					<input class="form-control ml-2 mr-2 " type="search" name=""
+						placeholder="Buscar...">
+					<button class="btn btn-outline-light" type="submit">OK</button>
+				</form>
+
+
+			<ul class="navbar-nav ml-auto">
+				<div class="btn-group">
+					<button type="button" class="btn btn-outline-light dropdown-toggle"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Olá, <span class="badge badge-dark" sec:authentication="name"></span></button>
+					<div class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item" type="button" href="#">Minha Conta</a>
+						<a class="dropdown-item" type="button" href="#">Meus Pedidos</a>
+						<a class="dropdown-item" type="button" href="/logout">Sair</a>
+					</div>
+				</div>
+			</ul>
+	</div>
+		</div>
+	</nav>
+	<!--NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_-->
+
+	<!--CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_-->
+	<center>
+		<div id="carouselSite" class="carousel slide" data-ride="carousel">
+
+			<ol class="carousel-indicators">
+				<li data-target="#carouselSite" data-slide-to="0" class="active"></li>
+				<li data-target="#carouselSite" data-slide-to="1"></li>
+				<li data-target="#carouselSite" data-slide-to="2"></li>
+			</ol>
+
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img th:src="@{imgCarousel/perfume-960_540.jpg}"
+						class="img-fluid d-block" width="1000px" height="540px">
+					<div class="carousel-caption d-none d-md-block">
+						<h3>Perfumes Masculinos</h3>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img th:src="@{imgCarousel/perfume1-960_540.jpg}"
+						class="img-fluid d-block" width="1000px" height="540px">
+					<div class="carousel-caption d-none d-md-block">
+						<h3>Perfumes Femininos</h3>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img th:src="@{imgCarousel/perfume3-960_540.jpg}"
+						class="img-fluid d-block" width="1000px" height="540px">
+					<div class="carousel-caption d-none d-md-block">
+						<h3>Perfumes Infantis</h3>
+						<p></p>
+					</div>
+				</div>
+			</div>
+
+			<a class="carousel-control-prev" href="#carouselSite" role="button"
+				data-slide="prev"> <!--Carousel ir pra trás--> <span
+				class="carousel-control-prev-icon"></span> <span class="sr-only">Anterior</span>
+			</a> <a class="carousel-control-next" href="#carouselSite" role="button"
+				data-slide="next"> <!--Carousel ir pra frente--> <span
+				class="carousel-control-next-icon"></span> <span class="sr-only">Avançar</span>
+			</a>
+
+		</div>
+	</center>
+	<!--CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_-->
+
+	<!--CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_-->
+	<div class="container mt-4" width="1000px" height="1000px">
+		<h5 style="text-align: left;">Recomendados para você</h5>
+		<div class="container mt-5">
+			<h4 style="text-align: center;">Para homens</h4>
+			<div class="row mb-2">
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Perfume1</h6>
+							</center>
+						</div>
+						<img class="card-img-top"
+							th:src="@{/imgCarousel/perfume-960_540.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">Perfume 1</a></h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Titulo</h6>
+							</center>
+						</div>
+						<img class="card-img-top"
+							th:src="@{imgCarousel/perfume2-960_540.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">SubTitulo</h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Titulo</h6>
+							</center>
+						</div>
+						<img class="card-img-top"
+							th:src="@{imgCarousel/perfume3-960_540.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">SubTitulo</h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Titulo</h6>
+							</center>
+						</div>
+						<img class="card-img-top"
+							th:src="@{imgCarousel/imgCarouselTeste3.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">SubTitulo</h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container mt-5">
+			<h4 style="text-align: center;">Para mulheres</h4>
+			<div class="row mb-2">
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Titulo</h6>
+							</center>
+						</div>
+						<img class="card-img-top"
+							th:src="@{imgCarousel/imgCarouselTeste1.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">SubTitulo</h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Titulo</h6>
+							</center>
+						</div>
+						<img class="card-img-top"
+							th:src="@{imgCarousel/imgCarouselTeste2.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">SubTitulo</h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Titulo</h6>
+							</center>
+						</div>
+						<img class="card-img-top"
+							th:src="@{imgCarousel/imgCarouselTeste2.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">SubTitulo</h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Titulo</h6>
+							</center>
+						</div>
+						<img class="card-img-top"
+							th:src="@{imgCarousel/imgCarouselTeste3.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">SubTitulo</h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container mt-5">
+			<h4 style="text-align: center;">Para as crianças</h4>
+			<div class="row mb-2">
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Titulo</h6>
+							</center>
+						</div>
+						<img class="card-img-top"
+							th:src="@{imgCarousel/imgCarouselTeste1.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">SubTitulo</h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Titulo</h6>
+							</center>
+						</div>
+						<img class="card-img-top" th:
+							src="@{imgCarousel/imgCarouselTeste2.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">SubTitulo</h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Titulo</h6>
+							</center>
+						</div>
+						<img class="card-img-top"
+							th:src="@{imgCarousel/imgCarouselTeste2.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">SubTitulo</h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="card">
+						<div class="card-header">
+							<center>
+								<h6 class="card-title">Titulo</h6>
+							</center>
+						</div>
+						<img class="card-img-top"
+							th:src="@{imgCarousel/imgCarouselTeste3.jpg}">
+						<div class="card-body">
+							<center>
+								<h7 class="card-subtitle mb-2 text-muted">SubTitulo</h7>
+								<p style="text-align: left;">Valor(R$xxx.xx)</p>
+								<a class="btn btn-info btn-sm" href="/detalhesProduto"
+									role="button">Descrição</a>
+								<buttont ype="button" class="btn btn-info btn-sm" href="#">Comprar
+								</button>
+							</center>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_CARDS_-->
+
+	<!--FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_-->
+	<div class="footer">
+		<footer class="py-2 bg-light mt-auto">
+			<div class="container-fluid">
+				<div class="d-flex align-items-center justify-content-between small">
+					<div class="text-muted">Projeto integrador 4</div>
+					<div class="text-muted">Akatsuki Devs</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<!--FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_-->
+
+
+</body>
+</html>

@@ -63,9 +63,6 @@
 			<div class="container" id="cadastro">
 
 				<form method="POST" th:object="${produto}">
-				<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert">
-						
-					</div>	
 					<div class="form-row">
 
 						<div class="form-group col-md-6">
@@ -109,23 +106,20 @@
 								class="form-control" id="categoria" name="categoria" th:field="*{categoria}">
 							<option value="teste"></option>
 								<option value="Feminino">Feminino</option>
-								<option value="Masculino">Masculino</option>
-								<option value="Infantil">Infantil</option>
+								<option value="Feminino">Masculino</option>
+								<option value="Feminino">Infantil</option>
 							</select><br>
 												
 							<label for="nome">Perguntas e Respostas</label>			
 							<textarea class="form-control" id="perg_resp" placeholder=""
 							  	 utofocus="autofocus" name="perg_resp" value="" th:field="*{perg_resp}" rows="4" cols="50">								
-							</textarea></br> 
-							
-							<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
-							<a href="/produtos/listarProdutos" class="btn btn-primary btn-sm">Voltar</a>
-							</br> 
-							</br> 
-							</br> 
-																						
-
+							</textarea></br></br>  
+						
+																
+								<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+							<a href="/usuarios" class="btn btn-primary btn-sm">Voltar</a>
 						</div>
+						
 					</div>
 				</form>
 			</div>

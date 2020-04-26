@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br"  xmlns="http://www.w3.org/1999/xhtml"
+					xmlns:th="http://www.thymeleaf.org"
+					xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+					xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+     <title>Perfumaria</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet"/>
+    
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-inverse navbar navbar-dark bg-dark fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="btn btn-dark navbar-toggle pull-left">
+						<i class="oi oi-menu"></i>
+					</button>
+					<a class="navbar-brand navbar-toggle pull-left" href="/admin/">Painel de Controle</a>
+				</div>
+				<ul class="navbar-nav ml-auto"> 
+                    <li class="nav-item dropdown">
+                    	
+                        <a class="btn btn-outline-light" href="/logout" >Sair</a>
+                        
+                    </li>
+                </ul>
+			</div>
+		</nav>
+	</header>
+	
+	<div class="layout-main">
+	
+	    	
+	    <section class="layout-content">
+	        <nav class="navbar navbar-expand-md bg-light">
+	            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+	                <ul class="navbar-nav mr-auto">
+	                    <li class="nav-item active">
+	                        <i class="oi oi-caret-right"></i>
+	                        <span>Lista de Produtos</span>
+	                    </li>
+	                </ul>
+	                <a href="/admin/" class="btn btn-primary">Voltar</a>&nbsp;&nbsp;
+	                <a class="btn btn-primary btn-md" href="/produtos/cadastrarProduto" role="button">
+	                    <span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
+	                    <span>Cadastrar Produtos</span>
+	                </a>
+	            </div>
+	        </nav>
+	
+	        <div class="container">
+	
+	           <form class="form-inline" method="POST" action="pesquisaProduto">
+					<input class="form-control mr-sm-2" type="" aria-label="Search"
+						name="pesquisanome" placeholder="Pesquisa por nome"> <span></span>
+					</input>
+
+
+					<button class="btn btn-primary" type="submit"
+						data-target="#collapseNome" aria-controls="collapseNome">
+						<i class="oi oi-magnifying-glass"></i>Pesquisar
+					</button>
+				</form>
+				<br>
+	
+	
+	            <div class="table-responsive">
+	                <table class="table table-striped ">
+	                   
+	                    <tr>
+	                        <th>Id</th>
+	                        <th>Nome do Produto</th>
+	                        <th>Descrição do Produto</th>
+	                        <th>Preço</th>
+	                        <th>Marca</th>
+	                        <th>Categoria</th>	                        	 
+	                        <th>Editar</th>
+							<th><br></th>
+							<th>Excluir</th>
+	                    </tr>
+	                  
+	                  
+		                    <tr th:each="produto : ${produtos}">
+		                        <td><span th:text="${produto.id_produto}"></span></td>
+		                        <td><span th:text="${produto.nome_produto}"></span></td>
+		                        <td><span th:text="${produto.desc_produto}"></span></td>
+		                        <td><span th:text="${produto.preco}"></span></td>
+		                        <td><span th:text="${produto.marca}"></span></td>
+		                        <td><span th:text="${produto.categoria}"></span></td>
+		                        
+
+		                        <td colspan="2"><a class="btn btn-info btn-sm" role="button"
+		                        		th:href="@{/produtos/editarProdutos/{id_produto}(id_produto=${produto.id_produto})}">
+		                                <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                            </a></td>
+		                          <td><a class="btn btn-danger btn-sm"
+		                        		  th:href="@{/produtos/deletarProdutos/{id_produto}(id_produto=${produto.id_produto})}">
+		                                <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+		                            </button>
+		                        </td>
+		                    </tr>
+                  
+	                </table>
+	            </div>
+	        </div>
+	    </section>
+
+	</div>
+	
+    <footer class="layout-footer">
+        <div class="container">
+            <span class="footer-copy">&copy; 2020 Akatsuki. @Todos os direitos reservados.</span>
+        </div>
+    </footer>	
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+    
+	$(document).ready(function(){
+	    $(".navbar-toggle").click(function(){
+	        $(".sidebar").toggleClass("sidebar-open");
+	    })
+	});
+
+</script>
+</body>
+</html>		

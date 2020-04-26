@@ -64,8 +64,9 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping(value="/produtos/editarProdutos/{id_produto}", method=RequestMethod.POST)
-	public String salvaEdicao(Produto p) {
+	public String salvaEdicao(Produto p, RedirectAttributes attribute) {
 		pr.save(p);
+		attribute.addFlashAttribute("mensagem", "Editado com Sucesso");
 		return ("redirect:/produtos/editarProdutos/{id_produto}");
 	}
 	

@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Perfumaria</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<style>
+.footer {
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	height: 30px;
+}
+</style>
+
+ <!-- Adicionando Javascript -->
+    <script type="text/javascript" >
+    
+    function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.
+            document.getElementById('rua').value=("");
+            document.getElementById('bairro').value=("");
+            document.getElementById('cidade').value=("");
+            document.getElementById('estado').value=("");
+            //document.getElementById('ibge').value=("");
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('rua').value=(conteudo.logradouro);
+            document.getElementById('bairro').value=(conteudo.bairro);
+            document.getElementById('cidade').value=(conteudo.localidade);
+            document.getElementById('estado').value=(conteudo.uf);
+            //document.getElementById('ibge').value=(conteudo.ibge);
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+        
+    function pesquisacep(valor) {
+
+        //Nova variável "cep" somente com dígitos.
+        var cep = valor.replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if(validacep.test(cep)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('rua').value="...";
+                document.getElementById('bairro').value="...";
+                document.getElementById('cidade').value="...";
+                document.getElementById('estado').value="...";
+                //document.getElementById('ibge').value="...";
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+                script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+
+            } //end if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        } //end if.
+        else {
+            //cep sem valor, limpa formulário.
+            limpa_formulário_cep();
+        }
+    };
+
+    </script>
+
+
+
+</head>
+<body style="background: #FFF5EE">
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<!--NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_-->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+ <a class="nav-link" href="/index"><img height="80px"src="/imgCarousel/logoakatsukidevs.jpg" alt="akatsukidevs" class="rounded-sm"></a>
+            
+    
+            <div class="collapse navbar navbar-collapse" id="navbarSite">
+                <ul class="navbar-nav mr-auto"><!--mr-auto deixa a margem a direita (ml-auto na esquerda)-->
+                    <li class="nav-iem">
+                        <a class="nav-link" href="/index">Início</a>
+                    </li>
+					<li class="nav-iem"><a class="nav-link" href="/cliente/masculino">Masculino</a>
+					</li>
+					<li class="nav-iem"><a class="nav-link" href="/cliente/feminino">Feminino</a>
+					</li>
+					<li class="nav-iem"><a class="nav-link" href="/cliente/infantil">Infantil</a>
+					</li>
+				</ul>
+
+				<form class="form-inline" action="">
+					<input class="form-control ml-2 mr-2 " type="search" name=""
+						placeholder="Buscar...">
+					<button class="btn btn-light" type="submit">OK</button>
+				</form>
+
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown"><a class="btn btn-outline-light"
+						href="/login">Fazer Login</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+	<!--NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_-->
+	<!--CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__-->
+
+	<div class="row justify-content-center">
+		<nav aria-label="Navegação de página exemplo">
+			<ul class="pagination pagination-md">
+				<li class="page-item"><a class="page-link"
+					href="/clientes/cadastrarCliente">Pessoa Física</a></li>
+				<li class="page-item active"><a class="page-link"
+					href="/clientes/cadastrarCliente/PJ">Pessoa Jurídica</a></li>
+			</ul>
+		</nav>
+	</div>
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-10">
+				<form method="POST">
+					<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert"></div>
+					<div class="card shadow-lg border-0 rounded-lg mt-10">
+
+						<div class="card-header">
+							<h3 class="text-center font-weight-light my-10">Usuário</h3>
+						</div>
+						<div class="card-body">
+
+							<div class="form-group">
+								
+								
+								<label class="small mb-1" for="inputEmailAdress">E-mail:</label>
+								<input type="email" class="form-control py-4" id="email" name="email"
+									placeholder="Digite seu e-mail">
+							
+								<label class="small mb-1" for="password">Senha:</label> <input
+									type="password" class="form-control py-4" id="senha" name="senha"
+									placeholder="Digite sua senha">
+							
+								<input type="hidden" id="tipo" name="tipo"
+									value="ROLE_COMPRADOR"></input>
+							</div>
+						</div>
+					</div>
+
+					<div class="card shadow-lg border-0 rounded-lg mt-4">
+
+						<div class="card-header">
+							<h3 class="text-center font-weight-light my-10">Pessoa
+								Jurídica</h3>
+						</div>
+						<div class="card-body">
+
+							<div class="form-group">
+								
+								<label class="small mb-1" for="inputEmailAdress">Razão
+									Social:</label> <input type="text" class="form-control py-4"
+									id="nome" name="nome"
+									placeholder="Digite Razão Social">
+							
+								<label class="small mb-1" for="password">Nome Fantasia:</label>
+								<input type="text" class="form-control py-4" id="nome2"
+									name="nome2" placeholder="Digite Nome Fantasia">
+							
+								<label class="small mb-1" for="cpf">CNPJ: </label> <input
+									type="text" class="form-control py-4" id="cnpj" name="cnpj"
+									placeholder="Digite o CNPF">
+							
+								<label class="small mb-1" for="dtnasc">Inscrição
+									Estadual:</label> <input type="text" class="form-control py-4"
+									id="inscricaoEstadual" name="inscricaoEstadual" placeholder="Inscrição Estadual">
+							
+								<label class="small mb-1" for="dtnasc">Inscrição
+									Municipal:</label> <input type="text" class="form-control py-4"
+									id="inscricaoMunicipal" name="inscricaoMunicipal"
+									placeholder="Inscrição municipal">
+							
+								<label class="small mb-1" for="celular">Celular:</label> <input
+									type="text" class="form-control py-4" id="celular"
+									name="celular" placeholder="Digite número do celular">
+							
+								<label class="small mb-1" for="telefone">Telefone Fixo:</label>
+								<input type="text" class="form-control py-4" id="telefonefixo"
+									name="telefonefixo" placeholder="Digite número do telefone fixo">
+							</div>
+					</div>
+						</div>
+						<div class="card shadow-lg border-0 rounded-lg mt-4">
+
+							<div class="card-header">
+								<h3 class="text-center font-weight-light my-10">Endereço</h3>
+							</div>
+							<div class="card-body">
+
+								<div class="form-group">
+									
+									<label class="small mb-1" for="local">Local:</label> <input
+										type="text" class="form-control py-4" id="tipoend" name="tipoend"
+										placeholder="Exemplo: Casa, Comercial">
+								
+									<label class="small mb-1" for="cep">CEP:</label> 
+								<input type="text" class="form-control py-4" id="cep" name="cep" 
+									placeholder="Digite seu CEP" onblur="pesquisacep(this.value);"/>
+									
+									
+												
+								<br>
+								<label class="small mb-1" for="endereco">Logradouro:</label> 
+								<input type="text" class="form-control py-4" id="rua" name="rua"
+									placeholder="Digite o lograduro" value="">
+							
+								<label class="small mb-1" for="numero">Número:</label> <input
+									type="text" class="form-control py-4" id="numero" name="numero"
+									placeholder="Digite o número" value="">
+							
+								<label class="small mb-1" for="complemento">Complemento:</label>
+								<input type="text" class="form-control py-4" id="complemento"
+									name="complemento" placeholder="Digite o Complemento" value="">
+							
+								<label class="small mb-1" for="bairro">Bairro:</label> <input
+									type="text" class="form-control py-4" id="bairro" name="bairro"
+									placeholder="Digite o Bairro" value="" >
+							
+								<label class="small mb-1" for="cidade">Cidade:</label> <input
+									type="text" class="form-control py-4" id="cidade"
+									name="cidade" placeholder="Digite a Cidade" value="" >
+							
+								<label class="small mb-1" for="estado">Estado:</label> <input
+									type="text" class="form-control py-4" id="estado"
+									name="estado" placeholder="Digite o Estado" value="">
+									
+							</div>
+
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<button type="submit" class="btn btn-primary btn-md">Salvar</button>
+							&nbsp;&nbsp;&nbsp; <a href="/index"
+								class="btn btn-primary btn-md">Voltar</a>
+						</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+
+
+	<!--CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__-->
+
+	<div class="footer">
+		<footer class="py-2 bg-dark mt-auto">
+			<div class="container-fluid">
+				<div class="d-flex align-items-center justify-content-between small">
+					<div class="text-muted">Projeto integrador 4</div>
+					<div class="text-muted">Akatsuki Devs</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+</body>
+</html>
