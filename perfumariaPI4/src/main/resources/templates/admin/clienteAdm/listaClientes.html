@@ -115,8 +115,9 @@
 						<tr th:each="pessoa : ${pessoas}">
 							<td th:text="${pessoa.id_pessoa}"></td>
 							<td th:text="${pessoa.nome}"></td>
-							<td th:text="*{cpf}"></td>
-							<td th:text="*{tipo_pessoa}"></td>
+							<td th:text="${tipoPessoa==pf}? '${pessoa.cpf}' : '${pessoa.cnpj}'"></td>
+							
+							
 							
 												
 							<td colspan="2">

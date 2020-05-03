@@ -249,8 +249,8 @@
 						<div class="card-body">
 						<div class="form-group  mr-sm-2" th:action="@{https://viacep.com.br/ws/{cep}/json/}">
 								
-								<label class="small mb-1" for="local">Local:</label> <input
-									type="text" class="form-control py-4" id="local" name="local"
+								<label class="small mb-1" for="tipoend">Local:</label> <input
+									type="text" class="form-control py-4" id="tipoend" name="tipoend"
 									placeholder="Exemplo: Casa, Comercial" value="">
 							
 							
@@ -258,9 +258,7 @@
 								<input type="text" class="form-control py-4" id="cep" name="cep" 
 									placeholder="Digite seu CEP" onblur="pesquisacep(this.value);"/>
 									
-										
-												
-								<br>
+																
 								<label class="small mb-1" for="endereco">Logradouro:</label> 
 								<input type="text" class="form-control py-4" id="rua" name="rua"
 									placeholder="Digite o lograduro" value="">

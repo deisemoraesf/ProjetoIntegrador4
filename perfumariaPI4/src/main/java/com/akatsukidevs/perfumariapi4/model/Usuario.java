@@ -39,7 +39,7 @@ public class Usuario implements UserDetails, Serializable{
 	
 	private transient List<SimpleGrantedAuthority> authorities;
 	
-	@OneToOne(mappedBy="usuario")
+	@OneToOne
 	@JoinColumn(name= "id_cliente")
 	private Pessoa pessoa;
 	

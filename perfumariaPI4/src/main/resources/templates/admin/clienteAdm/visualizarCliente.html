@@ -90,35 +90,30 @@
 							<div class="invalid-feedback"></div>  -->
 							
 							
-					<div th:if="${pessoaJuridica==null}">
+					<div th:if="${tipoPessoa==pf}">
 							
 							<label>Nome:</label> <input type="text"
 								class="form-control" id="nome" readonly="readonly"
 								autofocus="autofocus" name="nome" value="" th:field="*{nome}" />
-							
-							
+														
 							<label >Nome Social:</label> <input type="text"
 								class="form-control" id="nome2" readonly="readonly"
 								autofocus="autofocus" name="nome2" value="" th:field="*{nome2}" />
-					
-							
+												
 							<label>CPF:</label> <input type="text"
 								class="form-control" id="cpf" readonly="readonly"
 								autofocus="autofocus" name="cpf" value="" th:field="*{cpf}" />
-							
-							
+												
 							<label>Data de Nascimento:</label> <input type="text"
 								class="form-control" id="dtnascimento" readonly="readonly"
 								autofocus="autofocus" name="dtnascimento" value="" th:field="*{dtnascimento}" />
-							
-							
+												
 							<label>Gênero:</label> <input type="text"
 								class="form-control" id="genero" readonly="readonly"
 								autofocus="autofocus" name="genero" value="" th:field="*{genero}" />
 						
-							
 					</div>		
-					<div th:unless="${pessoaJuridica==null}" >			
+					<div th:if="${tipoPessoa==pj}">			
 					
 							<label>Razão Social:</label> <input type="text"
 								class="form-control" id="nome" readonly="readonly"

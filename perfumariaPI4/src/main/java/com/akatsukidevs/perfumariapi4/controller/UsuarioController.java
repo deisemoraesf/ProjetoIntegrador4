@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.akatsukidevs.perfumariapi4.model.Pessoa;
 import com.akatsukidevs.perfumariapi4.model.Usuario;
 import com.akatsukidevs.perfumariapi4.repository.UsuarioRepository;
 
@@ -29,13 +30,15 @@ public class UsuarioController {
 	
 	//para cadastro do usuario solicitando o post
 	@RequestMapping(value="/usuarios/cadastrarUsuario", method=RequestMethod.POST)
-	public String salvar(Usuario usuario, BindingResult result, RedirectAttributes attribute) {
+	public String salvar(Usuario usuario, Pessoa pessoa, BindingResult result, RedirectAttributes attribute) {
 		if(result.hasErrors()) {
 			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
 		}
+		
 		ur.save(usuario);
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/usuarios/cadastrarUsuario");
+		
 	}
 
 	@GetMapping("/usuarios")

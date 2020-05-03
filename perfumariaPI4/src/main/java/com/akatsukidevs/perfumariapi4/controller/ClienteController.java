@@ -67,13 +67,13 @@ public class ClienteController {
 			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
 		}
 		
-		if (pessoaFisica.getEnderecos() != null && !pessoaFisica.getEnderecos().isEmpty()) {
-	            Set<Endereco> enderecosadicionado = new HashSet<>();
-				enderecosadicionado.add(endereco);
-				pessoaFisica.setEnderecos(enderecosadicionado);
-				
-		}
-		
+		Set<Endereco> enderecosadicionado = new HashSet<>();
+		enderecosadicionado.add(endereco);
+		er.save(endereco);
+		pessoaFisica.setEnderecos(enderecosadicionado);
+		ur.save(usuario);				
+		usuario.setPessoa(pessoaFisica);
+		pessoaFisica.setUsuario(usuario);
 		pfr.save(pessoaFisica);
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/clientes/cadastrarCliente");
@@ -84,15 +84,20 @@ public class ClienteController {
 		if(result.hasErrors()) {
 			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
 		}
-		pjr.save(pessoaJuridica);
+		Set<Endereco> enderecosadicionado = new HashSet<>();
+		enderecosadicionado.add(endereco);
 		er.save(endereco);
-		ur.save(usuario);
+		pessoaJuridica.setEnderecos(enderecosadicionado);
+						
+		usuario.setPessoa(pessoaJuridica);
+		pessoaJuridica.setUsuario(usuario);
+		pjr.save(pessoaJuridica);
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/clientes/cadastrarCliente");
 	}
 
 	@GetMapping("/clientesAdm")
-	public ModelAndView listaClientes() {
+	public ModelAndView listaClientes(){
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/listaClientes");
 		Iterable<Pessoa> clientes = pr.findByStatus(true); 
 		mv.addObject("pessoas", clientes);
@@ -131,10 +136,11 @@ public class ClienteController {
 		
 	}
 	
-	@RequestMapping(value="/clientes/editarClientes/{id_cliente}", method=RequestMethod.POST)
-	public String salvaEdicao(PessoaFisica c) {
-		pfr.save(c);
-		return ("redirect:/clientes/editarClientes/{id_cliente}");
+	@RequestMapping(value="/clientesAdm/editarClientes/{id_pessoa}", method=RequestMethod.POST)
+	public String salvaEdicao(Pessoa c, RedirectAttributes attribute) {
+		pr.save(c);
+		attribute.addFlashAttribute("mensagem", "Editado com Sucesso");
+		return ("redirect:/clientesAdm/editarClientes/{id_pessoa}");
 	}
 	
 	@GetMapping("/clientesAdm/deletarClientes/{id_pessoa}")
@@ -155,9 +161,9 @@ public class ClienteController {
 		if (usu != null && usu.isStatus()==true) {
 			attribute.addFlashAttribute("mensagem", "Você já possui uma conta");
 			return ("redirect:/clientes/verificarCliente");
-		/*}else if (usu == null) {
+		}else if (email == null || email.isEmpty()) {
 			attribute.addFlashAttribute("mensagem", "Digite um email válido");
-			return ("redirect:/clientes/verificarCliente");*/
+			return ("redirect:/clientes/verificarCliente");
 		}else {	
 			return ("redirect:/clientes/cadastrarCliente");
 		}

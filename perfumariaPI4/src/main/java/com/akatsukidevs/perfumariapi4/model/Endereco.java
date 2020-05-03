@@ -57,10 +57,10 @@ public class Endereco implements Serializable {
 	public Endereco() {
 		
 	}
-
 	
 	public Endereco(Long id, String tipoend, String rua, String numero, String complemento, String bairro,
 			String cidade, String estado, String cep, boolean status) {
+		super();
 		this.id = id;
 		this.tipoend = tipoend;
 		this.rua = rua;
@@ -72,9 +72,13 @@ public class Endereco implements Serializable {
 		this.cep = cep;
 		this.status = status;
 	}
-	
+
+
+
+
 	public Endereco(Long id, String tipoend, String rua, String numero, String complemento, String bairro,
 			String cidade, String estado, String cep, boolean status, Set<Pessoa> clientes) {
+		super();
 		this.id = id;
 		this.tipoend = tipoend;
 		this.rua = rua;
@@ -89,6 +93,8 @@ public class Endereco implements Serializable {
 	}
 
 
+
+
 	public Long getId() {
 		return id;
 	}
@@ -97,14 +103,18 @@ public class Endereco implements Serializable {
 		this.id = id;
 	}
 
+	
+	
 	public String getTipoend() {
 		return tipoend;
 	}
 
-	public void setTipo(String tipoend) {
+
+	public void setTipoend(String tipoend) {
 		this.tipoend = tipoend;
 	}
-	
+
+
 	public String getRua() {
 		return rua;
 	}
@@ -169,6 +179,18 @@ public class Endereco implements Serializable {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	
+	
+
+	public Set<Pessoa> getClientes() {
+		return clientes;
+	}
+
+
+	public void setClientes(Set<Pessoa> clientes) {
+		this.clientes = clientes;
+	}
+
 
 	@Override
 	public int hashCode() {

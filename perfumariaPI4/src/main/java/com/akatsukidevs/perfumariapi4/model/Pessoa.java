@@ -43,7 +43,8 @@ public class Pessoa implements Serializable {
 	
 	private boolean status=true;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="pessoa")
+	@JoinColumn(name="id_usuario") 
 	private Usuario usuario;
 	
 	@ManyToMany 
@@ -134,6 +135,14 @@ public class Pessoa implements Serializable {
 
 	public void setEnderecos(Set<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override
