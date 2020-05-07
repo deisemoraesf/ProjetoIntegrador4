@@ -10,4 +10,6 @@ public interface EnderecoRepository extends CrudRepository<Endereco, Long> {
 	
 	Endereco findByCep(String cep);
 	Optional<Endereco> findById(Long id);
+	
+	
 }

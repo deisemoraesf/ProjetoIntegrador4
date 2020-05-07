@@ -122,6 +122,8 @@ public class ClienteController {
 		Optional<Pessoa> p = pr.findById(id_pessoa);
 		Pessoa cliente = p.get();
 		mv.addObject("pessoas", cliente);
+		mv.addObject("enderecos", cliente.getEnderecos());
+		mv.addObject("usuario", cliente.getUsuario());
 		return mv;
 	}
 	
