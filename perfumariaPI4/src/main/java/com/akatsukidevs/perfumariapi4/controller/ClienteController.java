@@ -142,24 +142,21 @@ public class ClienteController {
 	
 	@RequestMapping(value="/clientesAdm/editarClientes/{id_pessoa}", method=RequestMethod.POST)
 	public String salvaEdicao(Pessoa c, RedirectAttributes attribute) {
-		if(c.getTipoPessoa() == "pf") {
-			
-			
-			Set<Endereco> enderecos = c.getEnderecos();
-			c.setEnderecos(enderecos);
-			pr.save(c);
+		
+		String tipoPessoa = c.getTipoPessoa();
+		
+		if(tipoPessoa == "pf" && tipoPessoa !=null) {
+			PessoaFisica pf = (PessoaFisica) c;
+			pfr.save(pf);
+		}else if (tipoPessoa == "pj") {
+			PessoaJuridica pj= (PessoaJuridica) c;
+			pjr.save(pj);
 		}
 		
-		
-		if(c.getEnderecos() != null && !c.getEnderecos().isEmpty()) {
-		Set<Endereco> enderecos = c.getEnderecos();
-		c.setEnderecos(enderecos);
-		}
-		
-		
-		
-		attribute.addFlashAttribute("mensagem", "Editado com Sucesso");
+		attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
 		return ("redirect:/clientesAdm/editarClientes/{id_pessoa}");
+			
+			
 	}
 	
 	@GetMapping("/clientesAdm/deletarClientes/{id_pessoa}")

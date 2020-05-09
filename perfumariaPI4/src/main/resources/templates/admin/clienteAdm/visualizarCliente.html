@@ -57,8 +57,14 @@
 						<ul class="navbar-nav">
 							<li class="nav-item active"><i class="oi oi-caret-right"></i>
 								<span>Visualização Cliente</span></li>
-
 						</ul>
+						<div class="navbar-nav ml-auto">
+							<a class="btn btn-info btn-md" th:href="@{/clientesAdm/editarClientes/{id_pessoa}(id_pessoa=${pessoas.id_pessoa})}"
+								role="button"> <span class="oi oi-brush" title="adicionar"
+								aria-hidden="true"></span> <span>Editar</span>
+							</a>
+							
+						</div>	
 						
 					</div>
 				</nav>
@@ -90,6 +96,9 @@
 								class="form-control" id="id_pessoa" autofocus="autofocus"
 								name="id_pessoa" value="" th:field="*{id_pessoa}"
 								readonly="readonly" />
+						
+						<input type="hidden" id="tipoPessoa" name="tipo"
+									th:field="*{tipoPessoa}"></input>		
 							
 							
 							<div th:if="${pessoas.tipoPessoa} == pf">

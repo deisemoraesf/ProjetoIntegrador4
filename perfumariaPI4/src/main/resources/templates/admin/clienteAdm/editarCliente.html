@@ -93,6 +93,9 @@
 								class="form-control" id="id_pessoa" autofocus="autofocus"
 								name="id_pessoa" value="" th:field="*{id_pessoa}"
 								readonly="readonly" />
+								
+								<input type="hidden" id="tipoPessoa" name="tipo"
+									th:field="*{tipoPessoa}"></input>
 							
 							
 							<div th:if="${pessoas.tipoPessoa} == pf">
