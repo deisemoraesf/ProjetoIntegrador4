@@ -6,11 +6,7 @@
 <head>
 <title>Perfumaria</title>
 <meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
+
 
 <!-- Bootstrap core CSS -->
 <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -28,6 +24,11 @@
 	height: 30px;
 }
 </style>
+
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 
 <script th:inline="javascript">
     $(function() {
@@ -132,15 +133,11 @@
 							
 							<td colspan="2">
 							
-							 <a class="btn btn-danger btn-sm"
-								th:href="@{/usuarios/deletarUsuarios/{id_usuario}(id_usuario=${usuario.id_usuario})}">
-									<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
-							</a>   
-							
-							<!--<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
+											
+							<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
 							th:attr="data-id=${usuario.id_usuario}, data-actionurl=@{/usuarios/deletarUsuarios/{id_usuario}(id_usuario=${usuario.id_usuario})}">
 							<i class="oi oi-circle-x"></i></a>
-							</td>-->
+							</td>
 				
 						</tr>
 	
@@ -181,31 +178,11 @@
 	
 	
 
-	<footer class="layout-footer relative">
+	<footer class="layout-footer-responsive">
 		<div class="container">
 			<span class="footer-copy">&copy; 2020 Akatsuki. @Todos os direitos reservados.</span>
 		</div>
 	</footer>
 
-	<!-- Bootstrap core JavaScript
-================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	
-	<script src="/webjars/jquery/jquery.min.js"></script>
-	<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-	<!--	$(function() {
-			$('[data-toggle="popover"]').popover();
-		});
-
-		$(document).ready(function() {
-			$(".navbar-toggle").click(function() {
-				$(".sidebar").toggleClass("sidebar-open");
-			})
-		}); -->
-	</script>
 </body>
 </html>

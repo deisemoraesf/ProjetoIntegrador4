@@ -68,18 +68,18 @@
 			
 			<div th:object="${usuario}">
 				<h3>Usuário</h3>
+					<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="id">Id Usuario:</label> <input type="text"
 											class="form-control" id="id_usuario" autofocus="autofocus"
-											name="id_pessoa" value="" th:field="*{id_usuario}"
+											name="id_usuario" value="" th:field="*{id_usuario}"
 											readonly="readonly" />
 									<label for="id">Email:</label> <input type="text"
 											class="form-control" id="email" autofocus="autofocus"
 											name="email" value="" th:field="*{email}"
 											readonly="readonly" />	
-									
-								
 								</div>
+					</div>			
 			</div>
 			<div th:object="${pessoas}">
 					<h3>Cliente</h3>
@@ -92,28 +92,31 @@
 								readonly="readonly" />
 							
 							
-							
-							<div th:if="${PessoaJuridica == null}">
+							<div th:if="${pessoas.tipoPessoa} == pf">
 
 								<label>Nome:</label> <input type="text" class="form-control"
 									id="nome" readonly="readonly" autofocus="autofocus" name="nome"
-									value="" th:field="*{nome}" /> <label>Nome Social:</label> <input
+									value="" th:field="*{nome}" /> 
+									
+								<label>Nome Social:</label> <input
 									type="text" class="form-control" id="nome2" readonly="readonly"
 									autofocus="autofocus" name="nome2" value="" th:field="*{nome2}" />
 
 								<label>CPF:</label> <input type="text" class="form-control"
 									id="cpf" readonly="readonly" autofocus="autofocus" name="cpf"
-									value="" th:field="*{cpf}" /> <label>Data de
-									Nascimento:</label> <input type="text" class="form-control"
+									value="" th:field="*{cpf}" /> 
+								
+								<label>Data de Nascimento:</label> <input type="text" class="form-control"
 									id="dtnascimento" readonly="readonly" autofocus="autofocus"
-									name="dtnascimento" value="" th:field="*{dtnascimento}" /> <label>Gênero:</label>
-								<input type="text" class="form-control" id="genero"
+									name="dtnascimento" value="" th:field="*{dtnascimento}" /> 
+								
+								<label>Gênero:</label> <input type="text" class="form-control" id="genero"
 									readonly="readonly" autofocus="autofocus" name="genero"
 									value="" th:field="*{genero}" />
 
 							</div>
 
-							<div th:unless="${PessoaJuridica == null}">
+							<div th:unless="${pessoas.tipoPessoa} == pf">
 
 								<label>Razão Social:</label> <input type="text"
 									class="form-control" id="nome" readonly="readonly"
@@ -142,6 +145,7 @@
 
 
 							</div>
+							
 
 							<label>Celular:</label> <input type="text" class="form-control"
 								id="celular" autofocus="autofocus" name="celular" value=""
@@ -204,24 +208,5 @@
 		</div>
 	</footer>
 
-	<!-- Bootstrap core JavaScript
-================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="/webjars/jquery/jquery.min.js"></script>
-	<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-	<!--  <script type="text/javascript">
-		$(function() {
-			$('[data-toggle="popover"]').popover();
-		});
-
-		$(document).ready(function() {
-			$(".navbar-toggle").click(function() {
-				$(".sidebar").toggleClass("sidebar-open");
-			})
-		});
-	</script>-->
 </body>
 </html>

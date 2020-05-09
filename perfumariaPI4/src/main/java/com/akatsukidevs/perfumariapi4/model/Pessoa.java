@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,6 +41,9 @@ public class Pessoa implements Serializable {
 	@NotBlank
 	private String telefonefixo;
 	
+	@Column(insertable=false, updatable=false)
+	private String tipoPessoa;
+	
 	
 	private boolean status=true;
 	
@@ -57,25 +61,30 @@ public class Pessoa implements Serializable {
 		
 	}
 
+		
 	public Pessoa(Long id_pessoa, @NotBlank String nome, @NotBlank String nome2, @NotBlank String celular,
-			@NotBlank String telefonefixo, boolean status) {
-		this.id_pessoa = id_pessoa;
-		this.nome = nome;
-		this.nome2 = nome2;
-		this.celular = celular;
-		this.telefonefixo = telefonefixo;
-		this.status = status=true;
-	}
-	
-	
-	public Pessoa(Long id_pessoa, @NotBlank String nome, @NotBlank String nome2, @NotBlank String celular,
-			@NotBlank String telefonefixo, boolean status, Usuario usuario, Set<Endereco> enderecos) {
+			@NotBlank String telefonefixo, String tipoPessoa, boolean status) {
 		super();
 		this.id_pessoa = id_pessoa;
 		this.nome = nome;
 		this.nome2 = nome2;
 		this.celular = celular;
 		this.telefonefixo = telefonefixo;
+		this.tipoPessoa = tipoPessoa;
+		this.status = status;
+	}
+
+
+	public Pessoa(Long id_pessoa, @NotBlank String nome, @NotBlank String nome2, @NotBlank String celular,
+			@NotBlank String telefonefixo, String tipoPessoa, boolean status, Usuario usuario,
+			Set<Endereco> enderecos) {
+		super();
+		this.id_pessoa = id_pessoa;
+		this.nome = nome;
+		this.nome2 = nome2;
+		this.celular = celular;
+		this.telefonefixo = telefonefixo;
+		this.tipoPessoa = tipoPessoa;
 		this.status = status;
 		this.usuario = usuario;
 		this.enderecos = enderecos;
@@ -143,6 +152,15 @@ public class Pessoa implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	
+	public String getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(String tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
 	}
 
 	@Override

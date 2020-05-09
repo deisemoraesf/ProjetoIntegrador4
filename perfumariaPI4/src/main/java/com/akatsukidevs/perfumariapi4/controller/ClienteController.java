@@ -133,6 +133,8 @@ public class ClienteController {
 		Optional<Pessoa> p = pr.findById(id_pessoa);
 		Pessoa cli = p.get();
 		mv.addObject("pessoas", cli);
+		mv.addObject("enderecos", cli.getEnderecos());
+		mv.addObject("usuario", cli.getUsuario());
 		attribute.addFlashAttribute("mensagem", "Editado com sucesso");
 		return mv;
 		
@@ -140,7 +142,22 @@ public class ClienteController {
 	
 	@RequestMapping(value="/clientesAdm/editarClientes/{id_pessoa}", method=RequestMethod.POST)
 	public String salvaEdicao(Pessoa c, RedirectAttributes attribute) {
-		pr.save(c);
+		if(c.getTipoPessoa() == "pf") {
+			
+			
+			Set<Endereco> enderecos = c.getEnderecos();
+			c.setEnderecos(enderecos);
+			pr.save(c);
+		}
+		
+		
+		if(c.getEnderecos() != null && !c.getEnderecos().isEmpty()) {
+		Set<Endereco> enderecos = c.getEnderecos();
+		c.setEnderecos(enderecos);
+		}
+		
+		
+		
 		attribute.addFlashAttribute("mensagem", "Editado com Sucesso");
 		return ("redirect:/clientesAdm/editarClientes/{id_pessoa}");
 	}
@@ -149,8 +166,11 @@ public class ClienteController {
 	public String deletarClientes(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute) {
 		Optional<Pessoa> c = pr.findById(id_pessoa);
 		Pessoa cli = c.get();
+		Usuario usu = cli.getUsuario();
+		usu.setStatus(false);
 		cli.setStatus(false);
 		pr.save(cli);
+		ur.save(usu);
 		attribute.addFlashAttribute("mensagem", "Deletado com sucesso");
 		return ("redirect:/clientesAdm");
 		

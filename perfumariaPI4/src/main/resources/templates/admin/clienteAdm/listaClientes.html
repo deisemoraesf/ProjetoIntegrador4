@@ -6,11 +6,6 @@
 <head>
 <title>Perfumaria Administrativo</title>
 <meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
 
 <!-- Bootstrap core CSS -->
 <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -21,23 +16,24 @@
 <!-- Custom styles for this template -->
 <link href="/css/style.css" rel="stylesheet" />
 
-<script src="jquery-3.4.1.min.js"></script>
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 	
-	<script th:inline="javascript">
+<script th:inline="javascript">
     $(function() {
         $('#excluir').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var idUsuario = button.data('id') // Extract info from data-* attributes
+            var button = $(event.relatedTarget)
+            var idUsuario = button.data('id')
             var actionUrl = button.data('actionurl');
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this);
-            modal.find('.modal-title').text('Apagar Usuário');
+            modal.find('.modal-title').text('Apagar Cliente');
             modal.find('.modal-body p').text('Deseja apagar o Usuário '+ idUsuario+'?');
             modal.find('.modal-footer form').attr('action', actionUrl);
         });
     });
-    </script>
+</script>
 
 </head>
 <body>
@@ -104,6 +100,7 @@
 							<th>Nome</th>
 							<th>Telefone</th>
 							<th>Celular</th>
+							<th>Tipo Cliente</th>
 							<th>Visualizar</th>
 							<th><br></th>
 							<th>Editar</th>
@@ -117,7 +114,7 @@
 							<td th:text="${pessoa.nome}"></td>
 							<td th:text="${pessoa.celular}"></td>
 							<td th:text="${pessoa.telefonefixo}">
-							
+							<td th:text="${pessoa.tipoPessoa}"></td>
 							
 												
 							<td colspan="2">
@@ -136,15 +133,15 @@
 							
 							<td>
 							
-							 <a class="btn btn-danger btn-sm"
+							<!-- <a class="btn btn-danger btn-sm"
 								th:href="@{/clientesAdm/deletarClientes/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">
 									<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
-							</a>  
+							</a>  -->
 							
-							<!--<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
-							th:attr="data-id=${pessoa.id_pessoa}, data-actionurl=@{/clientes/deletarClientes/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">
+							<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
+							th:attr="data-id=${pessoa.id_pessoa}, data-actionurl=@{/clientesAdm/deletarClientes/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">
 							<i class="oi oi-circle-x"></i></a>
-							</td> -->
+							</td> 
 				
 						</tr>
 	
@@ -160,13 +157,13 @@
 	        <div class="modal-dialog" role="document">
 	            <div class="modal-content">
 	                <div class="modal-header">
-	                    <h5 class="modal-title">Apagar usuário</h5>
+	                    <h5 class="modal-title">Apagar cliente</h5>
 	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                        <span aria-hidden="true">&times;</span>
 	                    </button>
 	                </div>
 	                <div class="modal-body">
-	                    <p>Deseja apagar Usuario</p>
+	                    <p></p>
 	                </div>
 	                <div class="modal-footer">
 	                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
@@ -181,35 +178,12 @@
 	   </div> 
 	
 	
-	
-	
-	
-
 	<footer class="layout-footer-responsive">
 		<div class="container">
 			<span class="footer-copy">&copy; 2020 Akatsuki. @Todos os direitos reservados.</span>
 		</div>
 	</footer>
 
-	<!-- Bootstrap core JavaScript
-================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
 	
-	<script src="/webjars/jquery/jquery.min.js"></script>
-	<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-	<!--<script type="text/javascript">
-		$(function() {
-			$('[data-toggle="popover"]').popover();
-		});
-
-		$(document).ready(function() {
-			$(".navbar-toggle").click(function() {
-				$(".sidebar").toggleClass("sidebar-open");
-			})
-		});
-	</script> -->
 </body>
 </html>
