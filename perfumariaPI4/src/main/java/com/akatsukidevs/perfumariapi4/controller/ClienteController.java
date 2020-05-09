@@ -145,6 +145,7 @@ public class ClienteController {
 		
 		String tipoPessoa = c.getTipoPessoa();
 		
+		
 		if(tipoPessoa == "pf" && tipoPessoa !=null) {
 			PessoaFisica pf = (PessoaFisica) c;
 			pfr.save(pf);
