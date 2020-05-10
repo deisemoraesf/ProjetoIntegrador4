@@ -1,11 +1,19 @@
 package com.akatsukidevs.perfumariapi4.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.akatsukidevs.perfumariapi4.model.Produto;
+import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
 
 @Controller
 public class IndexController {
+	
+	@Autowired
+	private ProdutoRepositorios pr;
 	
 	//Index Cliente
 	@RequestMapping("/index")//toda vez que digitar / vai para o Index
@@ -55,6 +63,16 @@ public class IndexController {
 	@GetMapping("cliente/infantil")
 	public String infantil() {
 		return ("clienteProdutos/infantil");
+	}
+	
+	
+	@GetMapping("/")
+	public ModelAndView listaProdutos() {
+		ModelAndView mv = new ModelAndView("/index");
+		Iterable<Produto> produtos = pr.findByStatus(true);
+			mv.addObject("produtos", produtos);
+			return mv;
+		
 	}
 	
 
