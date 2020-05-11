@@ -64,8 +64,7 @@
 	           <form class="form-inline" method="POST" action="pesquisaProduto">
 					<input class="form-control mr-sm-2" type="" aria-label="Search"
 						name="pesquisanome" placeholder="Pesquisa por nome"> <span></span>
-					</input>
-
+					
 
 					<button class="btn btn-primary" type="submit"
 						data-target="#collapseNome" aria-controls="collapseNome">
@@ -84,9 +83,11 @@
 	                        <th>Descrição do Produto</th>
 	                        <th>Preço</th>
 	                        <th>Marca</th>
-	                        <th>Categoria</th>	                        	 
+	                        <th>Categoria</th>	
+	                        <th>Visualizar</th> 
+	                        <th><br></th>                       	 
 	                        <th>Editar</th>
-							<th><br></th>
+	                        <th><br></th>   
 							<th>Excluir</th>
 	                    </tr>
 	                  
@@ -99,15 +100,24 @@
 		                        <td><span th:text="${produto.marca}"></span></td>
 		                        <td><span th:text="${produto.categoria}"></span></td>
 		                        
-
-		                        <td colspan="2"><a class="btn btn-info btn-sm" role="button"
+		                        <td colspan="2">
+									<a  class="btn btn-success btn-sm" role="button"
+									th:href="@{/produtos/visualizarProdutos/{id_produto}(id_produto=${produto.id_produto})}">
+									<span class="oi oi-magnifying-glass" title="Visualizar" aria-hidden="true"></span>
+									</a>
+								</td>
+								
+		                        <td colspan="2">
+		                        	<a class="btn btn-info btn-sm" role="button"
 		                        		th:href="@{/produtos/editarProdutos/{id_produto}(id_produto=${produto.id_produto})}">
-		                                <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
-		                            </a></td>
-		                          <td><a class="btn btn-danger btn-sm"
-		                        		  th:href="@{/produtos/deletarProdutos/{id_produto}(id_produto=${produto.id_produto})}">
-		                                <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
-		                            </button>
+		                            <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                            </a>
+		                        </td>
+		                        <td colspan="2">
+		                         	<a class="btn btn-danger btn-sm"
+		                        		th:href="@{/produtos/deletarProdutos/{id_produto}(id_produto=${produto.id_produto})}">
+		                            <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+		                            </a>
 		                        </td>
 		                    </tr>
                   
