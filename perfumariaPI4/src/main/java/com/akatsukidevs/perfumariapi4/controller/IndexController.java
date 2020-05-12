@@ -79,14 +79,7 @@ public class IndexController {
 	}
 	
 	
-	@GetMapping("/")
-	public ModelAndView listaProdutos() {
-		ModelAndView mv = new ModelAndView("/index");
-		Iterable<Produto> produtos = pr.findByStatus(true);
-			mv.addObject("produtos", produtos);
-			return mv;
-		
-	}
+	
 	
 	
 
