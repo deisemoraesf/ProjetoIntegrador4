@@ -7,10 +7,12 @@
     <title>Perfumaria</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
     <style>
         .footer{
             position:responsive;
@@ -28,6 +30,12 @@
         }
 
     </style>
+    
+    <script>
+    jQuery(function($){
+       $("#preco").mask("999,99");
+    });   
+    </script>
 
   </head>
   <body style="background: #FFF5EE ;">    
@@ -46,9 +54,7 @@
     
             <div class="collapse navbar navbar-collapse" id="navbarSite">
                 <ul class="navbar-nav mr-auto"><!--mr-auto deixa a margem a direita (ml-auto na esquerda)-->
-                    <li class="nav-iem">
-                        <a class="nav-link" href="/index">Início</a>
-                    </li>
+                   
 					<li class="nav-iem"><a class="nav-link" href="/cliente/masculino">Masculino</a>
 					</li>
 					<li class="nav-iem"><a class="nav-link" href="/cliente/feminino">Feminino</a>
@@ -89,20 +95,21 @@
             </div>
             <div class="card-body">
                 <div class="container" th:object="${FotoProduto}">
-                    <!--<div class="row mb-2">-->
-                        <div class="container"  th:each="foto : ${fotos}">
-                        	<div  id="carouselSite" class="carousel slide" data-ride="carousel" >
-                                                         
+                   
+                       
+                        	<div  id="carouselSite" class="carousel slide" data-ride="carousel"  >
+                                 <div align="center">                        
                            		 <div class="carousel-inner">
-                               		<div class="carousel-item active">
-                                    	<img th:src="@{${foto.url}}" class="img-fluid d-block" width="300px" height="300px">
-                                    		<div class="carousel-caption d-none d-md-block"></div>
-                                	</div>
-                               
-                            	</div>
-                            </div>
-                        </div>
-                    
+                           		 <div class="carousel-item active">
+                           		 	<img th:src="@{/imgCarousel/logoakatsukidevs.jpg}" class="img-fluid d-block" width="300px" height="300px">
+                           		 </div>
+                           		 	<div class="carousel-item" th:each="foto : ${fotos}">
+                               		       	<img th:src="@{__${foto.name}__}" class="img-fluid d-block" width="300px" height="300px">
+                                    	
+                                    </div>		
+                                                            
+                               	</div>
+                           		</div>
                             <a class="carousel-control-prev" href="#carouselSite" role="button" data-slide="prev"><!--Carousel ir pra trás-->
                                 <span class="carousel-control-prev-icon"></span>
                                 <span style="color: black;" class="sr-only">Voltar</span>
@@ -119,8 +126,8 @@
                 </div>
                 <div class="container">
                 <div class="form-inline">
-                    <h4>Detalhes: <span name="desc_produto" th:text="*{desc_produto}"></span> </h4>
-                    <h2 class="ml-auto" style="text-align: left;">Valor: <span name="preco" th:text="*{preco}"></span></h2>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h6>Detalhes: <span name="desc_produto" th:text="*{desc_produto}"></span> </h6>
+                    <h2 class="ml-auto" style="text-align: left;">Valor: R$ <span name="preco" id="preco" th:text="*{preco}"></span></h2>&nbsp;&nbsp;&nbsp;&nbsp;
                     
                 </div>
                 <button type="button"  class="btn btn-info btn-lg ml-auto" href="#">Comprar</button>
@@ -130,7 +137,9 @@
             
             <div class="card-footer">
                 <h6>Perguntas Frequentes</h6><br>
-                <p><span name="perg_resp" th:Text="*{perg_resp}"></span><b>O produto é de qualidade?</b><br> Sim, temos os melhores produtos do mercado!</p>
+                <p><span name="perg_resp" th:text="*{perg_resp}"></span></p>
+                
+                <p><b>O produto é de qualidade?</b><br> Sim, temos os melhores produtos do mercado!</p>
 
                 <p><b>Essa quantidade dura por quanto tempo?</b><br> Depende da frequência de uso, mas pode durar meses :)</p>
 

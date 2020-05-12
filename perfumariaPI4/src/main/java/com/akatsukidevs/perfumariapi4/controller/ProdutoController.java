@@ -63,6 +63,7 @@ public class ProdutoController {
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
+			fp.setName("/acessofoto/"+file.getOriginalFilename());
 			fp.setProduto(produto);
 			fp.setStatus(true);
 			fp.setUrl(url);

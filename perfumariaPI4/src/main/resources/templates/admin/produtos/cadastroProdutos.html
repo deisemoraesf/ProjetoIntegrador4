@@ -62,11 +62,13 @@
 	
 	        <div class="container" id="cadastro">
 	        
+	        	        
 	        <form method="POST" enctype="multipart/form-data">
 	                <div class="form-row">
-	                
+	                	<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert"></div>
+	                	                
 	                    <div class="form-group col-md-6">	
-	                     <div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert"></div>
+	                     
 	                                        
 	                        <label for="nome">Nome do Produto</label>
 	                        <input type="text" class="form-control" id="nome_produto" placeholder="Nome do Produto" utofocus="autofocus" name="nome_produto" value=""/>

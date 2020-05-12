@@ -23,6 +23,9 @@ public class FotoProduto implements Serializable {
 	@NotEmpty
 	private String url;
 	
+	@NotEmpty
+	private String name;
+	
 	private boolean status=true;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
@@ -35,21 +38,31 @@ public class FotoProduto implements Serializable {
 	}
 	
 	
-	public FotoProduto(Long id_foto, String url, boolean status) {
+	
+
+
+	public FotoProduto(Long id_foto, @NotEmpty String url, @NotEmpty String name, boolean status) {
 		super();
 		this.id_foto = id_foto;
 		this.url = url;
+		this.name = name;
 		this.status = status;
 	}
 
 
-	public FotoProduto(Long id_foto, @NotEmpty String url, boolean status, Produto produto) {
+
+
+	public FotoProduto(Long id_foto, @NotEmpty String url, @NotEmpty String name, boolean status, Produto produto) {
 		super();
 		this.id_foto = id_foto;
 		this.url = url;
+		this.name = name;
 		this.status = status;
 		this.produto = produto;
 	}
+
+
+
 
 
 	public Long getId_foto() {
@@ -67,6 +80,18 @@ public class FotoProduto implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
+	
+	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 
 	public boolean isStatus() {
 		return status;

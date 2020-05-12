@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
@@ -50,7 +48,6 @@ public class Produto implements Serializable {
 
 	public Produto(Long id_produto, @NotEmpty String nome_produto, @NotEmpty String desc_produto, double preco,
 			String marca, String categoria, boolean destaque, String perg_resp, boolean status) {
-		super();
 		this.id_produto = id_produto;
 		this.nome_produto = nome_produto;
 		this.desc_produto = desc_produto;
@@ -66,7 +63,6 @@ public class Produto implements Serializable {
 	public Produto(Long id_produto, @NotEmpty String nome_produto, @NotEmpty String desc_produto, double preco,
 			String marca, String categoria, boolean destaque, String perg_resp, boolean status,
 			Set<FotoProduto> imagens) {
-		super();
 		this.id_produto = id_produto;
 		this.nome_produto = nome_produto;
 		this.desc_produto = desc_produto;
