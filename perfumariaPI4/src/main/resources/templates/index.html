@@ -4,6 +4,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous">
+
 <title>Perfumaria</title>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -47,13 +53,13 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
 
-            <a class="nav-link" href="/index"><img height="80px"src="/imgCarousel/logoakatsukidevs.jpg" alt="akatsukidevs" class="rounded-sm"></a>
+            <a class="nav-link" href="/"><img height="80px"src="/imgCarousel/logoakatsukidevs.jpg" alt="akatsukidevs" class="rounded-sm"></a>
             
     
             <div class="collapse navbar navbar-collapse" id="navbarSite">
                 <ul class="navbar-nav mr-auto"><!--mr-auto deixa a margem a direita (ml-auto na esquerda)-->
                     <li class="nav-iem">
-                        <a class="nav-link" href="/index">Início</a>
+                        <a class="nav-link" href="/">Início</a>
                     </li>
 					<li class="nav-iem"><a class="nav-link" href="/cliente/masculino">Masculino</a>
 					</li>
@@ -81,11 +87,18 @@
 						
 					</div>
 				</div>
+				 <ul class="btn btn-outline-light">
+					<a class="nav-link" href="/carrinho"><i class="fa fa-cart-plus"></i></a>
+				</ul>
 			</ul>
+<<<<<<< HEAD
+		  
+=======
 			
 			
 			
 			
+>>>>>>> branch 'master' of https://github.com/deisemoraesf/ProjetoIntegrador4.git
 	</div>
 		</div>
 	</nav>
@@ -94,7 +107,7 @@
 	<!--CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_CAROUSEL_-->
 	
 	
-		<center>
+    <center>
 		<div id="carouselSite" class="carousel slide" data-ride="carousel">
 
 			<ol class="carousel-indicators">
@@ -159,8 +172,8 @@
 							<br>
 							<br>
 							<a class="btn btn-info btn-sm" href="/detalhesProduto" role="button">Descrição</a>
-						    <button type="button" class="btn btn-info btn-sm" href="#">Comprar</button>
-							
+						    <a class="btn btn-info btn-sm" th:href="@{/addcarrinho/{id_produto}(id_produto=${produto.id_produto})}" role="button">Comprar</a>
+								
 						</div>	
 					</div>
 				</div>

@@ -9,12 +9,25 @@ import org.springframework.web.servlet.ModelAndView;
 import com.akatsukidevs.perfumariapi4.model.Produto;
 import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
 
+
+
 @Controller
 public class IndexController {
+	
 	
 	@Autowired
 	private ProdutoRepositorios pr;
 	
+	
+	@GetMapping("/")
+	public ModelAndView listaProdutos() {
+		ModelAndView mv = new ModelAndView("/index");
+		Iterable<Produto> produtos = pr.findByStatus(true);
+			mv.addObject("produtos", produtos);
+			return mv;		
+	}
+	
+
 	//Index Cliente
 	@RequestMapping("/index")//toda vez que digitar / vai para o Index
 	public String index() {
@@ -74,6 +87,7 @@ public class IndexController {
 			return mv;
 		
 	}
+	
 	
 
 }
