@@ -1,0 +1,90 @@
+package com.akatsukidevs.perfumariapi4.model;
+
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+
+@Entity
+public class FotoProduto implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_foto;
+	@NotEmpty
+	private String url;
+	
+	private boolean status=true;
+	
+	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_produto")
+	private Produto produto;
+	
+	
+	public FotoProduto() {
+		
+	}
+	
+	
+	public FotoProduto(Long id_foto, String url, boolean status) {
+		super();
+		this.id_foto = id_foto;
+		this.url = url;
+		this.status = status;
+	}
+
+
+	public FotoProduto(Long id_foto, @NotEmpty String url, boolean status, Produto produto) {
+		super();
+		this.id_foto = id_foto;
+		this.url = url;
+		this.status = status;
+		this.produto = produto;
+	}
+
+
+	public Long getId_foto() {
+		return id_foto;
+	}
+
+	public void setId_foto(Long id_foto) {
+		this.id_foto = id_foto;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+	
+	
+	
+
+}

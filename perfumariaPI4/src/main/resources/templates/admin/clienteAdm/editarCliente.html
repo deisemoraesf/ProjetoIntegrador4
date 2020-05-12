@@ -16,6 +16,24 @@
 <!-- Custom styles for this template -->
 <link href="/css/style.css" rel="stylesheet" />
 
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	
+<script th:inline="javascript">
+    $(function() {
+        $('#excluir').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var idUsuario = button.data('id')
+            var actionUrl = button.data('actionurl');
+            var modal = $(this);
+            modal.find('.modal-title').text('Apagar Cliente');
+            modal.find('.modal-body p').text('Deseja apagar o Usuário '+ idUsuario+'?');
+            modal.find('.modal-footer form').attr('action', actionUrl);
+        });
+    });
+</script>
 
 </head>
 <body>
@@ -55,9 +73,10 @@
 								<span>Editar Cliente</span></li>
 						</ul>	
 						<div class="navbar-nav ml-auto">
-							<a class="btn btn-danger btn-md" href="#"
-								role="button"> <span class="oi oi-location" title="adicionar"
-								aria-hidden="true"></span> <span>Adicionar Endereço</span>
+							<a class="btn btn-danger btn-md" role="button"
+								th:href="@{/clientesAdm/cadastrarEndereco/{id_pessoa}(id_pessoa=${pessoas.id_pessoa})}"> 
+								<span class="oi oi-location" title="adicionar" aria-hidden="true" ></span> 
+								<span>Adicionar Endereço</span>
 							</a>
 						</div>	
 					</div>
@@ -95,7 +114,7 @@
 								readonly="readonly" />
 								
 								<input type="hidden" id="tipoPessoa" name="tipo"
-									th:field="*{tipoPessoa}"></input>
+									th:field="*{tipoPessoa}" value=""></input>
 							
 							
 							<div th:if="${pessoas.tipoPessoa} == pf">
@@ -160,10 +179,11 @@
 							<label>Telefone Fixo:</label> <input type="text" class="form-control" id="telefonefixo"
 								autofocus="autofocus" name="telefonefixo" value=""
 								th:field="*{telefonefixo}" />
-
+							
 						</div>
 					</div>	
-					<button type="submit" class="btn btn-primary btn-md">Salvar</button>&nbsp;&nbsp;
+					<button type="submit" class="btn btn-primary btn-md" th:if="${pessoas.tipoPessoa} == 'pf'" th:href="@{/clientesAdm/editarClientes/pf/{id_pessoa}(id_pessoa=${pessoas.id_pessoa})}">Salvar</button>&nbsp;&nbsp;
+					<button type="submit" class="btn btn-primary btn-md" th:unless="${pessoas.tipoPessoa} == 'pf'" th:href="@{/clientesAdm/editarClientes/pj/{id_pessoa}(id_pessoa=${pessoas.id_pessoa})}">Salvar</button>&nbsp;&nbsp;
 				</form>		
 						
 						<div class="table-responsive">
@@ -181,6 +201,7 @@
 										<th>Estado</th>
 										<th>Tipo</th>
 										<th>Editar</th>
+										<th>Apagar</th>
 
 
 									</tr>
@@ -196,7 +217,16 @@
 										<td th:text="${endereco.estado}"></td>
 										<td th:text="${endereco.tipoend}"></td>
 										<td>
-										
+										<a  class="btn btn-info btn-sm" role="button"
+											th:href="@{/clientesAdm/editarEndereco/{id}(id=${endereco.id})}">
+											<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+										</a>
+										</td>
+										<td>
+										<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
+											th:attr="data-id=${endereco.id}, data-actionurl=@{/clientesAdm/deletarEndereco/{id}(id=${endereco.id})}">
+											<i class="oi oi-circle-x"></i>
+										</a>
 										</td>
 									</tr>
 								</table>
@@ -205,13 +235,35 @@
 							<br> 
 							
 							<a href="/clientesAdm" class="btn btn-primary btn-md">Voltar</a>
-						</div>
-
-				
-			
+		</div>
 		</section>
 	
 	</div>
+	
+	 <div>
+	    <div class="modal fade" tabindex="-1" role="dialog" id="excluir">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h5 class="modal-title">Apagar endereço</h5>
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                    </button>
+	                </div>
+	                <div class="modal-body">
+	                    <p></p>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+	                    <form method=GET>
+	                       <button type="submit" class="btn btn-danger">Apagar</button>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        
+	    </div>
+	   </div> 
 
 	<footer class="layout-footer-responsive">
 		<div class="container">

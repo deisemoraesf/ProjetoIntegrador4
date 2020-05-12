@@ -1,11 +1,17 @@
 package com.akatsukidevs.perfumariapi4.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
 import com.sun.istack.NotNull;
@@ -32,13 +38,14 @@ public class Produto implements Serializable {
 	private String perg_resp;
 	private boolean status=true;
 	
-
+	@OneToMany( mappedBy = "produto", fetch = FetchType.LAZY)
+	private Set<FotoProduto> imagens = new HashSet<>();
+	
 	
 	
 	public Produto() {
 		
 	}
-
 
 
 	public Produto(Long id_produto, @NotEmpty String nome_produto, @NotEmpty String desc_produto, double preco,
@@ -53,6 +60,23 @@ public class Produto implements Serializable {
 		this.destaque = destaque;
 		this.perg_resp = perg_resp;
 		this.status = status;
+	}
+	
+	
+	public Produto(Long id_produto, @NotEmpty String nome_produto, @NotEmpty String desc_produto, double preco,
+			String marca, String categoria, boolean destaque, String perg_resp, boolean status,
+			Set<FotoProduto> imagens) {
+		super();
+		this.id_produto = id_produto;
+		this.nome_produto = nome_produto;
+		this.desc_produto = desc_produto;
+		this.preco = preco;
+		this.marca = marca;
+		this.categoria = categoria;
+		this.destaque = destaque;
+		this.perg_resp = perg_resp;
+		this.status = status;
+		this.imagens = imagens;
 	}
 
 
@@ -151,6 +175,16 @@ public class Produto implements Serializable {
 
 	public void setPerg_resp(String perg_resp) {
 		this.perg_resp = perg_resp;
+	}
+
+
+	public Set<FotoProduto> getImagens() {
+		return imagens;
+	}
+
+
+	public void setImagens(Set<FotoProduto> imagens) {
+		this.imagens = imagens;
 	}
 	
 	

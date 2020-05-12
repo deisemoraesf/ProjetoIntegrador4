@@ -127,8 +127,8 @@ public class ClienteController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/clientesAdm/editarClientes/{id_pessoa}", method=RequestMethod.GET)
-	public ModelAndView editarCliente(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
+	@RequestMapping(value="/clientesAdm/editarClientes/pf/{id_pessoa}", method=RequestMethod.GET)
+	public ModelAndView editarClientepf(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/editarCliente");
 		Optional<Pessoa> p = pr.findById(id_pessoa);
 		Pessoa cli = p.get();
@@ -140,25 +140,46 @@ public class ClienteController {
 		
 	}
 	
-	@RequestMapping(value="/clientesAdm/editarClientes/{id_pessoa}", method=RequestMethod.POST)
-	public String salvaEdicao(Pessoa c, RedirectAttributes attribute) {
+	@RequestMapping(value="/clientesAdm/editarClientes/pj/{id_pessoa}", method=RequestMethod.GET)
+	public ModelAndView editarClientepj(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
+		ModelAndView mv = new ModelAndView("/admin/clienteAdm/editarCliente");
+		Optional<Pessoa> p = pr.findById(id_pessoa);
+		Pessoa cli = p.get();
+		mv.addObject("pessoas", cli);
+		mv.addObject("enderecos", cli.getEnderecos());
+		mv.addObject("usuario", cli.getUsuario());
+		attribute.addFlashAttribute("mensagem", "Editado com sucesso");
+		return mv;
 		
-		String tipoPessoa = c.getTipoPessoa();
-		
-		
-		if(tipoPessoa == "pf" && tipoPessoa !=null) {
-			PessoaFisica pf = (PessoaFisica) c;
-			pfr.save(pf);
-		}else if (tipoPessoa == "pj") {
-			PessoaJuridica pj= (PessoaJuridica) c;
-			pjr.save(pj);
-		}
-		
-		attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
-		return ("redirect:/clientesAdm/editarClientes/{id_pessoa}");
-			
-			
 	}
+	
+	
+	@RequestMapping(value="/clientesAdm/editarClientes/pf/{id_pessoa}", method=RequestMethod.POST)
+	public String salvaEdicaoPF(PessoaFisica c, RedirectAttributes attribute) {
+			Set<Endereco> enderecosadicionado = c.getEnderecos();
+			pfr.save(c);
+			Set<Endereco> enderecos = new HashSet<>();
+			for(Endereco end : enderecosadicionado) {
+				enderecos.add(end);
+				er.save(end);
+				c.setEnderecos(enderecos);
+			}
+			pfr.save(c);
+			attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
+			return ("redirect:/clientesAdm/editarClientes/pf/{id_pessoa}");
+		
+	}
+	
+	@RequestMapping(value="/clientesAdm/editarClientes/pj/{id_pessoa}", method=RequestMethod.POST)
+	public String salvaEdicaoPJ(PessoaJuridica c, RedirectAttributes attribute) {
+			Set<Endereco> enderecosadicionado = c.getEnderecos();
+			pjr.save(c);
+			c.setEnderecos(enderecosadicionado);
+			attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
+			return ("redirect:/clientesAdm/editarClientes/pj/{id_pessoa}");
+		
+	}
+	
 	
 	@GetMapping("/clientesAdm/deletarClientes/{id_pessoa}")
 	public String deletarClientes(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute) {
