@@ -27,10 +27,12 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests()
 				// todas as paginas que tem"/" vão ser autenticados por todos
 				// As restantes com hasRole eu identifico quem usar
-				.antMatchers("/").permitAll()
+				.antMatchers("/*").permitAll()
 				.antMatchers("/index").permitAll()
 				.antMatchers("/cliente/**").permitAll()
 				.antMatchers("/clientes/**").permitAll()
+				.antMatchers("*/addcarrinho/*").permitAll()
+				.antMatchers("*/removerItem/*").permitAll()
 				.antMatchers("https://viacep.com.br/**").permitAll()
 				.antMatchers("/admin/").hasAnyRole("ADMIN", "ESTOQUE")
 				.antMatchers("/indexLog").hasAnyRole("ADMIN", "ESTOQUE", "COMPRADOR")
