@@ -1,12 +1,21 @@
 package com.akatsukidevs.perfumariapi4.controller;
 
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.akatsukidevs.perfumariapi4.model.FotoProduto;
+import com.akatsukidevs.perfumariapi4.model.Pessoa;
 import com.akatsukidevs.perfumariapi4.model.Produto;
+import com.akatsukidevs.perfumariapi4.repository.FotoProdutoRepository;
 import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
 
 
@@ -18,14 +27,39 @@ public class IndexController {
 	@Autowired
 	private ProdutoRepositorios pr;
 	
+	@Autowired
+	private FotoProdutoRepository fpr;
+	
 	
 	@GetMapping("/")
 	public ModelAndView listaProdutos() {
 		ModelAndView mv = new ModelAndView("/index");
 		Iterable<Produto> produtos = pr.findByStatus(true);
-			mv.addObject("produtos", produtos);
-			return mv;		
+		mv.addObject("produtos", produtos);
+		return mv;		
 	}
+	
+	@RequestMapping(value="/fotos/{id_produto}", method=RequestMethod.GET)
+	public ModelAndView visualizarFoto(@PathVariable ("id_produto") Long id_produto) {
+		ModelAndView mv = new ModelAndView("/index");
+		Optional<Produto> p = pr.findById(id_produto);
+		Produto prod = p.get();
+		Iterable<FotoProduto> fp = fpr.findByProduto(prod);
+		mv.addObject("fotos", fp);
+		return mv;
+	}
+	
+	@RequestMapping(value="/clientes/produtos/visualizarProdutos/{id_produto}", method=RequestMethod.GET)
+	public ModelAndView visualizarProduto(@PathVariable ("id_produto") Long id_produto) {
+		ModelAndView mv = new ModelAndView("/admin/produtos/detalhesProduto");
+		Optional<Produto> p = pr.findById(id_produto);
+		Produto prod = p.get();
+		Iterable<FotoProduto> fotos = fpr.findByProduto(prod);
+		mv.addObject("produto", prod);
+		mv.addObject("fotos", fotos);
+		return mv;
+	}
+	
 	
 
 	//Index Cliente

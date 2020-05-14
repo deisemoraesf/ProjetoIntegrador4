@@ -165,14 +165,14 @@
 					<div class="card">
 						<img class="card-img-top" th:src="@{/imgCarousel/perfume1-960_540.jpg}">	
 						<div class="card-body">
-							
+							<input type="hidden" th:value="${produto.id_produto}">
 							<h7 name="nome_produto" id="nome do produto" th:text="${produto.nome_produto}"></h7>
 							<br>
 							<br>
 							<label>R$</label><span th:text="${produto.preco}"></span>
 							<br>
 							<br>
-							<a class="btn btn-info btn-sm" href="/detalhesProduto" role="button">Descrição</a>
+							<a class="btn btn-info btn-sm" th:href="@{/clientes/produtos/visualizarProdutos/{id_produto}(id_produto=${produto.id_produto})}" role="button">Descrição</a>
 						    <a class="btn btn-info btn-sm" th:href="@{/addcarrinho/{id_produto}(id_produto=${produto.id_produto})}" role="button">Comprar</a>
 								
 						</div>	
