@@ -105,21 +105,29 @@
 					</thead>
 					<tbody>
 						<tr th:each="item : ${listaItens}">
-							<td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
+							<td><img src="https://dummyimage.com/50x50/55595c/fff" />
+							</td>
 							<td th:text="${item.produto.nome_produto}">Produto Nome</td>
-							
 							<td>Em estoque</td>
+							<td><span th:text="${item.quantidade}"></span>&nbsp;&nbsp; 
 							
-							<td><span th:text="${item.quantidade}"></span>&nbsp;&nbsp;
-								<a class="btn btn-sm btn-primary" th:href="@{/addcarrinho/{id_produto}(id_produto=${item.produto.id_produto})}" role="button"><i class="fa fa-plus"></i></a>
+							<a class="btn btn-sm btn-primary"
+								th:href="@{/alterarQtde/{id_produto}/{acao}(id_produto=${item.produto.id_produto},acao=${1})}"
+								role="button"><i class="fa fa-plus"></i></a>
 								
-								<button class="btn btn-sm btn-primary"><i class="fa fa-minus"></i></button>
+								
+							<a class="btn btn-sm btn-primary"
+								th:href="@{/alterarQtde/{id_produto}/{acao}(id_produto=${item.produto.id_produto},acao=${0})}"
+								role="button"><i class="fa fa-minus"></i></a>						
 							</td>
 
-							<td class="text-right" th:text="${item.valorTotal}"></td>
-							
-							<td class="text-right"><a class="btn btn-sm btn-danger" th:href="@{/removerItem/{id_produto}(id_produto=${item.produto.id_produto})}" role="button"><i class="fa fa-trash"></i></a></td>
-							
+							<td class="text-right" th:text="${item.valorTotal}">
+							</td>
+
+							<td class="text-right"><a class="btn btn-sm btn-danger"
+								th:href="@{/removerItem/{id_produto}(id_produto=${item.produto.id_produto})}"
+								role="button"><i class="fa fa-trash"></i></a></td>
+
 						</tr>
 						<tr>
 							<td></td>
@@ -127,7 +135,7 @@
 							<td></td>
 							<td></td>
 							<td>Sub-Total</td>
-							<td class="text-right">R$ 100</td>
+							<td class="text-right">R$ <span th:text="${compra.valorTotal}"></span></td>
 						</tr>
 						<tr>
 							<td></td>
@@ -143,7 +151,7 @@
 							<td></td>
 							<td></td>
 							<td><strong>Total</strong></td>
-							<td class="text-right"><strong>R$ 346,90</strong></td>
+							<td class="text-right"><strong>R$ <span th:text="${compra.valorTotal}"></strong></td>
 						</tr>
 					</tbody>
 				</table>

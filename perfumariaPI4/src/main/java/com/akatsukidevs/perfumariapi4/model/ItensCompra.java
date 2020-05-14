@@ -22,9 +22,9 @@ public class ItensCompra implements Serializable {
 	@ManyToOne
 	private Compra compra;
 	
-	private Integer quantidade = 0;
-	private Double valorUnitario;
-	private Double valorTotal;
+	private Integer quantidade;
+	private Double valorUnitario=0.;
+	private Double valorTotal=0.;
 	
 	
 	public Double getValorTotal() {
@@ -52,6 +52,9 @@ public class ItensCompra implements Serializable {
 		this.compra = compra;
 	}
 	public Integer getQuantidade() {
+		if(quantidade==null) {
+			quantidade = 0;
+		}
 		return quantidade;
 	}
 	public void setQuantidade(Integer quantidade) {
