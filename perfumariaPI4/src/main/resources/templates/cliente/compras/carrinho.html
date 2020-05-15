@@ -112,14 +112,14 @@
 							
 							<td>							
 							<a class="btn btn-sm btn-primary"
-								th:href="@{/alterarQtde/{id_produto}/{acao}(id_produto=${item.produto.id_produto},acao=${1})}"
+								th:href="@{/carrinho/alterarQtde/{id_produto}/{acao}(id_produto=${item.produto.id_produto},acao=${1})}"
 								role="button"><i class="fa fa-plus"></i></a>&nbsp;&nbsp;
 							
 							<span th:text="${item.quantidade}"></span>&nbsp;&nbsp; 
 								
 								
 							<a class="btn btn-sm btn-primary"
-								th:href="@{/alterarQtde/{id_produto}/{acao}(id_produto=${item.produto.id_produto},acao=${0})}"
+								th:href="@{/carrinho/alterarQtde/{id_produto}/{acao}(id_produto=${item.produto.id_produto},acao=${0})}"
 								role="button"><i class="fa fa-minus"></i></a>						
 							</td>
 
@@ -127,7 +127,7 @@
 							</td>
 
 							<td class="text-right"><a class="btn btn-sm btn-danger"
-								th:href="@{/removerItem/{id_produto}(id_produto=${item.produto.id_produto})}"
+								th:href="@{/carrinho/removerItem/{id_produto}(id_produto=${item.produto.id_produto})}"
 								role="button"><i class="fa fa-trash"></i></a></td>
 
 						</tr>

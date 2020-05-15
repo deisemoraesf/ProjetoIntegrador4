@@ -41,7 +41,7 @@ public class CarrinhoController {
 	}
 	
 
-	@GetMapping("/addcarrinho/{id}")
+	@GetMapping("/carrinho/addcarrinho/{id}")
 	public String addCarrinho(@PathVariable Long id) {
 		
 		Optional<Produto> prod = pr.findById(id);
@@ -70,7 +70,7 @@ public class CarrinhoController {
 	
 	
 	
-	@GetMapping("/alterarQtde/{id}/{acao}")
+	@GetMapping("/carrinho/alterarQtde/{id}/{acao}")
 	public String alterarQtde(@PathVariable Long id, @PathVariable Integer acao) {
 				
 		for(ItensCompra it:itensCompra) {
@@ -92,7 +92,7 @@ public class CarrinhoController {
 	
 	
 		
-	@GetMapping("/removerItem/{id}")
+	@GetMapping("/carrinho/removerItem/{id}")
 	public String removerItemCarrinho(@PathVariable Long id) {
 				
 		for(ItensCompra it:itensCompra) {
