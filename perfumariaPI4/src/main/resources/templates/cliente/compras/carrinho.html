@@ -11,7 +11,7 @@
 	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
 	crossorigin="anonymous">
 
-<title>Perfumaria</title>
+<title>Perfumaria - Carrinho de Compra</title>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
@@ -98,7 +98,7 @@
 							<th scope="col"></th>
 							<th scope="col">Produto</th>
 							<th scope="col">Estoque</th>
-							<th scope="col" class="text-center">Quantidade</th>
+							<th scope="col" class="text-left">Quantidade</th>
 							<th scope="col" class="text-right">Preço</th>
 							<th></th>
 						</tr>
@@ -109,11 +109,13 @@
 							</td>
 							<td th:text="${item.produto.nome_produto}">Produto Nome</td>
 							<td>Em estoque</td>
-							<td><span th:text="${item.quantidade}"></span>&nbsp;&nbsp; 
 							
+							<td>							
 							<a class="btn btn-sm btn-primary"
 								th:href="@{/alterarQtde/{id_produto}/{acao}(id_produto=${item.produto.id_produto},acao=${1})}"
-								role="button"><i class="fa fa-plus"></i></a>
+								role="button"><i class="fa fa-plus"></i></a>&nbsp;&nbsp;
+							
+							<span th:text="${item.quantidade}"></span>&nbsp;&nbsp; 
 								
 								
 							<a class="btn btn-sm btn-primary"
@@ -159,12 +161,10 @@
 			<div class="col mb-2">
 				<div class="row">
 					<div class="col-sm-12  col-md-6">
-						<button class="btn btn-block btn-light">Continuar
-							Comprando</button>
+						<a class="btn btn-block btn-light" href="/" role="button">Continuar Comprando</a>	
 					</div>
 					<div class="col-sm-12 col-md-6 text-right">
-						<button class="btn btn-lg btn-block btn-success text-uppercase">Finalizar
-							Compra</button>
+						<a class="btn btn-lg btn-block btn-success text-uppercase" th:href="finalizar" role="button">Finalizar Compra</a>
 					</div>
 				</div>
 			</div>
