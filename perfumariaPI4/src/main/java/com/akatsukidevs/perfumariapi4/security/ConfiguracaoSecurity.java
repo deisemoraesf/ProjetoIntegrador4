@@ -36,6 +36,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("*/removerItem/*").permitAll()
 				.antMatchers("*/addcarrinho/*").permitAll()
 				.antMatchers("*/removerItem/*").permitAll()
+				.antMatchers("/finalizar/*").permitAll()
 				.antMatchers("/clientes/produtos/visualizarProdutos/**").permitAll()
 				.antMatchers("https://viacep.com.br/**").permitAll()
 				.antMatchers("/admin/").hasAnyRole("ADMIN", "ESTOQUE")
