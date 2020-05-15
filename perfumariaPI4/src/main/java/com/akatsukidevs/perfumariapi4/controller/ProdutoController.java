@@ -49,7 +49,7 @@ public class ProdutoController {
 	@SuppressWarnings("null")
 	@RequestMapping(value="/produtos/cadastrarProduto", method=RequestMethod.POST)
 	public String salvar(Produto produto, @RequestParam("files") MultipartFile [] files, BindingResult result, RedirectAttributes attribute) {
-		String urlPasta = "C:/Users/Deise/Documents/workspace-spring-tool-suite-4-4.5.1.RELEASE/perfumariaPI4/src/main/resources/static/";
+		String urlPasta = "C:/Users/Igor/Documents/Trabalho Tsuda/Teste";
 		
 		if(result.hasErrors()) {
 			attribute.addFlashAttribute("mensagem: ", "Verifique os campos em branco"); 
