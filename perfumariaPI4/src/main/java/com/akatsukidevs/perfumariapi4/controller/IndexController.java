@@ -1,8 +1,6 @@
 package com.akatsukidevs.perfumariapi4.controller;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.akatsukidevs.perfumariapi4.model.FotoProduto;
-import com.akatsukidevs.perfumariapi4.model.Pessoa;
 import com.akatsukidevs.perfumariapi4.model.Produto;
 import com.akatsukidevs.perfumariapi4.repository.FotoProdutoRepository;
 import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
@@ -37,16 +34,6 @@ public class IndexController {
 		Iterable<Produto> produtos = pr.findByStatus(true);
 		mv.addObject("produtos", produtos);
 		return mv;		
-	}
-	
-	@RequestMapping(value="/fotos/{id_produto}", method=RequestMethod.GET)
-	public ModelAndView visualizarFoto(@PathVariable ("id_produto") Long id_produto) {
-		ModelAndView mv = new ModelAndView("/index");
-		Optional<Produto> p = pr.findById(id_produto);
-		Produto prod = p.get();
-		Iterable<FotoProduto> fp = fpr.findByProduto(prod);
-		mv.addObject("fotos", fp);
-		return mv;
 	}
 	
 	@RequestMapping(value="/clientes/produtos/visualizarProdutos/{id_produto}", method=RequestMethod.GET)

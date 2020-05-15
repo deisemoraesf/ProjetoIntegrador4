@@ -36,6 +36,7 @@ public class Produto implements Serializable {
 	private String perg_resp;
 	private boolean status=true;
 	
+	
 	@OneToMany( mappedBy = "produto", fetch = FetchType.LAZY)
 	private Set<FotoProduto> imagens = new HashSet<>();
 	
