@@ -29,7 +29,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				// As restantes com hasRole eu identifico quem usar
 				.antMatchers("/").permitAll()
 				.antMatchers("/index").permitAll()
-				.antMatchers("/cliente/**").permitAll()
+				.antMatchers("/categorias/**").permitAll()
 				.antMatchers("/clientes/**").permitAll()
 				.antMatchers("/acessofoto/**").permitAll()
 				.antMatchers("/carrinho/**").permitAll()
@@ -40,6 +40,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/indexLog").hasAnyRole("ADMIN", "ESTOQUE", "COMPRADOR")
 				.antMatchers("/usuarios/**").hasAnyRole("ADMIN")
 				.antMatchers("/clientesAdm/**").hasAnyRole("ADMIN")
+				
 				.antMatchers("/produtos/**").hasAnyRole("ADMIN", "ESTOQUE")
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 				.successHandler(myAuthenticationSuccessHandler())
@@ -89,7 +90,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 		
 	}
 
-	// para não bloaquear paginas estaticas, passa as pastas para o spring security ignorar
+	// para não bloquear paginas estaticas, passa as pastas para o spring security ignorar
 	@Override
 	public void configure(WebSecurity WEB) throws Exception {
 		WEB.ignoring().antMatchers("/css/**", "/image/**","/imgCarousel/**");

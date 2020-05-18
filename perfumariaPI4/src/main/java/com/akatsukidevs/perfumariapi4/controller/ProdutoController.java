@@ -31,7 +31,6 @@ import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
 public class ProdutoController {
 	
 	
-	
 	@Autowired
 	private ProdutoRepositorios pr;
 	

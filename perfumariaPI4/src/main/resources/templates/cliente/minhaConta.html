@@ -47,18 +47,16 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
 
-			<img height="80px" src="imgCarousel/logoakatsukidevs.jpg"
-				alt="akatsukidevs" class="rounded-sm">
-
+		<a class="nav-link" href="/"><img height="80px" th:src="@{/imgCarousel/logoakatsukidevs.jpg}" alt="akatsukidevs" class="rounded-sm"></a>
 
 			<div class="collapse navbar navbar-collapse" id="navbarSite">
-				<ul class="navbar-nav mr-auto">
-					<!--mr-auto deixa a margem a direita (ml-auto na esquerda)-->
-					<li class="nav-iem"><a class="nav-link" href="#">Masculino</a>
+                <ul class="navbar-nav mr-auto">
+                    <!--mr-auto deixa a margem a direita (ml-auto na esquerda)-->
+					<li class="nav-iem"><a class="nav-link" href="/categorias/masculino">Masculino</a>
 					</li>
-					<li class="nav-iem"><a class="nav-link" href="#">Feminino</a>
+					<li class="nav-iem"><a class="nav-link" href="/categorias/feminino">Feminino</a>
 					</li>
-					<li class="nav-iem"><a class="nav-link" href="#">Infantil</a>
+					<li class="nav-iem"><a class="nav-link" href="/categorias/infantil">Infantil</a>
 					</li>
 				</ul>
 

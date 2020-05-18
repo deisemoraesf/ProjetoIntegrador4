@@ -27,10 +27,19 @@ public class IndexController {
 	@Autowired
 	private FotoProdutoRepository fpr;
 	
-	
+	//Direcionamento para o Index
 	@GetMapping("/")
-	public ModelAndView listaProdutos() {
+	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView("/index");
+		Iterable<Produto> produtos = pr.findByStatus(true);
+		mv.addObject("produtos", produtos);
+		return mv;		
+	}
+
+	//Direcionamento para o Index com cliente logado
+	@GetMapping("/indexLog")
+	public ModelAndView indexLog() {
+		ModelAndView mv = new ModelAndView("/indexLogado");
 		Iterable<Produto> produtos = pr.findByStatus(true);
 		mv.addObject("produtos", produtos);
 		return mv;		
@@ -47,20 +56,7 @@ public class IndexController {
 		return mv;
 	}
 	
-	
-
-	//Index Cliente
-	@RequestMapping("/index")//toda vez que digitar / vai para o Index
-	public String index() {
-		return("index");
-	}
-	
-	//Index Cliente
-	@RequestMapping("/indexLog")//toda vez que digitar / vai para o Index
-	public String indexLogado() {
-		return("indexLogado");
-		}
-	
+			
 	//Index Administrativo
 	@GetMapping("/admin/")
 	public String admin() {
@@ -80,23 +76,23 @@ public class IndexController {
 	}
 	
 	//Direcionar pagina de categoria
-	@GetMapping("cliente/masculino")
+	@GetMapping("categorias/masculino")
 	public String masculino() {
-		return ("clienteProdutos/masculino");
+		return ("categorias/masculino");
 	}
 	
 	
 	//Direcionar pagina de categoria
-	@GetMapping("cliente/feminino")
+	@GetMapping("categorias/feminino")
 	public String feminino() {
-		return ("clienteProdutos/feminino");
+		return ("categorias/feminino");
 	}
 	
 	
 	//Direcionar pagina de categoria
-	@GetMapping("cliente/infantil")
+	@GetMapping("categorias/infantil")
 	public String infantil() {
-		return ("clienteProdutos/infantil");
+		return ("categorias/infantil");
 	}
 	
 	
