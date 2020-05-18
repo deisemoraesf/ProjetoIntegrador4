@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Perfumaria Adm - Cadastro Cliente]</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<link rel="icon" href="/image/favicon.png" />
+
+<!-- Bootstrap core CSS -->
+<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css"
+	rel="stylesheet" />
+
+<!-- Custom styles for this template -->
+<link href="/css/style.css" rel="stylesheet" />
+
+<!-- Adicionando Javascript -->
+    <script type="text/javascript" >
+    
+    function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.
+            document.getElementById('rua').value=("");
+            document.getElementById('bairro').value=("");
+            document.getElementById('cidade').value=("");
+            document.getElementById('estado').value=("");
+            //document.getElementById('ibge').value=("");
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('rua').value=(conteudo.logradouro);
+            document.getElementById('bairro').value=(conteudo.bairro);
+            document.getElementById('cidade').value=(conteudo.localidade);
+            document.getElementById('estado').value=(conteudo.uf);
+            //document.getElementById('ibge').value=(conteudo.ibge);
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+        
+    function pesquisacep(valor) {
+
+        //Nova variável "cep" somente com dígitos.
+        var cep = valor.replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if(validacep.test(cep)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('rua').value="...";
+                document.getElementById('bairro').value="...";
+                document.getElementById('cidade').value="...";
+                document.getElementById('estado').value="...";
+                //document.getElementById('ibge').value="...";
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+                script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+
+            } //end if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        } //end if.
+        else {
+            //cep sem valor, limpa formulário.
+            limpa_formulário_cep();
+        }
+    };
+
+    </script>
+</head>
+
+<body>
+	<header>
+		<nav
+			class="navbar navbar-inverse navbar navbar-dark bg-dark fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="btn btn-dark navbar-toggle pull-left">
+						<i class="oi oi-menu"></i>
+					</button>
+					<a class="navbar-brand navbar-toggle pull-left" href="/admin/">Painel de Controle</a>
+				</div>
+				<ul class="navbar-nav ml-auto"> 
+                     <li class="nav-item dropdown" style="color:white">Seja Bem vindo,
+                    	<span class="badge badge-dark" sec:authentication="name"></span>
+                    	<span class="badge badge-dark" sec:authentication="principal.authorities"></span>
+                        <a class="btn btn-outline-light" href="/logout" >Sair</a>
+                        
+                    </li>
+                </ul>
+			</div>
+		</nav>
+	</header>
+
+	<div class="row justify-content-center">
+		<nav aria-label="Navegação de página exemplo">
+			<ul class="pagination pagination-md">
+				<li class="page-item active"><a class="page-link"
+					href="/clientesAdm/cadastrarCliente">Pessoa Física</a></li>
+				<li class="page-item"><a class="page-link"
+					href="/clientesAdm/cadastrarCliente/PJ">Pessoa Jurídica</a></li>
+			</ul>
+		</nav>
+	</div>
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-10">
+				<form method="POST">
+					<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert"></div>
+					<div class="card shadow-lg border-0 rounded-lg mt-10">
+
+						<div class="card-header">
+							<h3 class="text-center font-weight-light my-10">Usuário</h3>
+						</div>
+						<div class="card-body">
+
+							<div class="form-group">
+								
+								<label class="small mb-1" for="inputEmailAdress">E-mail:</label>
+								<input type="email" class="form-control py-4" id="email" name="email"
+									placeholder="Digite seu e-mail" value="">
+							
+								<label class="small mb-1" for="password">Senha:</label> <input
+									type="password" class="form-control py-4" id="senha" name="senha"
+									placeholder="Digite sua senha" value="">
+							
+								<input type="hidden" id="tipo" name="tipo"
+									value="ROLE_COMPRADOR"></input>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="card shadow-lg border-0 rounded-lg mt-4">
+
+						<div class="card-header">
+							<h3 class="text-center font-weight-light my-10">Pessoa
+								Física</h3>
+						</div>
+						<div class="card-body">
+
+							<div class="form-group">
+								
+								<label class="small mb-1" for="inputEmailAdress">Nome:</label> <input
+									type="text" class="form-control py-4" id="nome" name="nome"
+									placeholder="Digite seu nome" value="">
+							
+							
+								<label class="small mb-1" for="password">Nome Social:</label> <input
+									type="text" class="form-control py-4" id="nome2"
+									name="nome2" value=""
+									placeholder="Digite como gostaria de ser chamado">
+							
+							
+								<label class="small mb-1" for="cpf">CPF</label> <input
+									type="text" class="form-control py-4" id="cpf" name="cpf"
+									placeholder="Digite o CPF" value="">
+							
+								<label class="small mb-1" for="dtnasc">Data Nascimento:</label>
+								<input type="date" class="form-control py-4" id="dtnascimento"
+									name="dtnascimento" placeholder="Data Nascimento" value="">
+							
+							    <label for="nome">Gênero</label> 
+							    <select class="form-control" id="genero" name="genero">
+								<option value="teste"></option>
+								<option value="feminino">Feminino</option>
+								<option value="masculino">Masculino</option>
+								<option value="transgenero">Transgênero</option>
+								</select><br>
+							
+								<label class="small mb-1" for="celular">Celular:</label> <input
+									type="text" class="form-control py-4" id="celular" value=""
+									name="celular" placeholder="Digite número do celular">
+							
+								<label class="small mb-1" for="telefone">Telefone Fixo:</label>
+								<input type="text" class="form-control py-4" id="telefonefixo" value=""
+									name="telefonefixo" placeholder="Digite número do telefone fixo">
+							</div>
+
+
+						</div>
+					</div>
+					<div class="card shadow-lg border-0 rounded-lg mt-4" >
+
+						<div class="card-header">
+							<h3 class="text-center font-weight-light my-10">Endereço</h3>
+						</div>
+						<div class="card-body">
+						<div class="form-group  mr-sm-2" th:action="@{https://viacep.com.br/ws/{cep}/json/}">
+								
+								<label class="small mb-1" for="tipoend">Local:</label> <input
+									type="text" class="form-control py-4" id="tipoend" name="tipoend"
+									placeholder="Exemplo: Casa, Comercial" value="">
+							
+							
+								<label class="small mb-1" for="cep">CEP:</label> 
+								<input type="text" class="form-control py-4" id="cep" name="cep" 
+									placeholder="Digite seu CEP" onblur="pesquisacep(this.value);"/>
+									
+																
+								<label class="small mb-1" for="endereco">Logradouro:</label> 
+								<input type="text" class="form-control py-4" id="rua" name="rua"
+									placeholder="Digite o lograduro" value="">
+							
+								<label class="small mb-1" for="numero">Número:</label> <input
+									type="text" class="form-control py-4" id="numero" name="numero"
+									placeholder="Digite o número" value="">
+							
+								<label class="small mb-1" for="complemento">Complemento:</label>
+								<input type="text" class="form-control py-4" id="complemento"
+									name="complemento" placeholder="Digite o Complemento" value="">
+							
+								<label class="small mb-1" for="bairro">Bairro:</label> <input
+									type="text" class="form-control py-4" id="bairro" name="bairro"
+									placeholder="Digite o Bairro" value="" >
+							
+								<label class="small mb-1" for="cidade">Cidade:</label> <input
+									type="text" class="form-control py-4" id="cidade"
+									name="cidade" placeholder="Digite a Cidade" value="" >
+							
+								<label class="small mb-1" for="estado">Estado:</label> <input
+									type="text" class="form-control py-4" id="estado"
+									name="estado" placeholder="Digite o Estado" value="">
+									
+							</div>
+						
+						</div>
+						
+					</div>
+
+					<div class="row justify-content-center">
+						<button type="submit" class="btn btn-primary btn-md">Salvar</button>
+						&nbsp;&nbsp;&nbsp; <a href="/clientesAdm" class="btn btn-primary btn-md" >Voltar</a>						
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__-->
+
+	<div class="footer">
+		<footer class="py-2 bg-dark mt-auto">
+			<div class="container-fluid">
+				<div class="d-flex align-items-center justify-content-between small">
+					<div class="text-muted">Projeto integrador 4</div>
+					<div class="text-muted">Akatsuki Devs</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
