@@ -9,8 +9,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/acessofoto/*")
-		.addResourceLocations("file:///C:/Users/Igor/Documents/Trabalho Tsuda/Teste");
+		registry.addResourceHandler("/acessofoto/**")
+		//manter o file:/// toda cez que trocar a pasta, e reiniciar a Aplicação
+		.addResourceLocations("file:///C:/Users/Deise/Documents/workspace-spring-tool-suite-4-4.5.1.RELEASE/perfumariaPI4/src/main/resources/static/");
 
 	}
 

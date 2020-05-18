@@ -28,7 +28,7 @@ public class FotoProduto implements Serializable {
 	
 	private boolean status=true;
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
 	
@@ -41,23 +41,20 @@ public class FotoProduto implements Serializable {
 	
 
 
-	public FotoProduto(Long id_foto, @NotEmpty String url, @NotEmpty String name, boolean status) {
-		super();
+	public FotoProduto(Long id_foto, @NotEmpty String url, @NotEmpty String name) {
 		this.id_foto = id_foto;
 		this.url = url;
 		this.name = name;
-		this.status = status;
+		
 	}
 
 
 
 
-	public FotoProduto(Long id_foto, @NotEmpty String url, @NotEmpty String name, boolean status, Produto produto) {
-		super();
+	public FotoProduto(Long id_foto, @NotEmpty String url, @NotEmpty String name, Produto produto) {
 		this.id_foto = id_foto;
 		this.url = url;
 		this.name = name;
-		this.status = status;
 		this.produto = produto;
 	}
 

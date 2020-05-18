@@ -1,52 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
-				   xmlns:th="http://www.thymeleaf.org"
-				   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-				   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html layout:decorate="~{/admin/modeloHome}">
 <head>
-<title>Perfumaria</title>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<link rel="icon" href="/image/favicon.png" />
+	<title>Perfumaria</title>
+ 	<meta charset="UTF-8"/>
+	<script th:inline="javascript">
+    $(function() {
+        $('#excluir').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var idUsuario = button.data('id')
+            var actionUrl = button.data('actionurl');
+            var modal = $(this);
+            modal.find('.modal-title').text('Apagar Foto');
+            modal.find('.modal-body p').text('Deseja apagar a Foto '+ idUsuario+'?');
+            modal.find('.modal-footer form').attr('action', actionUrl);
+        });
+    });
+</script>
 
-<!-- Bootstrap core CSS -->
-<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css"
-	rel="stylesheet" />
-
-<!-- Custom styles for this template -->
-<link href="/css/style.css" rel="stylesheet" />
 </head>
 <body>
-	<header>
-		<nav
-			class="navbar navbar-inverse navbar navbar-dark bg-dark fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="btn btn-dark navbar-toggle pull-left">
-						<i class="oi oi-menu"></i>
-					</button>
-					<a class="navbar-brand navbar-toggle pull-left" href="/admin/">Painel
-						de Controle</a>
-				</div>
-				<ul class="navbar-nav ml-auto"> 
-                    <li class="nav-item dropdown">
-                    	
-                        <a class="btn btn-outline-light" href="/logout" >Sair</a>
-                        
-                    </li>
-                </ul>
-			</div>
-		</nav>
-	</header>
-
-	<div class="layout-main">
-
-
+	<div layout:fragment="conteudo">
 
 		<section class="layout-content">
 			<div class="page-header">
@@ -62,7 +35,7 @@
 
 			<div class="container" id="cadastro">
 
-				<form method="POST" th:object="${produto}">
+				<form method="POST" th:object="${produto}" enctype="multipart/form-data">
 				<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert">
 						
 					</div>	
@@ -70,53 +43,50 @@
 
 						<div class="form-group col-md-6">
 							<label for="nome">Id</label> <input type="text"
-								class="form-control" id="id_produto" placeholder="Id Produto"
-								utofocus="autofocus" name="id_produto" value=""
+								class="form-control" id="id_produto"
+								autofocus="autofocus" name="id_produto" value=""
 								th:field="*{id_produto}" readonly="readonly" />
 							<div class="invalid-feedback"></div></br>
 
-							<label for="nome">Nome do Produto</label> <input type="text"
-								class="form-control" id="nome_produto" placeholder="nome_produto"
-								utofocus="autofocus" name="nome_produto" value="" th:field="*{nome_produto}" />
+							<label for="nome" sec:authorize="hasRole('ADMIN')">Nome do Produto</label> <input type="text"
+								class="form-control" id="nome_produto"
+								autofocus="autofocus" name="nome_produto" value="" th:field="*{nome_produto}" sec:authorize="hasRole('ADMIN')" />
 							<div class="invalid-feedback"></div></br>
 							
-						    <label for="nome">Preço do Produto</label> <input type="text"
-								class="form-control" id="preco" placeholder="preco"
-								utofocus="autofocus" name="preco" size="20" value=""
-								th:field="*{preco}" />
+							<label for="nome">Adicionar Quantidade</label> <input type="text"
+								class="form-control" id="quantidade" 
+								autofocus="autofocus" name="quantidade" value="" />
 							<div class="invalid-feedback"></div></br>
 							
-							<label for="nome">Descrição do Produto</label>			
+						    <label for="nome" sec:authorize="hasRole('ADMIN')">Preço do Produto</label> <input type="text"
+								class="form-control" id="preco"
+								autofocus="autofocus" name="preco" size="20" value=""
+								th:field="*{preco}" sec:authorize="hasRole('ADMIN')" />
+							<div class="invalid-feedback"></div></br>
+							
+							<label for="nome" sec:authorize="hasRole('ADMIN')">Descrição do Produto</label>			
 							<textarea class="form-control" id="desc_produto" placeholder=""
-							  	 utofocus="autofocus" name="desc_produto" value="" th:field="*{desc_produto}" rows="4" cols="50">								
+							  	 autofocus="autofocus" name="desc_produto" value="" th:field="*{desc_produto}" rows="4" cols="50" sec:authorize="hasRole('ADMIN')">								
 							</textarea></br>  
-							
-						   	<label for="nome">Marca</label> <select
-								class="form-control" id="marca" name="marca" th:field="*{marca}">
-								<option value="teste"></option>
-								<option value="Bvlgari">Bvlgari</option>
-								<option value="Carolina Herrera">Carolina Herrera</option>
-								<option value="Calvin Klein">Calvin Klein</option>
-								<option value="Chanel">Chanel</option>
-								<option value="Dior">Dior</option>
-								<option value="Dolce & Gabanna">Dolce & Gabanna</option>
-								<option value="Giorgio Armani">Giorgio Armani</option>
-								<option value="Paco Rabanne">Paco Rabanne</option>
-								<option value="Ralph Lauren">Ralph Lauren</option>
-							</select><br>
-							
-					    	<label for="nome">Categoria</label> <select
-								class="form-control" id="categoria" name="categoria" th:field="*{categoria}">
+													   
+					    	<label for="nome" sec:authorize="hasRole('ADMIN')">Categoria</label> <select
+								class="form-control" id="categoria" name="categoria" th:field="*{categoria}" sec:authorize="hasRole('ADMIN')">
 							<option value="teste"></option>
 								<option value="Feminino">Feminino</option>
 								<option value="Masculino">Masculino</option>
 								<option value="Infantil">Infantil</option>
 							</select><br>
 												
-							<label for="nome">Perguntas e Respostas</label>			
+							<label for="nome" sec:authorize="hasRole('ADMIN')">Perguntas e Respostas</label>			
 							<textarea class="form-control" id="perg_resp" placeholder=""
-							  	 utofocus="autofocus" name="perg_resp" value="" th:field="*{perg_resp}" rows="4" cols="50">								
+							  	 autofocus="autofocus" name="perg_resp" value="" th:field="*{perg_resp}" rows="4" cols="50" sec:authorize="hasRole('ADMIN')">								
 							</textarea></br> 
+							
+							<br>
+							<label for="myfile">Selecione uma imagem:</label></br>
+							<input type="file" id="files" name="files">
+	                        <br>
+	                        <br>
 							
 							<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
 							<a href="/produtos/listarProdutos" class="btn btn-primary btn-sm">Voltar</a>
@@ -128,36 +98,61 @@
 						</div>
 					</div>
 				</form>
+				
+				<div class="table-responsive" sec:authorize="hasRole('ADMIN')" th:atrr="fotos">
+							<h4>Fotos</h4>
+								<table class="table table-striped " >
+
+									<tr>
+										<th>ID</th>
+										<th>Nome</th>
+										<th>Excluir</th>
+										
+									</tr>
+
+									<tr th:each="foto : ${fotos}">
+										<td th:text="${foto.id_foto}"></td>
+										<td th:text="${foto.name}"></td>
+																									
+										<td>
+										<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
+										   th:attr="data-id=${foto.id_foto}, data-actionurl=@{/fotos/excluir/{id_foto}(id_foto=${foto.id_foto})}">
+										   <i class="oi oi-circle-x"></i>
+										</a>
+										</td>
+										
+									</tr>
+								</table>
+							</div>
+				
+				
 			</div>
 		</section>
-
+		
+		 <div class="modal fade" tabindex="-1" role="dialog" id="excluir">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h5 class="modal-title">Apagar foto</h5>
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                    </button>
+	                </div>
+	                <div class="modal-body">
+	                    <p></p>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+	                    <form method=GET>
+	                       <button type="submit" class="btn btn-danger">Apagar</button>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        
+	    </div>
+		
 	</div>
-
-	<footer class="layout-footer-responsive">
-		<div class="container">
-			<span class="footer-copy">&copy; 2020 Akatsuki. @Todos os
-				direitos reservados.</span>
-		</div>
-	</footer>
-
-	<!-- Bootstrap core JavaScript
-================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="/webjars/jquery/jquery.min.js"></script>
-	<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			$('[data-toggle="popover"]').popover();
-		});
-
-		$(document).ready(function() {
-			$(".navbar-toggle").click(function() {
-				$(".sidebar").toggleClass("sidebar-open");
-			})
-		});
-	</script>
+	
 </body>
 </html>

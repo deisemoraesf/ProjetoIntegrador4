@@ -26,15 +26,22 @@ public class Produto implements Serializable {
 	
 	@NotEmpty
 	private String nome_produto;
+	
 	@NotEmpty
 	private String desc_produto;
+	
 	@NotNull
 	private double preco;
-	private String marca;
+	
+	@NotNull
 	private String categoria;
-	private boolean destaque=false;
+	
 	private String perg_resp;
+	
 	private boolean status=true;
+	
+	@NotNull
+	private int quantidade;
 	
 	
 	@OneToMany( mappedBy = "produto", fetch = FetchType.LAZY)
@@ -46,33 +53,18 @@ public class Produto implements Serializable {
 		
 	}
 
-
 	public Produto(Long id_produto, @NotEmpty String nome_produto, @NotEmpty String desc_produto, double preco,
-			String marca, String categoria, boolean destaque, String perg_resp, boolean status) {
-		this.id_produto = id_produto;
-		this.nome_produto = nome_produto;
-		this.desc_produto = desc_produto;
-		this.preco = preco;
-		this.marca = marca;
-		this.categoria = categoria;
-		this.destaque = destaque;
-		this.perg_resp = perg_resp;
-		this.status = status;
-	}
-	
-	
-	public Produto(Long id_produto, @NotEmpty String nome_produto, @NotEmpty String desc_produto, double preco,
-			String marca, String categoria, boolean destaque, String perg_resp, boolean status,
+			String categoria, String perg_resp, boolean status, int quantidade,
 			Set<FotoProduto> imagens) {
+		super();
 		this.id_produto = id_produto;
 		this.nome_produto = nome_produto;
 		this.desc_produto = desc_produto;
 		this.preco = preco;
-		this.marca = marca;
 		this.categoria = categoria;
-		this.destaque = destaque;
 		this.perg_resp = perg_resp;
 		this.status = status;
+		this.quantidade = quantidade;
 		this.imagens = imagens;
 	}
 
@@ -126,20 +118,7 @@ public class Produto implements Serializable {
 		this.status = status;
 	}
 
-
-
-	public String getMarca() {
-		return marca;
-	}
-
-
-
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
-
-
-
+	
 	public String getCategoria() {
 		return categoria;
 	}
@@ -149,19 +128,6 @@ public class Produto implements Serializable {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-
-
-
-	public boolean isDestaque() {
-		return destaque;
-	}
-
-
-
-	public void setDestaque(boolean destaque) {
-		this.destaque = destaque;
-	}
-
 
 
 	public String getPerg_resp() {
@@ -182,6 +148,14 @@ public class Produto implements Serializable {
 
 	public void setImagens(Set<FotoProduto> imagens) {
 		this.imagens = imagens;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 	
 	

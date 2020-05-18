@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,13 +49,13 @@ public class ProdutoController {
 	@SuppressWarnings("null")
 	@RequestMapping(value="/produtos/cadastrarProduto", method=RequestMethod.POST)
 	public String salvar(Produto produto, @RequestParam("files") MultipartFile [] files, BindingResult result, RedirectAttributes attribute) {
-		String urlPasta = "C:/Users/Igor/Documents/Trabalho Tsuda/Teste";
+		String urlPasta = "C:/Users/Deise/Documents/workspace-spring-tool-suite-4-4.5.1.RELEASE/perfumariaPI4/src/main/resources/static/";
 		
 		if(result.hasErrors()) {
-			attribute.addFlashAttribute("mensagem: ", "Verifique os campos em branco"); 
+			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
 		}
 		if(files.length == 0) {
-			attribute.addFlashAttribute("mensagem: ", "Arquivo Invalido"); 
+			attribute.addFlashAttribute("mensagem", "Arquivo Invalido"); 
 		}
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
@@ -74,13 +75,13 @@ public class ProdutoController {
 			try {
 				Files.write(diretorio, file.getBytes());
 			} catch (IOException e) {
-				attribute.addFlashAttribute("mensagem: ", "Erro: "+e.getMessage()); 
+				attribute.addFlashAttribute("mensagem", "Erro: "+e.getMessage()); 
 			}
 		}
 		
 				
 		pr.save(produto);
-		attribute.addFlashAttribute("mensagem: ", "Salvo com sucesso");
+		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/produtos/cadastrarProduto");
 	}
 
@@ -99,15 +100,51 @@ public class ProdutoController {
 		Optional<Produto> p = pr.findById(id_produto);
 		Produto prod = p.get();
 		mv.addObject("produto", prod);
-		attribute.addFlashAttribute("mensagem: ", "Editado com sucesso");
+		mv.addObject("fotos", prod.getImagens());
+		
 		return mv;
 		
 	}
 	
+	@SuppressWarnings("null")
 	@RequestMapping(value="/produtos/editarProdutos/{id_produto}", method=RequestMethod.POST)
-	public String salvaEdicao(Produto p, RedirectAttributes attribute) {
+	public String salvaEdicao(Produto p, @RequestParam("files") MultipartFile [] files, RedirectAttributes attribute) {
+		Optional<Produto> prod = pr.findById(p.getId_produto());
+		Produto produto = prod.get();
+		//Set estoque
+		int estoque = produto.getQuantidade()+p.getQuantidade();
+		p.setQuantidade(estoque);
+		if(files.length == 0 || files == null) {
+		//Set Imagens
+		Set<FotoProduto> fp = produto.getImagens();
+		p.setImagens(fp);
+		}else {
+		String urlPasta = "C:/Users/Deise/Documents/workspace-spring-tool-suite-4-4.5.1.RELEASE/perfumariaPI4/src/main/resources/static/";
+		StringBuilder fileNames = new StringBuilder();
+		for(MultipartFile file : files) {
+			Path diretorio = Paths.get(urlPasta + file.getOriginalFilename());
+			fileNames.append(file.getOriginalFilename()+" ");
+			String url = diretorio.toString();
+			FotoProduto fp = new FotoProduto();
+			fp.setName("/acessofoto/"+file.getOriginalFilename());
+			fp.setProduto(p);
+			fp.setStatus(true);
+			fp.setUrl(url);
+			fpr.save(fp);
+			Set<FotoProduto> imagens = new HashSet<>();
+			imagens.add(fp);
+			p.setImagens(imagens);
+						
+			try {
+				Files.write(diretorio, file.getBytes());
+			} catch (IOException e) {
+				attribute.addFlashAttribute("mensagem", "Erro: "+e.getMessage()); 
+			}
+		}	
+		}
+		
 		pr.save(p);
-		attribute.addFlashAttribute("mensagem", "Editado com Sucesso");
+		attribute.addFlashAttribute("mensagem", "Editado com sucesso");
 		return ("redirect:/produtos/editarProdutos/{id_produto}");
 	}
 	
@@ -117,7 +154,7 @@ public class ProdutoController {
 		Produto prod = p.get();
 		prod.setStatus(false);
 		pr.save(prod);
-		attribute.addFlashAttribute("mensagem: ", "Deletado com sucesso");
+		attribute.addFlashAttribute("mensagem", "Deletado com sucesso");
 		return ("redirect:/produtos/listarProdutos");
 		
 	}
@@ -131,6 +168,16 @@ public class ProdutoController {
 		mv.addObject("produto", prod);
 		mv.addObject("fotos", fotos);
 		return mv;
+	}
+	
+	@GetMapping("/fotos/excluir/{id_foto}")
+	public String deletarFotos(@PathVariable ("id_foto") Long id_foto, RedirectAttributes attribute) {
+		Optional<FotoProduto> foto = fpr.findById(id_foto);
+		FotoProduto fp = foto.get();
+		fpr.delete(fp);
+		attribute.addFlashAttribute("mensagem", "Foto deletada com sucesso");
+		return ("redirect:/produtos/listarProdutos");
+		
 	}
 	
 
