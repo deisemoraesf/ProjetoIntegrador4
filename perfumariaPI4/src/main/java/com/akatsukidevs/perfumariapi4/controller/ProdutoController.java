@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,6 +62,7 @@ public class ProdutoController {
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
+			pr.save(produto);
 			fp.setName("/acessofoto/"+file.getOriginalFilename());
 			fp.setProduto(produto);
 			fp.setStatus(true);
@@ -80,7 +80,7 @@ public class ProdutoController {
 		}
 		
 				
-		pr.save(produto);
+		
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/produtos/cadastrarProduto");
 	}
@@ -114,10 +114,12 @@ public class ProdutoController {
 		//Set estoque
 		int estoque = produto.getQuantidade()+p.getQuantidade();
 		p.setQuantidade(estoque);
+		
 		if(files.length == 0 || files == null) {
 		//Set Imagens
 		Set<FotoProduto> fp = produto.getImagens();
 		p.setImagens(fp);
+			
 		}else {
 		String urlPasta = "C:/Users/Deise/Documents/workspace-spring-tool-suite-4-4.5.1.RELEASE/perfumariaPI4/src/main/resources/static/";
 		StringBuilder fileNames = new StringBuilder();
@@ -126,15 +128,17 @@ public class ProdutoController {
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
+			
 			fp.setName("/acessofoto/"+file.getOriginalFilename());
 			fp.setProduto(p);
 			fp.setStatus(true);
 			fp.setUrl(url);
-			fpr.save(fp);
+			
+			
 			Set<FotoProduto> imagens = new HashSet<>();
 			imagens.add(fp);
 			p.setImagens(imagens);
-						
+			fpr.save(fp);		
 			try {
 				Files.write(diretorio, file.getBytes());
 			} catch (IOException e) {
@@ -143,7 +147,7 @@ public class ProdutoController {
 		}	
 		}
 		
-		pr.save(p);
+		pr.save(p);		
 		attribute.addFlashAttribute("mensagem", "Editado com sucesso");
 		return ("redirect:/produtos/editarProdutos/{id_produto}");
 	}
@@ -182,10 +186,10 @@ public class ProdutoController {
 	
 
 	
-	//@PostMapping("**/pesquisaUsuario")
-	/*public ModelAndView pesquisar(@RequestParam ("pesquisaemail") String pesquisaemail) {
+	/*@PostMapping("/pesquisaUsuario")
+	public ModelAndView pesquisar(@RequestParam ("pesquisaemail") String pesquisaemail) {
 		ModelAndView mv = new ModelAndView("/admin/produtos/listaProdutos");
-		mv.addObject("produto", ur.findByEmail(pesquisaemail));
+		mv.addObject("produto", pr.findByNome_produtoContainingIgnoreCase(pesquisaemail));
 		return mv;
 	}*/
 }

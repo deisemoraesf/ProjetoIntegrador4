@@ -44,7 +44,7 @@ public class Produto implements Serializable {
 	private int quantidade;
 	
 	
-	@OneToMany( mappedBy = "produto", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "produto", fetch = FetchType.LAZY)
 	private Set<FotoProduto> imagens = new HashSet<>();
 	
 	

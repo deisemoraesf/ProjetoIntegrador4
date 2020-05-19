@@ -83,8 +83,8 @@
 							</textarea></br> 
 							
 							<br>
-							<label for="myfile">Selecione uma imagem:</label></br>
-							<input type="file" id="files" name="files">
+							<label for="myfile" sec:authorize="hasRole('ADMIN')">Selecione uma imagem:</label></br>
+							<input type="file" id="files" name="files" sec:authorize="hasRole('ADMIN')">
 	                        <br>
 	                        <br>
 							
