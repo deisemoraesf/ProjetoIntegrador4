@@ -155,6 +155,10 @@ public class CarrinhoController {
 					it.setValorTotal(it.getValorTotal() + (it.getQuantidade()* it.getValorUnitario()));
 				}else if(acao==0) {
 					it.setQuantidade(it.getQuantidade()-1);
+					if(it.getQuantidade()<=0) {
+						removerItemCarrinho(id);
+						removerItemCarrinhoLogado(id);
+					}
 					it.setValorTotal(0.);
 					it.setValorTotal(it.getValorTotal() + (it.getQuantidade()* it.getValorUnitario()));
 				}
@@ -176,6 +180,10 @@ public class CarrinhoController {
 					it.setValorTotal(it.getValorTotal() + (it.getQuantidade()* it.getValorUnitario()));
 				}else if(acao==0) {
 					it.setQuantidade(it.getQuantidade()-1);
+					if(it.getQuantidade()<=0) {
+						removerItemCarrinho(id);
+						removerItemCarrinhoLogado(id);
+					}
 					it.setValorTotal(0.);
 					it.setValorTotal(it.getValorTotal() + (it.getQuantidade()* it.getValorUnitario()));
 				}
