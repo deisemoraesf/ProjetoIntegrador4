@@ -186,10 +186,10 @@ public class ProdutoController {
 	
 
 	
-	/*@PostMapping("/pesquisaUsuario")
-	public ModelAndView pesquisar(@RequestParam ("pesquisaemail") String pesquisaemail) {
+	/*@PostMapping("/produtos/pesquisaProduto")
+	public ModelAndView pesquisar(@RequestParam ("termoBusca") String termoBusca) {
 		ModelAndView mv = new ModelAndView("/admin/produtos/listaProdutos");
-		mv.addObject("produto", pr.findByNome_produtoContainingIgnoreCase(pesquisaemail));
+		mv.addObject("produto", pr.searchNativo(termoBusca.toLowerCase()));
 		return mv;
 	}*/
 }

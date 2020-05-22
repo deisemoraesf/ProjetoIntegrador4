@@ -43,13 +43,12 @@
 	
 	        <div class="container">
 	
-	           <form class="form-inline" method="POST" action="pesquisaProduto">
-					<input class="form-control mr-sm-2" type="" aria-label="Search"
-						name="pesquisanome" placeholder="Pesquisa por nome"> <span></span>
+	           <form class="form-inline" method="POST" th:action="@{pesquisaProduto}">
+					<input class="form-control mr-sm-2" type="text" aria-label="Search"
+						name="termoBusca" placeholder="Pesquisa por nome"> <span></span>
 					
 
-					<button class="btn btn-primary" type="submit"
-						data-target="#collapseNome" aria-controls="collapseNome">
+					<button class="btn btn-primary" type="submit">
 						<i class="oi oi-magnifying-glass"></i>Pesquisar
 					</button>
 				</form>
