@@ -25,6 +25,8 @@
 }
 </style>
 
+
+
  <!-- Adicionando Javascript -->
     <script type="text/javascript" >
     
@@ -98,8 +100,6 @@
 
     </script>
 
-
-
 </head>
 <body style="background: #FFF5EE">
 	<!-- Optional JavaScript -->
@@ -119,7 +119,7 @@
 	<!--NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
- <a class="nav-link" href="/"><img height="80px"src="/imgCarousel/logoakatsukidevs.jpg" alt="akatsukidevs" class="rounded-sm"></a>
+          <a class="nav-link" href="/"><img height="80px"src="/imgCarousel/logoakatsukidevs.jpg" alt="akatsukidevs" class="rounded-sm"></a>
             
     
             <div class="collapse navbar navbar-collapse" id="navbarSite">
@@ -153,9 +153,9 @@
 	<div class="row justify-content-center">
 		<nav aria-label="Navegação de página exemplo">
 			<ul class="pagination pagination-md">
-				<li class="page-item"><a class="page-link"
-					href="/clientes/cadastrarCliente">Pessoa Física</a></li>
 				<li class="page-item active"><a class="page-link"
+					href="/clientes/cadastrarCliente">Pessoa Física</a></li>
+				<li class="page-item"><a class="page-link"
 					href="/clientes/cadastrarCliente/PJ">Pessoa Jurídica</a></li>
 			</ul>
 		</nav>
@@ -175,18 +175,18 @@
 
 							<div class="form-group">
 								
-																
 								<label class="small mb-1" for="inputEmailAdress">E-mail:</label>
 								<input type="email" class="form-control py-4" id="email" name="email"
-									placeholder="Digite seu e-mail">
+									placeholder="Digite seu e-mail" value="">
 							
 								<label class="small mb-1" for="password">Senha:</label> <input
 									type="password" class="form-control py-4" id="senha" name="senha"
-									placeholder="Digite sua senha">
+									placeholder="Digite sua senha" value="">
 							
 								<input type="hidden" id="tipo" name="tipo"
 									value="ROLE_COMPRADOR"></input>
 							</div>
+
 						</div>
 					</div>
 
@@ -194,63 +194,69 @@
 
 						<div class="card-header">
 							<h3 class="text-center font-weight-light my-10">Pessoa
-								Jurídica</h3>
+								Física</h3>
 						</div>
 						<div class="card-body">
 
 							<div class="form-group">
 								
-								<label class="small mb-1" for="inputEmailAdress">Razão
-									Social:</label> <input type="text" class="form-control py-4"
-									id="nome" name="nome"
-									placeholder="Digite Razão Social">
+								<label class="small mb-1" for="inputEmailAdress">Nome:</label> <input
+									type="text" class="form-control py-4" id="nome" name="nome"
+									placeholder="Digite seu nome" value="">
 							
-								<label class="small mb-1" for="password">Nome Fantasia:</label>
-								<input type="text" class="form-control py-4" id="nome2"
-									name="nome2" placeholder="Digite Nome Fantasia">
 							
-								<label class="small mb-1" for="cpf">CNPJ: </label> <input
-									type="text" class="form-control py-4" id="cnpj" name="cnpj"
-									placeholder="Digite o CNPF">
+								<label class="small mb-1" for="password">Nome Social:</label> <input
+									type="text" class="form-control py-4" id="nome2"
+									name="nome2" value=""
+									placeholder="Digite como gostaria de ser chamado">
 							
-								<label class="small mb-1" for="dtnasc">Inscrição
-									Estadual:</label> <input type="text" class="form-control py-4"
-									id="inscricaoEstadual" name="inscricaoEstadual" placeholder="Inscrição Estadual">
 							
-								<label class="small mb-1" for="dtnasc">Inscrição
-									Municipal:</label> <input type="text" class="form-control py-4"
-									id="inscricaoMunicipal" name="inscricaoMunicipal"
-									placeholder="Inscrição municipal">
+								<label class="small mb-1" for="cpf">CPF</label> <input
+									type="text" class="form-control py-4" id="cpf" name="cpf"
+									placeholder="Digite o CPF" value="">
+							
+								<label class="small mb-1" for="dtnasc">Data Nascimento:</label>
+								<input type="date" class="form-control py-4" id="dtnascimento"
+									name="dtnascimento" placeholder="Data Nascimento" value="">
+							
+							    <label for="nome">Gênero</label> 
+							    <select class="form-control" id="genero" name="genero">
+								<option value="teste"></option>
+								<option value="feminino">Feminino</option>
+								<option value="masculino">Masculino</option>
+								<option value="transgenero">Transgênero</option>
+								</select><br>
 							
 								<label class="small mb-1" for="celular">Celular:</label> <input
-									type="text" class="form-control py-4" id="celular"
+									type="text" class="form-control py-4" id="celular" value=""
 									name="celular" placeholder="Digite número do celular">
 							
 								<label class="small mb-1" for="telefone">Telefone Fixo:</label>
-								<input type="text" class="form-control py-4" id="telefonefixo"
+								<input type="text" class="form-control py-4" id="telefonefixo" value=""
 									name="telefonefixo" placeholder="Digite número do telefone fixo">
 							</div>
-					</div>
+
+
 						</div>
-						<div class="card shadow-lg border-0 rounded-lg mt-4">
+					</div>
+					<div class="card shadow-lg border-0 rounded-lg mt-4" >
 
-							<div class="card-header">
-								<h3 class="text-center font-weight-light my-10">Endereço</h3>
-							</div>
-							<div class="card-body">
-
-								<div class="form-group">
-									
-									<label class="small mb-1" for="tipoend">Local:</label> <input
-										type="text" class="form-control py-4" id="tipoend" name="tipoend"
-										placeholder="Exemplo: Casa, Comercial">
+						<div class="card-header">
+							<h3 class="text-center font-weight-light my-10">Endereço</h3>
+						</div>
+						<div class="card-body">
+						<div class="form-group  mr-sm-2" th:action="@{https://viacep.com.br/ws/{cep}/json/}">
 								
-									<label class="small mb-1" for="cep">CEP:</label> 
+								<label class="small mb-1" for="tipoend">Local:</label> <input
+									type="text" class="form-control py-4" id="tipoend" name="tipoend"
+									placeholder="Exemplo: Casa, Comercial" value="">
+							
+							
+								<label class="small mb-1" for="cep">CEP:</label> 
 								<input type="text" class="form-control py-4" id="cep" name="cep" 
 									placeholder="Digite seu CEP" onblur="pesquisacep(this.value);"/>
 									
 																
-								
 								<label class="small mb-1" for="endereco">Logradouro:</label> 
 								<input type="text" class="form-control py-4" id="rua" name="rua"
 									placeholder="Digite o lograduro" value="">
@@ -276,20 +282,20 @@
 									name="estado" placeholder="Digite o Estado" value="">
 									
 							</div>
+						
+						</div>
+						
+					</div>
 
-							</div>
-						</div>
-						<div class="row justify-content-center">
-							<button type="submit" class="btn btn-primary btn-md">Salvar</button>
-							&nbsp;&nbsp;&nbsp; <a href="/" class="btn btn-primary btn-md">Voltar</a>
-						</div>
+					<div class="row justify-content-center">
+						<button type="submit" class="btn btn-primary btn-md">Salvar</button>
+						&nbsp;&nbsp;&nbsp; <a href="/" class="btn btn-primary btn-md" >Voltar</a>
+					</div>
+
 				</form>
 			</div>
-
 		</div>
 	</div>
-
-
 	<!--CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__-->
 
 	<div class="footer">
@@ -302,6 +308,5 @@
 			</div>
 		</footer>
 	</div>
-
 </body>
 </html>
