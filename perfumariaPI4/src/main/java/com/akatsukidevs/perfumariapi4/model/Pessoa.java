@@ -51,9 +51,9 @@ public class Pessoa implements Serializable {
 	@JoinColumn(name="id_usuario") 
 	private Usuario usuario;
 	
-	@ManyToMany 
+	@ManyToMany
 	@JoinTable(name = "tb_pessoa_endereco", joinColumns = @JoinColumn(name="id_pessoa"),
-			   inverseJoinColumns = @JoinColumn(name="id_endereco"))
+	   inverseJoinColumns = @JoinColumn(name="id_endereco"))
 	private Set<Endereco> enderecos = new HashSet<>();
 	
 	

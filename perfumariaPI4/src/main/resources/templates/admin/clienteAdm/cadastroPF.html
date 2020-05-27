@@ -1,25 +1,8 @@
 <!doctype html>
-<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html layout:decorate="~{/admin/modeloHome}">
 <head>
-<title>Perfumaria Adm - Cadastro Cliente]</title>
+<title>Perfumaria Adm - Cadastro Cliente</title>
 <meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<link rel="icon" href="/image/favicon.png" />
-
-<!-- Bootstrap core CSS -->
-<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css"
-	rel="stylesheet" />
-
-<!-- Custom styles for this template -->
-<link href="/css/style.css" rel="stylesheet" />
 
 <!-- Adicionando Javascript -->
     <script type="text/javascript" >
@@ -96,29 +79,11 @@
 </head>
 
 <body>
-	<header>
-		<nav
-			class="navbar navbar-inverse navbar navbar-dark bg-dark fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="btn btn-dark navbar-toggle pull-left">
-						<i class="oi oi-menu"></i>
-					</button>
-					<a class="navbar-brand navbar-toggle pull-left" href="/admin/">Painel de Controle</a>
-				</div>
-				<ul class="navbar-nav ml-auto"> 
-                     <li class="nav-item dropdown" style="color:white">Seja Bem vindo,
-                    	<span class="badge badge-dark" sec:authentication="name"></span>
-                    	<span class="badge badge-dark" sec:authentication="principal.authorities"></span>
-                        <a class="btn btn-outline-light" href="/logout" >Sair</a>
-                        
-                    </li>
-                </ul>
-			</div>
-		</nav>
-	</header>
-
-	<div class="row justify-content-center">
+<div  layout:fragment="conteudo">
+	
+	<div class="container">
+	
+		<div class="row justify-content-center" >
 		<nav aria-label="Navegação de página exemplo">
 			<ul class="pagination pagination-md">
 				<li class="page-item active"><a class="page-link"
@@ -127,9 +92,8 @@
 					href="/clientesAdm/cadastrarCliente/PJ">Pessoa Jurídica</a></li>
 			</ul>
 		</nav>
-	</div>
-
-	<div class="container">
+		</div>
+	
 		<div class="row justify-content-center">
 			<div class="col-lg-10">
 				<form method="POST">
@@ -264,17 +228,6 @@
 			</div>
 		</div>
 	</div>
-	<!--CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__CARD_CADASTRO__-->
-
-	<div class="footer">
-		<footer class="py-2 bg-dark mt-auto">
-			<div class="container-fluid">
-				<div class="d-flex align-items-center justify-content-between small">
-					<div class="text-muted">Projeto integrador 4</div>
-					<div class="text-muted">Akatsuki Devs</div>
-				</div>
-			</div>
-		</footer>
-	</div>
+</div>	
 </body>
 </html>

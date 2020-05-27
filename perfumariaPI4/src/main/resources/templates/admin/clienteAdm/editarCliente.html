@@ -142,9 +142,8 @@
 							
 						</div>
 					</div>	
-					<button type="submit" class="btn btn-primary btn-md" th:if="${pessoas.tipoPessoa} == 'pf'" th:href="@{/clientesAdm/editarClientes/pf/{id_pessoa}(id_pessoa=${pessoas.id_pessoa})}">Salvar</button>&nbsp;&nbsp;
-					<button type="submit" class="btn btn-primary btn-md" th:unless="${pessoas.tipoPessoa} == 'pf'" th:href="@{/clientesAdm/editarClientes/pj/{id_pessoa}(id_pessoa=${pessoas.id_pessoa})}">Salvar</button>&nbsp;&nbsp;
-				</form>		
+					
+					
 						
 						<div class="table-responsive">
 							<h3>Endereços</h3>
@@ -191,11 +190,15 @@
 									</tr>
 								</table>
 							</div>
-
-							<br> 
 							
-							<a href="/clientesAdm" class="btn btn-primary btn-md">Voltar</a>
-		</div>
+					<button type="submit" class="btn btn-primary btn-md" th:if="${pessoas.tipoPessoa} == 'pf'" th:href="@{/clientesAdm/editarClientes/pf/{id_pessoa}(id_pessoa=${pessoas.id_pessoa})}">Salvar</button>&nbsp;&nbsp;
+					<button type="submit" class="btn btn-primary btn-md" th:unless="${pessoas.tipoPessoa} == 'pf'" th:href="@{/clientesAdm/editarClientes/pj/{id_pessoa}(id_pessoa=${pessoas.id_pessoa})}">Salvar</button>&nbsp;&nbsp;
+					<a href="/clientesAdm" class="btn btn-primary btn-md">Voltar</a>
+					
+			</form>	
+							
+							
+									</div>
 		</section>
 	
 	</div>

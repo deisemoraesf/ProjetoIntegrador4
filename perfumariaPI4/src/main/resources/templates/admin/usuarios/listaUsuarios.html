@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorate="~{/admin/modeloHome}">
 <head>
+
 <title>Perfumaria</title>
 <meta charset="UTF-8" />
 
@@ -90,7 +91,7 @@
 							<td colspan="2"><a href="#" class="btn btn-danger btn-sm"
 								data-toggle="modal" data-target="#excluir"
 								th:attr="data-id=${usuario.id_usuario}, data-actionurl=@{/usuarios/deletarUsuarios/{id_usuario}(id_usuario=${usuario.id_usuario})}">
-									<i class="oi oi-circle-x"></i></a>
+									<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span></a>
 							</td>
 
 						</tr>
@@ -99,9 +100,7 @@
 				</div>
 			</div>
 		</section>
-
-	</div>
-
+		
 	<div layout:fragment="modal-area">
 		<div class="modal fade" tabindex="-1" role="dialog" id="excluir">
 			<div class="modal-dialog" role="document">
@@ -127,6 +126,8 @@
 			</div>
 
 		</div>
+	</div>
+		
 	</div>
 
 </body>

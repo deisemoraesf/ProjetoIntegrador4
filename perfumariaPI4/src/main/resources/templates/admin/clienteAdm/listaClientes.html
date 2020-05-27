@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorate="~{/admin/modeloHome}">
 <head>
+
 <title>Perfumaria Administrativo</title>
 <meta charset="UTF-8" />
 	
@@ -12,7 +13,7 @@
             var actionUrl = button.data('actionurl');
             var modal = $(this);
             modal.find('.modal-title').text('Apagar Cliente');
-            modal.find('.modal-body p').text('Deseja apagar o Usuário '+ idUsuario+'?');
+            modal.find('.modal-body p').text('Deseja apagar o Cliente '+ idUsuario+'?');
             modal.find('.modal-footer form').attr('action', actionUrl);
         });
     });
@@ -98,10 +99,16 @@
 									<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 								</a>
 							</td>
-							<td>
+							<td colspan="2" th:if="${pessoa.tipoPessoa} == 'pf'">
 							<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
-							th:attr="data-id=${pessoa.id_pessoa}, data-actionurl=@{/clientesAdm/deletarClientes/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">
-							<i class="oi oi-circle-x"></i></a>
+							th:attr="data-id=${pessoa.nome}, data-actionurl=@{/clientesAdm/deletarClientes/pf/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">
+							<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span></i></a>
+							</td> 
+							
+							<td colspan="2" th:unless="${pessoa.tipoPessoa} == 'pf'">
+							<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
+							th:attr="data-id=${pessoa.nome}, data-actionurl=@{/clientesAdm/deletarClientes/pj/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">
+							<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span></a>
 							</td> 
 				
 						</tr>
@@ -111,14 +118,12 @@
 			</div>
 		</section>
 
-	</div>
-	
-	  <div>
+		<div layout:fragment="modal-area">
 	    <div class="modal fade" tabindex="-1" role="dialog" id="excluir">
 	        <div class="modal-dialog" role="document">
 	            <div class="modal-content">
 	                <div class="modal-header">
-	                    <h5 class="modal-title">Apagar cliente</h5>
+	                    <h5 class="modal-title">Apagar Cliente</h5>
 	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                        <span aria-hidden="true">&times;</span>
 	                    </button>
@@ -128,7 +133,7 @@
 	                </div>
 	                <div class="modal-footer">
 	                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
-	                    <form method=GET>
+	                    <form method="GET">
 	                       <button type="submit" class="btn btn-danger">Apagar</button>
 	                    </form>
 	                </div>
@@ -137,6 +142,8 @@
 	        
 	    </div>
 	   </div> 
-
+	</div>
+	
+	  
 </body>
 </html>

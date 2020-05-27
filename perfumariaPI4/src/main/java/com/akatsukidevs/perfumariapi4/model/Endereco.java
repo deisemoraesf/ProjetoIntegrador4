@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Endereco implements Serializable {
@@ -23,59 +22,32 @@ public class Endereco implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	
 	private String tipoend;
-	
-	
-	@JsonProperty("logradouro")
+		
 	private String rua;
-	
-	
+		
 	private String numero;
 	
 	private String complemento;
-	
-	
-	@JsonProperty("bairro")
+		
 	private String bairro;
-	
-	
-	@JsonProperty("localidade")
+		
 	private String cidade;
-	
-	
+		
 	private String estado;
-	
-	
+		
 	private String cep;
 	
 	private boolean status=true;
 	
-	@ManyToMany(mappedBy = "enderecos")
+	@ManyToMany(mappedBy="enderecos")
 	private Set<Pessoa> clientes = new HashSet<>();
 	
 	public Endereco() {
 		
 	}
 	
-	public Endereco(Long id, String tipoend, String rua, String numero, String complemento, String bairro,
-			String cidade, String estado, String cep, boolean status) {
-		super();
-		this.id = id;
-		this.tipoend = tipoend;
-		this.rua = rua;
-		this.numero = numero;
-		this.complemento = complemento;
-		this.bairro = bairro;
-		this.cidade = cidade;
-		this.estado = estado;
-		this.cep = cep;
-		this.status = status;
-	}
-
-
-
-
+	
 	public Endereco(Long id, String tipoend, String rua, String numero, String complemento, String bairro,
 			String cidade, String estado, String cep, boolean status, Set<Pessoa> clientes) {
 		super();

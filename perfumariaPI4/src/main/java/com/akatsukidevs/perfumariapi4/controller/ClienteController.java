@@ -1,6 +1,5 @@
 package com.akatsukidevs.perfumariapi4.controller;
 
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -71,14 +70,15 @@ public class ClienteController {
 			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
 		}
 		
-		Set<Endereco> enderecosadicionado = new HashSet<>();
-		enderecosadicionado.add(endereco);
 		er.save(endereco);
-		pessoaFisica.setEnderecos(enderecosadicionado);
-		ur.save(usuario);				
-		usuario.setPessoa(pessoaFisica);
+		ur.save(usuario);
 		pessoaFisica.setUsuario(usuario);
+		pessoaFisica.getEnderecos().add(endereco);
 		pfr.save(pessoaFisica);
+		usuario.setPessoa(pessoaFisica);
+		ur.save(usuario);
+		
+		
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/clientes/cadastrarCliente");
 	}
@@ -89,19 +89,17 @@ public class ClienteController {
 		if(result.hasErrors()) {
 			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
 		}
-		Set<Endereco> enderecosadicionado = new HashSet<>();
-		enderecosadicionado.add(endereco);
 		er.save(endereco);
-		pessoaJuridica.setEnderecos(enderecosadicionado);
-						
-		usuario.setPessoa(pessoaJuridica);
+		ur.save(usuario);
 		pessoaJuridica.setUsuario(usuario);
+		pessoaJuridica.getEnderecos().add(endereco);
 		pjr.save(pessoaJuridica);
+		usuario.setPessoa(pessoaJuridica);
+		ur.save(usuario);
+				
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/clientes/cadastrarCliente");
 	}
-	
-	
 	
 	
 	
@@ -124,14 +122,14 @@ public class ClienteController {
 			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
 		}
 		
-		Set<Endereco> enderecosadicionado = new HashSet<>();
-		enderecosadicionado.add(endereco);
 		er.save(endereco);
-		pessoaFisica.setEnderecos(enderecosadicionado);
-		ur.save(usuario);				
-		usuario.setPessoa(pessoaFisica);
+		ur.save(usuario);
 		pessoaFisica.setUsuario(usuario);
+		pessoaFisica.getEnderecos().add(endereco);
 		pfr.save(pessoaFisica);
+		usuario.setPessoa(pessoaFisica);
+		ur.save(usuario);
+				
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/clientesAdm/cadastrarCliente");
 	}
@@ -142,18 +140,20 @@ public class ClienteController {
 		if(result.hasErrors()) {
 			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
 		}
-		Set<Endereco> enderecosadicionado = new HashSet<>();
-		enderecosadicionado.add(endereco);
 		er.save(endereco);
-		pessoaJuridica.setEnderecos(enderecosadicionado);
-						
-		usuario.setPessoa(pessoaJuridica);
+		ur.save(usuario);
 		pessoaJuridica.setUsuario(usuario);
+		pessoaJuridica.getEnderecos().add(endereco);
 		pjr.save(pessoaJuridica);
+		usuario.setPessoa(pessoaJuridica);
+		ur.save(usuario);
+				
+		
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/clientesAdm/cadastrarCliente");
 	}
-
+	
+	//Acesso a cliente administrativo
 	@GetMapping("/clientesAdm")
 	public ModelAndView listaClientes(){
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/listaClientes");
@@ -162,7 +162,7 @@ public class ClienteController {
 		return mv;
 	}
 	
-	
+	//Acesso do cliente
 	@GetMapping("/clientes/minhaConta")
 	public ModelAndView MinhaConta(@AuthenticationPrincipal Usuario usuario, RedirectAttributes attribute) {
 		ModelAndView mv = new ModelAndView("/cliente/minhaConta");
@@ -172,7 +172,7 @@ public class ClienteController {
 		return mv;
 	}
 	
-	
+	//Visualizar Cliente Administrativo
 	@RequestMapping(value="/clientesAdm/visualizarClientes/{id_pessoa}", method=RequestMethod.GET)
 	public ModelAndView visualizarCliente(@PathVariable ("id_pessoa") Long id_pessoa) {
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/visualizarCliente");
@@ -184,7 +184,7 @@ public class ClienteController {
 		return mv;
 	}
 	
-	
+	//Acesso ADM ao cliente editar PF
 	@RequestMapping(value="/clientesAdm/editarClientes/pf/{id_pessoa}", method=RequestMethod.GET)
 	public ModelAndView editarClientepf(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/editarCliente");
@@ -197,7 +197,22 @@ public class ClienteController {
 		return mv;		
 	}
 	
+	//Acesso ADM ao cliente Salva editar PF
+	@RequestMapping(value="/clientesAdm/editarClientes/pf/{id_pessoa}", method=RequestMethod.POST)
+	public String salvaEdicaoPF(PessoaFisica c, RedirectAttributes attribute) {
+		Optional<PessoaFisica> p = pfr.findById(c.getId_pessoa());
+		PessoaFisica consultada = p.get();
+		Set<Endereco> e = consultada.getEnderecos();
+		c.setEnderecos(e);
+		
+		pfr.save(c);
+				
+		attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
+		return ("redirect:/clientesAdm/editarClientes/pf/{id_pessoa}");
+			
+		}
 	
+	//Acesso ADM ao cliente editar PJ
 	@RequestMapping(value="/clientesAdm/editarClientes/pj/{id_pessoa}", method=RequestMethod.GET)
 	public ModelAndView editarClientepj(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/editarCliente");
@@ -211,35 +226,24 @@ public class ClienteController {
 		
 	}
 	
-	
-	@RequestMapping(value="/clientesAdm/editarClientes/pf/{id_pessoa}", method=RequestMethod.POST)
-	public String salvaEdicaoPF(PessoaFisica c, RedirectAttributes attribute) {
-			Set<Endereco> enderecosadicionado = c.getEnderecos();
-			pfr.save(c);
-			Set<Endereco> enderecos = new HashSet<>();
-			for(Endereco end : enderecosadicionado) {
-				enderecos.add(end);
-				er.save(end);
-				c.setEnderecos(enderecos);
-			}
-			pfr.save(c);
-			attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
-			return ("redirect:/clientesAdm/editarClientes/pf/{id_pessoa}");
 		
-	}
-	
+	//Acesso ADM ao cliente Salvar editar PJ
 	@RequestMapping(value="/clientesAdm/editarClientes/pj/{id_pessoa}", method=RequestMethod.POST)
 	public String salvaEdicaoPJ(PessoaJuridica c, RedirectAttributes attribute) {
-			Set<Endereco> enderecosadicionado = c.getEnderecos();
-			pjr.save(c);
-			c.setEnderecos(enderecosadicionado);
-			attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
-			return ("redirect:/clientesAdm/editarClientes/pj/{id_pessoa}");	
+		Optional<PessoaJuridica> p = pjr.findById(c.getId_pessoa());
+		PessoaJuridica consultada = p.get();
+		Set<Endereco> e = consultada.getEnderecos();
+		c.setEnderecos(e);
+		
+		pjr.save(c);
+			
+		attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
+		return ("redirect:/clientesAdm/editarClientes/pj/{id_pessoa}");	
 	}
 	
-	
-	@GetMapping("/clientesAdm/deletarClientes/{id_pessoa}")
-	public String deletarClientes(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute) {
+	//Acesso ADM ao cliente Salvar deletar PF
+	@GetMapping("/clientesAdm/deletarClientes/pf/{id_pessoa}")
+	public String deletarClientesPf(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute) {
 		Optional<Pessoa> c = pr.findById(id_pessoa);
 		Pessoa cli = c.get();
 		Usuario usu = cli.getUsuario();
@@ -251,7 +255,22 @@ public class ClienteController {
 		return ("redirect:/clientesAdm");
 	}
 	
+	//Acesso ADM ao cliente Salvar deletar PJ
+	@GetMapping("/clientesAdm/deletarClientes/pj/{id_pessoa}")
+	public String deletarClientesPj(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute) {
+		Optional<Pessoa> c = pr.findById(id_pessoa);
+		Pessoa cli = c.get();
+		Usuario usu = cli.getUsuario();
+		usu.setStatus(false);
+		cli.setStatus(false);
+		pr.save(cli);
+		ur.save(usu);
+		attribute.addFlashAttribute("mensagem", "Deletado com sucesso");
+		return ("redirect:/clientesAdm");
+	}
+
 	
+	//Verifica se o cliente já tem conta, antes de realizar o cadastro
 	@PostMapping("/clientes/verificarCliente")
 	public String verificaCliente(String email, RedirectAttributes attribute) {
 		Usuario usu = ur.findByEmail(email);
