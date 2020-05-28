@@ -72,11 +72,10 @@
 			<div class="row mb-2">
 				<div class="col-md-3 col-sm-6" th:each="produto : ${produtos}">
 					<div class="card">
-<<<<<<< HEAD
+
 						<img class="card-img-top" th:src="@{__${produto.fotoIndex}__}">	
-=======
-						<img class="card-img-top">	
->>>>>>> refs/remotes/origin/master
+
+						
 						<div class="card-body">
 							<input type="hidden" th:value="${produto.id_produto}">
 							<h7 name="nome_produto" id="nome" th:text="${produto.nome_produto}"></h7>
