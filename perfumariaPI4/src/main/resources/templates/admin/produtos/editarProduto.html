@@ -107,18 +107,27 @@
 										<th>ID</th>
 										<th>Nome</th>
 										<th>Excluir</th>
+										<th>Adicionar Index</th>
 										
 									</tr>
 
 									<tr th:each="foto : ${fotos}">
 										<td th:text="${foto.id_foto}"></td>
 										<td th:text="${foto.name}"></td>
-																									
+										
+																																			
 										<td>
 										<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
 										   th:attr="data-id=${foto.id_foto}, data-actionurl=@{/fotos/excluir/{id_foto}(id_foto=${foto.id_foto})}">
 										   <i class="oi oi-circle-x"></i>
 										</a>
+										</td>
+										
+										<td>
+											<a  class="btn btn-info btn-sm" role="button"
+											th:href="@{/fotos/adicionarIndex/{id}/{id_produto}(id=${foto.id_foto}, id_produto=${produto.id_produto})}">
+											<span class="oi oi-caret-right" title="Editar" aria-hidden="true"></span>
+											</a>
 										</td>
 										
 									</tr>

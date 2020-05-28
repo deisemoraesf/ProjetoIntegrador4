@@ -1,5 +1,6 @@
 package com.akatsukidevs.perfumariapi4.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -42,6 +43,10 @@ public class Produto implements Serializable {
 	
 	@NotNull
 	private int quantidade;
+	
+	
+	@NotNull
+	private String fotoIndex;
 	
 	
 	@OneToMany(mappedBy = "produto", fetch = FetchType.LAZY)
@@ -156,6 +161,14 @@ public class Produto implements Serializable {
 
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public String getFotoIndex() {
+		return fotoIndex;
+	}
+
+	public void setFotoIndex(String fotoIndex) {
+		this.fotoIndex = fotoIndex;
 	}
 	
 	

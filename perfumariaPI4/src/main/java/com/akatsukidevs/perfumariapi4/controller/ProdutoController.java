@@ -183,6 +183,18 @@ public class ProdutoController {
 		
 	}
 	
+	@GetMapping("/fotos/adicionarIndex/{id}/{id_produto}")
+	public String deletarFotos(@PathVariable ("id") Long id,@PathVariable ("id_produto") Long id_produto,  RedirectAttributes attribute) {
+		Optional<Produto> produto = pr.findById(id_produto);
+		Optional<FotoProduto> foto = fpr.findById(id);
+		Produto prod = produto.get();
+		FotoProduto fp = foto.get();
+		prod.setFotoIndex(fp.getName());
+		pr.save(prod);
+		
+		return ("redirect:/produtos/listarProdutos");
+		
+	}
 
 	
 	/*@PostMapping("/produtos/pesquisaProduto")

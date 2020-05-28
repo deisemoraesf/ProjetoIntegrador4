@@ -319,11 +319,16 @@ public class ClienteController {
 		}
 		
 		// deletar ENDERECO Administrativo
-		@GetMapping("/clientesAdm/deletarEndereco/{id}")
-		public String deletarUsuarios(@PathVariable ("id") Long id, RedirectAttributes attribute) {
+		@GetMapping("/clientesAdm/deletarEndereco/{id}/{id_pessoa}")
+		public String deletarUsuarios(@PathVariable ("id") Long id,@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute) {
 			Optional<Endereco> endereco = er.findById(id);
+			Optional<Pessoa> pessoa = pr.findById(id_pessoa);
 			Endereco end = endereco.get();
+			Pessoa p = pessoa.get();
 			end.setStatus(false);
+			end.getClientes().remove(p);
+			p.getEnderecos().remove(end);
+					
 			er.save(end);
 			attribute.addFlashAttribute("mensagem", "Deletado com sucesso");
 			return ("redirect:/clientesAdm");

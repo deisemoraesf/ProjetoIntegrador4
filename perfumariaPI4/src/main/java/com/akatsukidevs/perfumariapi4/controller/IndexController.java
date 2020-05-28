@@ -36,15 +36,7 @@ public class IndexController {
 		return mv;		
 	}
 
-	//Direcionamento para o Index com cliente logado
-	@GetMapping("/indexLog")
-	public ModelAndView indexLog() {
-		ModelAndView mv = new ModelAndView("/indexLogado");
-		Iterable<Produto> produtos = pr.findByStatus(true);
-		mv.addObject("produtos", produtos);
-		return mv;		
-	}
-	
+		
 	@RequestMapping(value="/clientes/produtos/visualizarProdutos/{id_produto}", method=RequestMethod.GET)
 	public ModelAndView visualizarProduto(@PathVariable ("id_produto") Long id_produto) {
 		ModelAndView mv = new ModelAndView("/admin/produtos/detalhesProduto");

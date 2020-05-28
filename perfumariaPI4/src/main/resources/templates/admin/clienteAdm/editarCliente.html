@@ -183,7 +183,7 @@
 										</td>
 										<td>
 										<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
-											th:attr="data-id=${endereco.id}, data-actionurl=@{/clientesAdm/deletarEndereco/{id}(id=${endereco.id})}">
+											th:attr="data-id=${endereco.id}, data-actionurl=@{/clientesAdm/deletarEndereco/{id}/{id_pessoa}(id=${endereco.id}, id_pessoa=${pessoas.id_pessoa})}">
 											<i class="oi oi-circle-x"></i>
 										</a>
 										</td>
