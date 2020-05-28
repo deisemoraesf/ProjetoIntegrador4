@@ -50,7 +50,7 @@ public class Endereco implements Serializable {
 	
 	public Endereco(Long id, String tipoend, String rua, String numero, String complemento, String bairro,
 			String cidade, String estado, String cep, boolean status, Set<Pessoa> clientes) {
-		super();
+		
 		this.id = id;
 		this.tipoend = tipoend;
 		this.rua = rua;

@@ -1,5 +1,6 @@
 package com.akatsukidevs.perfumariapi4.controller;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -98,7 +99,7 @@ public class ClienteController {
 		ur.save(usuario);
 				
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
-		return ("redirect:/clientes/cadastrarCliente");
+		return ("redirect:/clientes/cadastrarCliente/PJ");
 	}
 	
 	
@@ -218,8 +219,19 @@ public class ClienteController {
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/editarCliente");
 		Optional<Pessoa> p = pr.findById(id_pessoa);
 		Pessoa cli = p.get();
+		
+		Set<Endereco> auxilio = new HashSet<>();
+		if(cli.getEnderecos() != null || !cli.getEnderecos().isEmpty()) {
+			for(Endereco e: cli.getEnderecos()) {
+				if(e.isStatus() == true) {
+					auxilio.add(e);	
+				}
+				
+			}
+		}
+		
 		mv.addObject("pessoas", cli);
-		mv.addObject("enderecos", cli.getEnderecos());
+		mv.addObject("enderecos", auxilio);
 		mv.addObject("usuario", cli.getUsuario());
 		attribute.addFlashAttribute("mensagem", "Editado com sucesso");
 		return mv;
@@ -285,9 +297,63 @@ public class ClienteController {
 		}
 	}
 	
-	
-	
+	//Edicao ENDERECO Administrativo
+		@GetMapping("/clientesAdm/editarEndereco/{id}")
+		public ModelAndView editarEndereco(@PathVariable ("id") Long id, RedirectAttributes attribute ) {
+			ModelAndView mv = new ModelAndView("/admin/clienteAdm/edicaoEndereco");
+			Optional<Endereco> e = er.findById(id);
+			Endereco endereco = e.get();
+			mv.addObject("endereco", endereco);
+			attribute.addFlashAttribute("mensagem", "Editado com sucesso");
+			return mv;
+			
+		}
 		
+		// Salva ENDERECO Edicao Administrativo
+		@PostMapping("/clientesAdm/editarEndereco/{id}")
+		public String SalvaEdicao(Endereco e, RedirectAttributes attribute ) {
+			er.save(e);
+			attribute.addFlashAttribute("mensagem", "Editado com sucesso");
+			return ("redirect:/clientesAdm/editarEndereco/{id}");
+			
+		}
+		
+		// deletar ENDERECO Administrativo
+		@GetMapping("/clientesAdm/deletarEndereco/{id}")
+		public String deletarUsuarios(@PathVariable ("id") Long id, RedirectAttributes attribute) {
+			Optional<Endereco> endereco = er.findById(id);
+			Endereco end = endereco.get();
+			end.setStatus(false);
+			er.save(end);
+			attribute.addFlashAttribute("mensagem", "Deletado com sucesso");
+			return ("redirect:/clientesAdm");
+			
+		}
+	
+		// Salva ENDERECO  
+		@RequestMapping(value="/clientesAdm/cadastrarEndereco/{id_pessoa}", method=RequestMethod.GET)
+		public ModelAndView salvarEndereco() {
+			ModelAndView mv = new ModelAndView("/admin/clienteAdm/cadastroEndereco");
+			return mv;
+		}
+		
+		// Salva ENDERECO  
+		@RequestMapping(value="/clientesAdm/cadastrarEndereco/{id_pessoa}", method=RequestMethod.POST)
+		public String salvar(@PathVariable Long id_pessoa, Endereco endereco, BindingResult result, RedirectAttributes attribute) {
+			if(result.hasErrors()) {
+				attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
+			}
+			Optional<Pessoa> p = pr.findById(id_pessoa);
+			Pessoa pessoa = p.get();
+			endereco.getClientes().add(pessoa);
+			er.save(endereco);
+			pessoa.getEnderecos().add(endereco);
+			pr.save(pessoa);
+			
+			
+			attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
+			return ("redirect:/clientesAdm/cadastrarEndereco/"+id_pessoa);
+		}
 	
 	
 	

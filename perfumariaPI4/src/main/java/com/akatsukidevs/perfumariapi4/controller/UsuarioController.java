@@ -65,7 +65,7 @@ public class UsuarioController {
 	public String salvaEdicao(Usuario u, RedirectAttributes attribute) {
 		ur.save(u);
 		attribute.addFlashAttribute("mensagem", "Editado com Sucesso");
-		return ("redirect:/usuarios/editarUsuarios/{id_usuario}");
+		return "redirect:/usuarios/editarUsuarios/{id_usuario}";
 	}
 	
 	@GetMapping("/usuarios/deletarUsuarios/{id_usuario}")

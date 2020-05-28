@@ -26,7 +26,6 @@ import com.akatsukidevs.perfumariapi4.repository.FotoProdutoRepository;
 import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
 
 
-//@SpringBootApplication
 @Controller
 public class ProdutoController {
 	
