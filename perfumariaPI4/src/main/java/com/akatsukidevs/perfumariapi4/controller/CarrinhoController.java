@@ -1,23 +1,23 @@
 package com.akatsukidevs.perfumariapi4.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.akatsukidevs.perfumariapi4.model.Compra;
 import com.akatsukidevs.perfumariapi4.model.ItensCompra;
+import com.akatsukidevs.perfumariapi4.model.Pessoa;
 import com.akatsukidevs.perfumariapi4.model.Produto;
 import com.akatsukidevs.perfumariapi4.model.Usuario;
 import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
@@ -32,13 +32,12 @@ public class CarrinhoController {
 
 	private List<ItensCompra> itensCompra = new ArrayList<ItensCompra>();
 	private Compra compra = new Compra();
-	private Usuario usuario;
 
 	@Autowired
 	private ProdutoRepositorios pr;
 	
 	@Autowired
-	private UsuarioRepository us;
+	private UsuarioRepository ur;
 	
 	
 	private void calcularTotal() {
@@ -48,13 +47,6 @@ public class CarrinhoController {
 		}
 	}
 	
-	private void buscarUsuarioLogado() {
-		Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
-		if(!(autenticado instanceof AnonymousAuthenticationToken)) {
-			String email = autenticado.getName();
-			usuario = us.findByEmail(email);
-		}
-	}
 
 	@GetMapping("/carrinho")
 	public ModelAndView carrinho() {
@@ -75,16 +67,21 @@ public class CarrinhoController {
 	}
 	
 	
-	@RequestMapping("/finalizar")
-	public ModelAndView finalizar() {
-		buscarUsuarioLogado();
-		ModelAndView mv=new ModelAndView("cliente/compras/finalizar");
-		calcularTotal();
+
+    @RequestMapping(value = "/finalizar", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView currentUserName(Principal principal) {
+    	ModelAndView mv = new ModelAndView("/cliente/compras/finalizar");
+    	calcularTotal();
+		Usuario u = ur.findByEmail(principal.getName());
+		Pessoa cliente = u.getPessoa();
 		mv.addObject("compra", compra);
 		mv.addObject("listaItens", itensCompra);
-		mv.addObject("usuario","usuario");
-		return mv;
-	}
+		mv.addObject("enderecos", cliente.getEnderecos());
+		mv.addObject("pessoas", cliente);
+		mv.addObject("usuario", cliente.getUsuario());
+        return mv;
+    }
 	
 
 	@GetMapping("/carrinho/addcarrinho/{id}")
