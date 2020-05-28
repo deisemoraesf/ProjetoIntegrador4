@@ -1,92 +1,16 @@
 <!DOCTYPE html>
 
-<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html layout:decorate="~{modeloSite}" class="h-100">
 <head>
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-	rel="stylesheet"
-	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-	crossorigin="anonymous">
 
 <title>Perfumaria - Carrinho de Compras</title>
-<!-- Required meta tags -->
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	crossorigin="anonymous"></script>
-
-
-<style>
-.footer {
-	position: relative;
-	bottom: 0;
-	width: 100%;
-	height: 30px;
-}
-</style>
-<body style="background: #FFF5EE;">
-
-	<!--NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_-->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container">
-			<a class="nav-link" href="/"><img height="80px"
-				src="/imgCarousel/logoakatsukidevs.jpg" alt="akatsukidevs"
-				class="rounded-sm"></a>
-			<div class="collapse navbar navbar-collapse" id="navbarSite">
-             <ul class="navbar-nav mr-auto">
-                    <!--mr-auto deixa a margem a direita (ml-auto na esquerda)-->
-					<li class="nav-iem"><a class="nav-link" href="/categorias/masculino">Masculino</a>
-					</li>
-					<li class="nav-iem"><a class="nav-link" href="/categorias/feminino">Feminino</a>
-					</li>
-					<li class="nav-iem"><a class="nav-link" href="/categorias/infantil">Infantil</a>
-					</li>
-				</ul>
-
-				<form class="form-inline" action="">
-					<input class="form-control ml-2 mr-2 " type="search" name=""
-						placeholder="Buscar...">
-					<button class="btn btn-outline-light" type="submit">OK</button>
-				</form>
-				<ul class="navbar-nav ml-auto">
-					<div class="btn-group">
-						<button type="button"
-							class="btn btn-outline-light dropdown-toggle"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Olá, Faça seu Login!</button>
-						<div class="dropdown-menu dropdown-menu-right">
-							<a class="dropdown-item" type="button" href="/login">Fazer
-								Login</a> <a class="dropdown-item" type="button"
-								href="/clientes/verificarCliente">Cadastrar-se</a>
-						</div>
-					</div>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
+<body>
+ <div layout:fragment="conteudo">
+ 	<br>
+ 	<br>
+ 	<div class="container">
 	<!-- Lista de itens do carrinho -->
 	<div class="row">
 		<div class="col-12">
@@ -104,7 +28,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="item : ${listaItens}">
-							<td><img src="https://dummyimage.com/50x50/55595c/fff" />
+							<td><img height="100px" weight="100px" th:src="@{__${item.produto.fotoIndex}__}" />
 							</td>
 							<td th:text="${item.produto.nome_produto}">Produto Nome</td>
 							<td>Em estoque</td>
@@ -160,7 +84,7 @@
 			<div class="col mb-2">
 				<div class="row">
 					<div class="col-sm-12  col-md-6">
-						<a class="btn btn-block btn-light" href="/" role="button">Continuar Comprando</a>	
+						<a class="btn btn-block btn-secondary" href="/" role="button">Continuar Comprando</a>	
 					</div>
 					<div class="col-sm-12 col-md-6 text-right">
 						<a class="btn btn-lg btn-block btn-success text-uppercase" th:href="finalizar" role="button">Finalizar Compra</a>
@@ -169,18 +93,7 @@
 			</div>
 		</div>
 	</div>
-	
-	<!--Footer-->
-		<div class="footer">
-		<footer class="py-2 bg-dark mt-auto">
-			<div class="container-fluid">
-				<div class="d-flex align-items-center justify-content-between small">
-					<div class="text-muted">Projeto integrador 4</div>
-					<div class="text-muted">Akatsuki Devs</div>
-				</div>
-			</div>
-		</footer>
-	</div>
-
+</div>	
+</div>
 </body>
 </html>

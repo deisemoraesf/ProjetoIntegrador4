@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.akatsukidevs.perfumariapi4.model.FotoProduto;
 import com.akatsukidevs.perfumariapi4.model.Produto;
-import com.akatsukidevs.perfumariapi4.repository.FotoProdutoRepository;
 import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
 
 
@@ -24,8 +22,7 @@ public class IndexController {
 	@Autowired
 	private ProdutoRepositorios pr;
 	
-	@Autowired
-	private FotoProdutoRepository fpr;
+	
 	
 	//Direcionamento para o Index
 	@GetMapping("/")
@@ -42,7 +39,6 @@ public class IndexController {
 		ModelAndView mv = new ModelAndView("/admin/produtos/detalhesProduto");
 		Optional<Produto> p = pr.findById(id_produto);
 		Produto prod = p.get();
-		Iterable<FotoProduto> fotos = fpr.findByProduto(prod);
 		mv.addObject("produto", prod);
 		
 		return mv;
