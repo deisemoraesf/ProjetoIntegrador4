@@ -335,9 +335,21 @@ public class ClienteController {
 		}
 		
 		//Edição CLIENTE USUARIO
+		
+		@RequestMapping(value="/minhaConta/editarClientes/pf/{id_pessoa}", method=RequestMethod.GET)
+		public ModelAndView minhaContaEditaPf(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
+			ModelAndView mv = new ModelAndView("/cliente/minhaContaEditar");
+			Optional<Pessoa> p = pr.findById(id_pessoa);
+			Pessoa cli = p.get();
+			mv.addObject("pessoa", cli);
+			mv.addObject("enderecos", cli.getEnderecos());
+			mv.addObject("usuario", cli.getUsuario());
+			attribute.addFlashAttribute("mensagem", "Editado com sucesso");
+			return mv;		
+		}
 						
-		@RequestMapping(value="/minhaConta/editarClientes/pf", method=RequestMethod.POST)
-		public String editaClientePf(PessoaFisica c, Usuario u, RedirectAttributes attribute) {
+		@RequestMapping(value="/minhaConta/editarClientes/pf/{id_pessoa}", method=RequestMethod.POST)
+		public String salvaMinhaContaEditaPf(PessoaFisica c, Usuario u, RedirectAttributes attribute) {
 				Set<Endereco> enderecosadicionado = c.getEnderecos();
 				ur.save(u);
 				pfr.save(c);
@@ -349,12 +361,23 @@ public class ClienteController {
 				}
 				pfr.save(c);
 				attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
-				return ("redirect:/minhaConta");
+				return ("redirect:/minhaConta/editarClientes/pf/{id_pessoa}");
 			
 		}
+		@RequestMapping(value="/minhaConta/editarClientes/pj/{id_pessoa}", method=RequestMethod.GET)
+		public ModelAndView minhaContaEditaPj(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
+			ModelAndView mv = new ModelAndView("/cliente/minhaContaEditar");
+			Optional<Pessoa> p = pr.findById(id_pessoa);
+			Pessoa cli = p.get();
+			mv.addObject("pessoa", cli);
+			mv.addObject("enderecos", cli.getEnderecos());
+			mv.addObject("usuario", cli.getUsuario());
+			attribute.addFlashAttribute("mensagem", "Editado com sucesso");
+			return mv;		
+		}
 		
-		@RequestMapping(value="/minhaConta/editarClientes/pj", method=RequestMethod.POST)
-		public String editaClientePj(PessoaJuridica c, Usuario u, RedirectAttributes attribute) {
+		@RequestMapping(value="/minhaConta/editarClientes/pj/{id_pessoa}/pj", method=RequestMethod.POST)
+		public String salvaMinhaContaEditaPj(PessoaJuridica c, Usuario u, RedirectAttributes attribute) {
 				Set<Endereco> enderecosadicionado = c.getEnderecos();
 				ur.save(u);
 				pjr.save(c);
@@ -366,7 +389,7 @@ public class ClienteController {
 				}
 				pjr.save(c);
 				attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
-				return ("redirect:/minhaConta");
+				return ("redirect:/minhaConta/editarClientes/pj/{id_pessoa}");
 			
 		}
 		
