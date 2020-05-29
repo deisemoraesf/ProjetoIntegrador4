@@ -32,6 +32,14 @@ public class IndexController {
 		mv.addObject("produtos", produtos);
 		return mv;		
 	}
+	
+	@GetMapping("/index")
+	public ModelAndView index1() {
+		ModelAndView mv = new ModelAndView("/index");
+		Iterable<Produto> produtos = pr.findByStatus(true);
+		mv.addObject("produtos", produtos);
+		return mv;		
+	}
 
 		
 	@RequestMapping(value="/clientes/produtos/visualizarProdutos/{id_produto}", method=RequestMethod.GET)

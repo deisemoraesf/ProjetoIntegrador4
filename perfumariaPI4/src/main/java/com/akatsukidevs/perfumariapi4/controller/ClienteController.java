@@ -170,7 +170,7 @@ public class ClienteController {
 		Usuario u = ur.findByEmail(principal.getName());
 		Pessoa cliente = u.getPessoa();
 		mv.addObject("enderecos", cliente.getEnderecos());
-		mv.addObject("pessoas", cliente);
+		mv.addObject("pessoa", cliente);
 		mv.addObject("usuario", cliente.getUsuario());
         return mv;
     }
@@ -241,7 +241,7 @@ public class ClienteController {
 			return ("redirect:/clientesAdm/editarClientes/pj/{id_pessoa}");	
 	}
 	
-	
+	//Deletar Clientes Administrativo
 	@GetMapping("/clientesAdm/deletarClientes/{id_pessoa}")
 	public String deletarClientes(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute) {
 		Optional<Pessoa> c = pr.findById(id_pessoa);
@@ -333,5 +333,42 @@ public class ClienteController {
 			attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 			return ("redirect:/clientesAdm/cadastrarEndereco/"+id_pessoa);
 		}
-	
+		
+		//Edição CLIENTE USUARIO
+						
+		@RequestMapping(value="/minhaConta/editarClientes/pf", method=RequestMethod.POST)
+		public String editaClientePf(PessoaFisica c, Usuario u, RedirectAttributes attribute) {
+				Set<Endereco> enderecosadicionado = c.getEnderecos();
+				ur.save(u);
+				pfr.save(c);
+				Set<Endereco> enderecos = new HashSet<>();
+				for(Endereco end : enderecosadicionado) {
+					enderecos.add(end);
+					er.save(end);
+					c.setEnderecos(enderecos);
+				}
+				pfr.save(c);
+				attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
+				return ("redirect:/minhaConta");
+			
+		}
+		
+		@RequestMapping(value="/minhaConta/editarClientes/pj", method=RequestMethod.POST)
+		public String editaClientePj(PessoaJuridica c, Usuario u, RedirectAttributes attribute) {
+				Set<Endereco> enderecosadicionado = c.getEnderecos();
+				ur.save(u);
+				pjr.save(c);
+				Set<Endereco> enderecos = new HashSet<>();
+				for(Endereco end : enderecosadicionado) {
+					enderecos.add(end);
+					er.save(end);
+					c.setEnderecos(enderecos);
+				}
+				pjr.save(c);
+				attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
+				return ("redirect:/minhaConta");
+			
+		}
+		
+			
 }
