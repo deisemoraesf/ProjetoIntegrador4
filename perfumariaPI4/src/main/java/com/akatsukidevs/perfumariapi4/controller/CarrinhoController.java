@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,8 @@ import com.akatsukidevs.perfumariapi4.model.ItensCompra;
 import com.akatsukidevs.perfumariapi4.model.Pessoa;
 import com.akatsukidevs.perfumariapi4.model.Produto;
 import com.akatsukidevs.perfumariapi4.model.Usuario;
+import com.akatsukidevs.perfumariapi4.repository.CompraRepository;
+import com.akatsukidevs.perfumariapi4.repository.ItensCompraRepository;
 import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
 import com.akatsukidevs.perfumariapi4.repository.UsuarioRepository;
 
@@ -32,12 +35,21 @@ public class CarrinhoController {
 
 	private List<ItensCompra> itensCompra = new ArrayList<ItensCompra>();
 	private Compra compra = new Compra();
+	private Usuario usuario;
 
 	@Autowired
 	private ProdutoRepositorios pr;
 	
 	@Autowired
 	private UsuarioRepository ur;
+	
+	@Autowired
+	private CompraRepository cr;
+	
+	@Autowired
+	private ItensCompraRepository itensCompraRepo;
+	
+	
 	
 	
 	private void calcularTotal() {
@@ -81,6 +93,24 @@ public class CarrinhoController {
 		mv.addObject("pessoas", cliente);
 		mv.addObject("usuario", cliente.getUsuario());
         return mv;
+    }
+    
+    
+    @PostMapping("/finalizar/confirmar")
+    public ModelAndView confirmarCompra(String formaPagamento) {
+    	ModelAndView mv = new ModelAndView("cliente/compras/mensagemFinalizado");
+    	compra.setUsuario(usuario);
+    	compra.setFormaPagamento(formaPagamento);
+    	cr.saveAndFlush(compra);
+    	
+    	for(ItensCompra c:itensCompra) {
+    		c.setCompra(compra);
+    		itensCompraRepo.saveAndFlush(c);
+    	}
+    	
+    	itensCompra = new ArrayList<>();
+    	compra = new Compra();
+    	return mv;
     }
 	
 

@@ -58,7 +58,7 @@
 
 						<div class="col-md-8 order-md-1">
 							<h4 class="mb-3">Endereço de cobrança</h4>
-							<form class="needs-validation" novalidate>
+							<form action="/finalizar/confirmar" method="post">
 								<div class="row" th:object="${pessoas}">
 									<div class="col-md-6 mb-3">
 										<label for="primeiroNome">Nome</label> <input type="text"
@@ -133,19 +133,19 @@
 
 								<div class="d-block my-3">
 									<div class="custom-control custom-radio">
-										<input id="credito" name="paymentMethod" type="radio"
+										<input id="credito" name="formaPagamento" type="radio"
 											class="custom-control-input" checked required> <label
 											class="custom-control-label" for="credito">Cartão de
 											crédito</label>
 									</div>
 									<div class="custom-control custom-radio">
-										<input id="debito" name="paymentMethod" type="radio"
+										<input id="debito" name="formaPagamento" type="radio"
 											class="custom-control-input" required> <label
 											class="custom-control-label" for="debito">Cartão de
 											débito</label>
 									</div>
 									<div class="custom-control custom-radio">
-										<input id="paypal" name="paymentMethod" type="radio"
+										<input id="paypal" name="formaPagamento" type="radio"
 											class="custom-control-input" required> <label
 											class="custom-control-label" for="paypal">PayPal</label>
 									</div>
