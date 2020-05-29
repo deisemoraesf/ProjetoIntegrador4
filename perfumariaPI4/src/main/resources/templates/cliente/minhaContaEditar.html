@@ -1,0 +1,178 @@
+<!doctype html>
+<html layout:decorate="~{modeloSite}">
+<head>
+<title>Perfumaria</title>
+<meta charset="utf-8">
+</head>
+<body>
+	<div layout:fragment="conteudo">
+		<br>
+		<section class="layout-content">
+
+			<div class="container" id="editar">
+				<h3>Minha Conta</h3>
+				
+				<form method="POST">
+				<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert"></div>
+					<div th:object="${usuario}">
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="id">Email:</label> <input type="text"
+									class="form-control" id="email" autofocus="autofocus"
+									name="email" value="" th:field="*{email}" readonly="readonly" />
+
+								<label for="id">Senha:</label> <input type="text"
+									class="form-control" id="email" autofocus="autofocus"
+									name="email" value="" th:field="*{senha}"/> 
+									
+								<input type="hidden" id="tipo"
+								name="tipo" value="ROLE_COMPRADOR"></input>
+							</div>
+						</div>
+					</div>
+					<div th:object="${pessoa}">
+
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								
+								<input type="hidden" id="tipoPessoa" name="tipo"
+									th:field="*{tipoPessoa}" value=""></input>
+
+								<div th:if="${pessoa.tipoPessoa} == pf">
+
+									<label>Nome:</label> <input type="text" class="form-control"
+										id="nome" autofocus="autofocus" name="nome" value=""
+										th:field="*{nome}" /> 
+										
+									<label>Nome Social:</label> <input
+										type="text" class="form-control" id="nome2"
+										autofocus="autofocus" name="nome2" value=""
+										th:field="*{nome2}" /> 
+									
+									<label>CPF:</label> <input type="text"
+										class="form-control" id="cpf" autofocus="autofocus" name="cpf"
+										value="" th:field="*{cpf}" readonly="readonly" /> 
+									
+									<label>Data de Nascimento:</label> <input type="text" class="form-control"
+										id="dtnascimento" autofocus="autofocus" name="dtnascimento"
+										value="" th:field="*{dtnascimento}" /> 
+									
+									<label>Gênero:</label>
+									<input type="text" class="form-control" id="genero"
+										autofocus="autofocus" name="genero" value=""
+										th:field="*{genero}" />
+
+								</div>
+
+								<div th:unless="${pessoa.tipoPessoa} == pf">
+
+									<label>Razão Social:</label> <input type="text"
+										class="form-control" id="nome" autofocus="autofocus"
+										name="nome" value="" th:field="*{nome}" /> 
+									
+									<label>Nome Fantasia:</label> <input type="text" class="form-control" id="nome2"
+										autofocus="autofocus" name="nome2" value=""
+										th:field="*{nome2}" /> 
+										
+									<label>CNPJ:</label> <input
+										type="text" class="form-control" id="cnpj" readonly="readonly"
+										autofocus="autofocus" name="cnpj" value="" th:field="*{cnpj}" />
+
+									<label>InscriçãoEstadual:</label> <input type="text"
+										class="form-control" id="inscricaoEstadual"
+										autofocus="autofocus" name="inscricaoEstadual" value=""
+										th:field="*{inscricaoEstadual}" />
+									 
+									 <label>Inscrição
+										Municipal:</label> <input type="text" class="form-control"
+										id="inscricaoMunicipal" autofocus="autofocus"
+										name="inscricaoMunicipal" value=""
+										th:field="*{inscricaoMunicipal}" />
+
+								</div>
+
+								<label>Celular:</label> <input type="text" class="form-control"
+									id="celular" autofocus="autofocus" name="celular" value=""
+									th:field="*{celular}" /> 
+									
+								<label>Telefone Fixo:</label> <input
+									type="text" class="form-control" id="telefonefixo"
+									autofocus="autofocus" name="telefonefixo" value=""
+									th:field="*{telefonefixo}" />
+
+							</div>
+						</div>
+
+
+						<div class="table-responsive">
+							<h5>Endereços</h5>
+							<ul class="nav justify-content-end">
+
+								<li class="ml-100"><a class="btn btn-success btn-md"
+									role="button"
+									th:href="@{/minhaConta/cadastrarEndereco/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">
+										<span class="fa fa-paper-plane" title="adicionar"
+										aria-hidden="true"></span> <span>Adicionar Endereço</span>
+								</a></li>
+							</ul>
+							<table class="table table-striped ">
+
+								<tr>
+									<th>Tipo</th>
+									<th>CEP</th>
+									<th>Rua</th>
+									<th>Número</th>
+									<th>Complemento</th>
+									<th>Bairro</th>
+									<th>Cidade</th>
+									<th>Estado</th>
+									<th>Editar</th>
+									<th>Apagar</th>
+
+
+								</tr>
+
+								<tr th:each="endereco : ${enderecos}">
+									<td th:text="${endereco.tipoend}"></td>
+									<td th:text="${endereco.cep}"></td>
+									<td th:text="${endereco.rua}"></td>
+									<td th:text="${endereco.numero}"></td>
+									<td th:text="${endereco.complemento}"></td>
+									<td th:text="${endereco.bairro}"></td>
+									<td th:text="${endereco.cidade}"></td>
+									<td th:text="${endereco.estado}"></td>
+
+									<td><a class="btn btn-info btn-sm" role="button"
+										th:href="@{/minhaConta/editarEndereco/{id}(id=${endereco.id})}">
+											<span class="fa fa-paint-brush" title="Editar"
+											aria-hidden="true"></span>
+									</a></td>
+									<td><a href="#" class="btn btn-danger btn-sm"
+										data-toggle="modal" data-target="#excluir"
+										th:attr="data-id=${endereco.tipoend}, data-actionurl=@{/minhaConta/deletarEndereco/{id}/{id_pessoa}(id=${endereco.id}, id_pessoa=${pessoa.id_pessoa})}">
+											<i class="fa fa-window-close"></i>
+									</a></td>
+								</tr>
+							</table>
+						</div>
+
+					</div>
+
+					<button type="submit" class="btn btn-primary btn-md"
+						th:if="${pessoa.tipoPessoa} == 'pf'"
+						th:action="${editaClientePf}">Salvar</button>
+					&nbsp;&nbsp;
+					<button type="submit" class="btn btn-primary btn-md"
+						th:unless="${pessoa.tipoPessoa} == 'pf'"
+						th:action="${editaClientePj}">Salvar</button>
+					&nbsp;&nbsp; <a href="/index" class="btn btn-primary btn-md">Voltar</a>
+
+
+				</form>
+
+			</div>
+		</section>
+
+	</div>
+</body>
+</html>
