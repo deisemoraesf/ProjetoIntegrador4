@@ -13,15 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.akatsukidevs.perfumariapi4.model.Compra;
+import com.akatsukidevs.perfumariapi4.model.Endereco;
 import com.akatsukidevs.perfumariapi4.model.ItensCompra;
 import com.akatsukidevs.perfumariapi4.model.Pessoa;
 import com.akatsukidevs.perfumariapi4.model.Produto;
 import com.akatsukidevs.perfumariapi4.model.Usuario;
 import com.akatsukidevs.perfumariapi4.repository.CompraRepository;
+import com.akatsukidevs.perfumariapi4.repository.EnderecoRepository;
 import com.akatsukidevs.perfumariapi4.repository.ItensCompraRepository;
 import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
 import com.akatsukidevs.perfumariapi4.repository.UsuarioRepository;
@@ -35,7 +38,7 @@ public class CarrinhoController {
 
 	private List<ItensCompra> itensCompra = new ArrayList<ItensCompra>();
 	private Compra compra = new Compra();
-	private Usuario usuario;
+	
 
 	@Autowired
 	private ProdutoRepositorios pr;
@@ -50,7 +53,8 @@ public class CarrinhoController {
 	private ItensCompraRepository itensCompraRepo;
 	
 	
-	
+	@Autowired
+	private EnderecoRepository er;
 	
 	private void calcularTotal() {
 		compra.setValorTotal(0.);
@@ -97,19 +101,27 @@ public class CarrinhoController {
     
     
     @PostMapping("/finalizar/confirmar")
-    public ModelAndView confirmarCompra(String formaPagamento) {
-    	ModelAndView mv = new ModelAndView("cliente/compras/mensagemFinalizado");
-    	compra.setUsuario(usuario);
-    	compra.setFormaPagamento(formaPagamento);
+    public ModelAndView confirmarCompra(String formaPagamento,String statusCompra, Pessoa p,@RequestParam("id") Long id) {
+    	ModelAndView mv = new ModelAndView("/cliente/compras/mensagemFinalizado");
+    	Optional<Endereco> e = er.findById(id);
+    	Endereco end = e.get();
     	cr.saveAndFlush(compra);
-    	
     	for(ItensCompra c:itensCompra) {
     		c.setCompra(compra);
     		itensCompraRepo.saveAndFlush(c);
     	}
+    	compra.setCliente(p);
+    	p.getCompras().add(compra);
+    	compra.setEndereco(end);
+    	compra.setStatusCompra(statusCompra);
+    	compra.setItensCompra(itensCompra);
+    	compra.setFormaPagamento(formaPagamento);
     	
-    	itensCompra = new ArrayList<>();
-    	compra = new Compra();
+    	end.setCompra(compra);
+    	 	
+    	cr.saveAndFlush(compra);
+    	
+    	mv.addObject("compra", compra);
     	return mv;
     }
 	

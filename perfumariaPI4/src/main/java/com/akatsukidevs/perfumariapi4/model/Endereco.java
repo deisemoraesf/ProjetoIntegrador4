@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -42,6 +44,10 @@ public class Endereco implements Serializable {
 	
 	@ManyToMany(mappedBy="enderecos")
 	private Set<Pessoa> clientes = new HashSet<>();
+	
+	@OneToOne
+	@JoinColumn(name="id_compra")
+	private Compra compra;
 	
 	public Endereco() {
 		
@@ -161,6 +167,18 @@ public class Endereco implements Serializable {
 
 	public void setClientes(Set<Pessoa> clientes) {
 		this.clientes = clientes;
+	}
+	
+	
+
+
+	public Compra getCompra() {
+		return compra;
+	}
+
+
+	public void setCompra(Compra compra) {
+		this.compra = compra;
 	}
 
 

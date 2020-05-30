@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.akatsukidevs.perfumariapi4.model.Compra;
 import com.akatsukidevs.perfumariapi4.model.Endereco;
+import com.akatsukidevs.perfumariapi4.model.ItensCompra;
 import com.akatsukidevs.perfumariapi4.model.Pessoa;
 import com.akatsukidevs.perfumariapi4.model.PessoaFisica;
 import com.akatsukidevs.perfumariapi4.model.PessoaJuridica;
 import com.akatsukidevs.perfumariapi4.model.Usuario;
+import com.akatsukidevs.perfumariapi4.repository.CompraRepository;
 import com.akatsukidevs.perfumariapi4.repository.EnderecoRepository;
+import com.akatsukidevs.perfumariapi4.repository.ItensCompraRepository;
 import com.akatsukidevs.perfumariapi4.repository.PessoaFisicaRepository;
 import com.akatsukidevs.perfumariapi4.repository.PessoaJuridicaRepository;
 import com.akatsukidevs.perfumariapi4.repository.PessoaRepository;
@@ -47,6 +51,12 @@ public class ClienteController {
 	
 	@Autowired
 	private EnderecoRepository er;
+	
+	@Autowired
+	private CompraRepository cr;
+	
+	@Autowired
+	private ItensCompraRepository icr;
 	
 	@RequestMapping("/clientes/verificarCliente")
 	public ModelAndView verificaCliente() {
@@ -393,5 +403,30 @@ public class ClienteController {
 			
 		}
 		
+		
+		@RequestMapping(value = "/historicoPedidos", method = RequestMethod.GET)
+	    public ModelAndView historico(Principal principal) {
+	    	ModelAndView mv = new ModelAndView("/cliente/historico");
+			Usuario u = ur.findByEmail(principal.getName());
+			Pessoa cliente = u.getPessoa();
+			Iterable<Compra> c = cr.findByCliente(cliente);
+			mv.addObject("compras", c);
+			return mv;
+	    }
+		
+		@RequestMapping(value = "/detalhesPedido/{id}", method = RequestMethod.GET)
+	    public ModelAndView detalhes(@PathVariable Long id) {
+	    	ModelAndView mv = new ModelAndView("/cliente/detalhesPedido");
+	    	Optional<Compra> c = cr.findById(id);
+	    	Compra compra = c.get();
+	    	Iterable<ItensCompra> ic = icr.findByCompra(compra);
+	    	for(ItensCompra i : ic) {
+	    		mv.addObject("item", i);
+	    		mv.addObject("produto", i.getProduto());
+	    	}
+	    	
+	    	mv.addObject("compras", compra);		
+			return mv;
+	    }
 			
 }

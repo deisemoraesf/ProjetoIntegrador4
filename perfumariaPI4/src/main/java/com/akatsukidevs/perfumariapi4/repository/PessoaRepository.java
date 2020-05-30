@@ -8,4 +8,5 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 	
 	Iterable<Pessoa> findByStatus(boolean status);
 	
+	
 }

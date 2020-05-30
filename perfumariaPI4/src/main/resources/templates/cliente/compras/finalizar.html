@@ -58,10 +58,13 @@
 
 						<div class="col-md-8 order-md-1">
 							<h4 class="mb-3">Endereço de cobrança</h4>
-							<form action="/finalizar/confirmar" method="post">
+							
+							<form action="finalizar/confirmar" method="post">
 								<div class="row" th:object="${pessoas}">
 									<div class="col-md-6 mb-3">
-										<label for="primeiroNome">Nome</label> <input type="text"
+									<input type="hidden" id="id" th:field="*{id_pessoa}"/>
+									
+									<label for="primeiroNome">Nome</label> <input type="text"
 											class="form-control" id="primeiroNome" placeholder=""
 											value="" th:field="*{nome}" required>
 									</div>
@@ -106,7 +109,7 @@
 											<tr th:each="endereco : ${enderecos}">
 
 												<td class="custom-control custom-radio"><input
-													type="radio" required /></td>
+													type="radio" name="id" id="id" th:value="${endereco.id}" /></td>
 												<td th:text="${endereco.tipoend}"></td>
 												<td th:text="${endereco.cep}"></td>
 												<td th:text="${endereco.rua}"></td>
@@ -133,23 +136,20 @@
 
 								<div class="d-block my-3">
 									<div class="custom-control custom-radio">
-										<input id="credito" name="formaPagamento" type="radio"
+										<input id="formaPagamento" name="formaPagamento" type="radio"
 											class="custom-control-input" checked required> <label
-											class="custom-control-label" for="credito">Cartão de
+											class="custom-control-label" for="credito" value="ccredito">Cartão de
 											crédito</label>
 									</div>
 									<div class="custom-control custom-radio">
-										<input id="debito" name="formaPagamento" type="radio"
+										<input id="formaPagamento" name="formaPagamento" type="radio"
 											class="custom-control-input" required> <label
-											class="custom-control-label" for="debito">Cartão de
+											class="custom-control-label" for="debito" value="cdebito">Cartão de
 											débito</label>
 									</div>
-									<div class="custom-control custom-radio">
-										<input id="paypal" name="formaPagamento" type="radio"
-											class="custom-control-input" required> <label
-											class="custom-control-label" for="paypal">PayPal</label>
-									</div>
+									
 								</div>
+								<input type="hidden" id="statusCompra" name="statusCompra" value="aguardando confirmacao pagamento">
 								<div class="row">
 									<div class="col-md-6 mb-3">
 										<label for="cc-nome">Nome no cartão</label> <input type="text"

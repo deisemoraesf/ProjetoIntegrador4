@@ -16,6 +16,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
@@ -44,7 +45,7 @@ public class Pessoa implements Serializable {
 	@Column(insertable=false, updatable=false)
 	private String tipoPessoa;
 	
-	
+		
 	private boolean status=true;
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pessoa")
@@ -56,6 +57,9 @@ public class Pessoa implements Serializable {
 	   inverseJoinColumns = @JoinColumn(name="id_endereco"))
 	private Set<Endereco> enderecos = new HashSet<>();
 	
+	@OneToMany
+	@JoinColumn(name="id_compra")
+	private Set<Compra> compras = new HashSet<>();
 	
 	public Pessoa() {
 		
@@ -162,6 +166,18 @@ public class Pessoa implements Serializable {
 	public void setTipoPessoa(String tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
+	
+	
+
+	public Set<Compra> getCompras() {
+		return compras;
+	}
+
+
+	public void setCompras(Set<Compra> compras) {
+		this.compras = compras;
+	}
+
 
 	@Override
 	public int hashCode() {
