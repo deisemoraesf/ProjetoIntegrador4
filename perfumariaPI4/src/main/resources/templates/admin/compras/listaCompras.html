@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html layout:decorate="~{/admin/modeloHome}">
+<head>
+    <title>Perfumaria</title>
+    <meta charset="UTF-8"/>
+          
+</head>
+<body>
+
+	<div class="layout-main" layout:fragment="conteudo">
+	
+	    	
+	    <section class="layout-content">
+	        <nav class="navbar navbar-expand-md bg-light">
+	            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+	                <ul class="navbar-nav mr-auto">
+	                    <li class="nav-item active">
+	                        <i class="oi oi-caret-right"></i>
+	                        <span>Vendas</span>
+	                    </li>
+	                </ul>
+	                <a href="/admin/" class="btn btn-primary">Voltar</a>&nbsp;&nbsp;
+	                
+	            </div>
+	        </nav>
+	
+	        <div class="container">
+	
+	           <form class="form-inline" method="POST" th:action="@{pesquisaProduto}">
+					<input class="form-control mr-sm-2" type="text" aria-label="Search"
+						name="termoBusca" placeholder="Pesquisa por nome"> <span></span>
+					
+
+					<button class="btn btn-primary" type="submit">
+						<i class="oi oi-magnifying-glass"></i>Pesquisar
+					</button>
+				</form>
+				
+				<br>
+	
+	
+	            <div class="table-responsive">
+	                <table class="table table-striped ">
+	                   
+	                    <tr>
+	                        <th>Nº Pedido</th>
+	                        <th>Data</th>
+	                        <th>Valor</th>
+	                        <th>Status</th>	
+	                        <th>Editar Status</th> 
+	                        
+	                    </tr>
+	                  
+	                  
+		                    <tr th:each="compra : ${compras}">
+		                        <td><span th:text="${compra.id}"></span></td>
+		                        <td><span th:text="${compra.dataCompra}"></span></td>
+		                        <td><span th:text="${comprarTotal}"></span></td>
+		                        <td><span th:text="${compra.statusCompra}"></span></td>
+		                        
+		                        
+		                        <td colspan="2">
+									<a  class="btn btn-success btn-sm" role="button"
+									th:href="@{/compras/editarStatus/{id}(id=${compra.id})}">
+									<span class="oi oi-magnifying-glass" title="Visualizar" aria-hidden="true"></span>
+									</a>
+								</td>
+										                       
+		                    </tr>
+                  
+	                </table>
+	            </div>
+	        </div>
+	    </section>
+
+		<div layout:fragment="modal-area">
+	    <div class="modal fade" tabindex="-1" role="dialog" id="excluir">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h5 class="modal-title">Apagar produto</h5>
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                    </button>
+	                </div>
+	                <div class="modal-body">
+	                    <p></p>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+	                    <form method="GET">
+	                       <button type="submit" class="btn btn-danger">Apagar</button>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        
+	    </div>
+	   </div> 
+
+	</div>
+	
+	
+	
+</body>
+</html>		

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html layout:decorate="~{/admin/modeloHome}">
+<head>
+	<title>Perfumaria</title>
+ 	<meta charset="UTF-8"/>
+	<script th:inline="javascript">
+   
+</script>
+
+</head>
+<body>
+	<div layout:fragment="conteudo">
+
+		<section class="layout-content">
+			<div class="page-header">
+				<nav class="navbar navbar-expand-md navbar-top bg-light">
+					<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+						<ul class="navbar-nav">
+							<li class="nav-item active"><i class="oi oi-caret-right"></i>
+								<span>Edição Status</span></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+
+			<div class="container" id="cadastro">
+
+				<form method="POST" th:object="${compras}">
+				<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert">
+						
+					</div>	
+					<div class="form-row">
+
+						<div class="form-group col-md-6">
+							<label for="nome">Nº Pedido</label> <input type="text"
+								class="form-control" id="id_produto"
+								autofocus="autofocus" name="id" value=""
+								th:field="*{id}" readonly="readonly" />
+							</br>
+
+							<label for="nome">Data</label> <p type="Date"
+								class="form-control" id="dataCompra"
+								autofocus="autofocus" name="dataCompra" value="" th:text="*{dataCompra}" readonly="readonly"/>
+							</br>
+							
+							<label for="valor">Valor</label> <input type="text"
+								class="form-control" id="preco"
+								autofocus="autofocus" name="preco" size="20" value=""
+								th:field="*{valorTotal}" readonly="readonly"/>
+							
+							<br>
+							<label for="nome">Status</label> <select
+								class="form-control" id="tipo" name="tipo" th:field="*{statusCompra}">
+								<option value="teste"></option>
+								<option value="pagamento aprovado">Pagamento Aprovado</option>
+								<option value="saiu pra entrega">Saiu para entrega</option>
+								<option value="entregue">Entregue</option>
+							</select><br> <br>
+							
+						    			
+							<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+							<a href="/compras" class="btn btn-primary btn-sm">Voltar</a>
+							</br> 
+							
+																						
+
+						</div>
+					</div>
+				</form>
+				
+			
+		</section>
+		
+		 
+		
+	</div>
+	
+</body>
+</html>
