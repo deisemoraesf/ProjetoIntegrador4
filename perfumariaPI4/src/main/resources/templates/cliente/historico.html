@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html layout:decorate="~{modeloSite}">
+<head>
+
+<title>Perfumaria Administrativo</title>
+<meta charset="UTF-8" />
+
+</head>
+<body>
+
+	<div layout:fragment="conteudo">
+<br>
+
+		<section class="layout-content">
+			
+
+			<div class="container">
+				<h4>Histórico de Pedidos</h4>
+								
+				<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert"></div>
+
+				<div class="table-responsive">
+					<table class="table table-striped ">
+
+						<tr>
+							<th>Pedido</th>
+							<th>Status</th>
+							<th>Data</th>
+							<th>Valor</th>
+							<th>Detalhes</th>
+																				
+						</tr>
+				
+						<tr th:each="compra : ${compras}">
+							<td th:text="${compra.id}"></td>
+							<td th:text="${compra.statusCompra}"></td>
+							<td th:text="${compra.dataCompra}"></td>
+							<td th:text="${compra.valorTotal}">
+													
+												
+							<td colspan="2">
+								<a  class="btn btn-success btn-sm" role="button"
+									th:href="@{/detalhesPedido/{id}(id=${compra.id})}">
+									<span class="fa fa-eye" title="Visualizar" aria-hidden="true"></span>
+								</a>
+							</td>
+							
+											
+						</tr>
+	
+					</table>
+				</div>
+			</div>
+		</section>
+
+	</div>
+	
+	  
+</body>
+</html>
