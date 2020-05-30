@@ -13,9 +13,9 @@ public class DataConfiguration {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/perfumaria");
-        dataSource.setUsername("root");
-        dataSource.setPassword("adminadmin");
+        dataSource.setUrl("jdbc:mysql://mysql-bmxvftuzefoug.mysql.database.azure.com:3306/perfumaria");
+        dataSource.setUsername("suporte@mysql-bmxvftuzefoug");
+        dataSource.setPassword("Contec@1115");
         return dataSource;
     }
 	
