@@ -14,21 +14,23 @@
         <div class="card text-center" th:object="${compra}">
             <div class="card-header">
                 <div style="color: green;">
+                	
                     <font size="5"><b>SEU PEDIDO Nº <span th:text="${compra.id}"></span> FOI APROVADO!</b></font>
                   </div>
             </div>
             <div class="card-body">
+              <img height="80px" th:src="@{/success.png}">
+              <br>
+              <br>
               <h5 class="card-title">Compra realizada com sucesso</h5>
               <p class="card-text">Seu pedido foi gerado com sucesso e logo estará em sua residência</p>
             </div>
             <div class="card-footer text-muted">
-                <font size="2"> Agradecemos a preferência</font>
+               <a href="/" class="btn btn-primary">OK</a>  
             </div>
-          </div>
+                      
+        </div>
     </div>
-	
 	</div>
-
-
 </body>
 </html>

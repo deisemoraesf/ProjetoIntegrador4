@@ -124,31 +124,35 @@
 									</table>
 								</div>
 
-
-
-
-
-
-
 								<hr class="mb-4">
 
 								<h4 class="mb-3">Pagamento</h4>
-
-								<div class="d-block my-3">
-									<div class="custom-control custom-radio">
-										<input id="formaPagamento" name="formaPagamento" type="radio"
-											class="custom-control-input" checked required> <label
-											class="custom-control-label" for="credito" value="ccredito">Cartão de
-											crédito</label>
-									</div>
-									<div class="custom-control custom-radio">
-										<input id="formaPagamento" name="formaPagamento" type="radio"
-											class="custom-control-input" required> <label
-											class="custom-control-label" for="debito" value="cdebito">Cartão de
-											débito</label>
-									</div>
-									
+								
+							<div class="d-block my-3">
+								<div class="row">								
+								<div class="col-sm-10">
+								
+								<div class="custom-control custom-radio">
+									<input class="form-check-input" type="radio" name="formaPagamento"
+										id="optFormaPagamento" value="Boleto" >
+									<label class="form-check-label" for="optFormaPagamento">Boleto
+									</label>
 								</div>
+																
+								
+								<div class="custom-control custom-radio">
+									<input class="form-check-input" type="radio" name="formaPagamento"
+										id="optFormaPagamento" value="Cartao Credito" >
+									<label class="form-check-label" for="optFormaPagamento">Cartão Crédito
+									</label>
+								</div>
+								
+								
+								</div>
+								</div>
+							</div>
+								
+
 								<input type="hidden" id="statusCompra" name="statusCompra" value="aguardando confirmacao pagamento">
 								<div class="row">
 									<div class="col-md-6 mb-3">
@@ -183,8 +187,7 @@
 									</div>
 								</div>
 								<hr class="mb-4">
-								<button class="btn btn-primary btn-lg btn-block" type="submit">Continue
-									o checkout</button>
+								<button class="btn btn-primary btn-lg btn-block" type="submit">Confirmar Pedido</button>
 							</form>
 						</div>
 					</div>
