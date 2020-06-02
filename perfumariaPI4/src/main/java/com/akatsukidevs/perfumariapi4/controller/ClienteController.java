@@ -164,6 +164,7 @@ public class ClienteController {
 		return ("redirect:/clientesAdm/cadastrarCliente");
 	}
 
+	//Listar Clientes Administrativo
 	@GetMapping("/clientesAdm")
 	public ModelAndView listaClientes(){
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/listaClientes");
@@ -172,7 +173,7 @@ public class ClienteController {
 		return mv;
 	}
 	
-	
+	//Acesso Cliente a Minha Conta
     @RequestMapping(value = "/minhaConta", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView currentUserName(Principal principal) {
@@ -184,9 +185,22 @@ public class ClienteController {
 		mv.addObject("usuario", cliente.getUsuario());
         return mv;
     }
+    
+  //Acesso Cliente a Minha Conta
+    @RequestMapping(value = "/minhaConta", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView metodoPost(Principal principal) {
+    	ModelAndView mv = new ModelAndView("/cliente/minhaConta");
+		Usuario u = ur.findByEmail(principal.getName());
+		Pessoa cliente = u.getPessoa();
+		mv.addObject("enderecos", cliente.getEnderecos());
+		mv.addObject("pessoa", cliente);
+		mv.addObject("usuario", cliente.getUsuario());
+        return mv;
+    }
 	
 	
-	
+	//Cliente Visualizar Dados
 	@RequestMapping(value="/clientesAdm/visualizarClientes/{id_pessoa}", method=RequestMethod.GET)
 	public ModelAndView visualizarCliente(@PathVariable ("id_pessoa") Long id_pessoa) {
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/visualizarCliente");
@@ -198,7 +212,7 @@ public class ClienteController {
 		return mv;
 	}
 	
-	
+	// Edicao Cliente Administrativo PF
 	@RequestMapping(value="/clientesAdm/editarClientes/pf/{id_pessoa}", method=RequestMethod.GET)
 	public ModelAndView editarClientepf(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/editarCliente");
@@ -211,7 +225,7 @@ public class ClienteController {
 		return mv;		
 	}
 	
-	
+	// Edicao Cliente Administrativo PJ
 	@RequestMapping(value="/clientesAdm/editarClientes/pj/{id_pessoa}", method=RequestMethod.GET)
 	public ModelAndView editarClientepj(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
 		ModelAndView mv = new ModelAndView("/admin/clienteAdm/editarCliente");
@@ -225,30 +239,31 @@ public class ClienteController {
 		
 	}
 	
-	
+	// Salva Edicao Cliente Administrativo PF
 	@RequestMapping(value="/clientesAdm/editarClientes/pf/{id_pessoa}", method=RequestMethod.POST)
 	public String salvaEdicaoPF(PessoaFisica c, RedirectAttributes attribute) {
-			Set<Endereco> enderecosadicionado = c.getEnderecos();
-			pfr.save(c);
-			Set<Endereco> enderecos = new HashSet<>();
-			for(Endereco end : enderecosadicionado) {
-				enderecos.add(end);
-				er.save(end);
-				c.setEnderecos(enderecos);
-			}
+			Optional<PessoaFisica> p = pfr.findById(c.getId_pessoa());
+			PessoaFisica consultada = p.get();
+			Set<Endereco> e = consultada.getEnderecos();
+			c.setEnderecos(e);
+
 			pfr.save(c);
 			attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
 			return ("redirect:/clientesAdm/editarClientes/pf/{id_pessoa}");
 		
 	}
 	
+	// Salva Edicao Cliente Administrativo PJ
 	@RequestMapping(value="/clientesAdm/editarClientes/pj/{id_pessoa}", method=RequestMethod.POST)
 	public String salvaEdicaoPJ(PessoaJuridica c, RedirectAttributes attribute) {
-			Set<Endereco> enderecosadicionado = c.getEnderecos();
-			pjr.save(c);
-			c.setEnderecos(enderecosadicionado);
-			attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
-			return ("redirect:/clientesAdm/editarClientes/pj/{id_pessoa}");	
+		Optional<PessoaJuridica> p = pjr.findById(c.getId_pessoa());
+		PessoaJuridica consultada = p.get();
+		Set<Endereco> e = consultada.getEnderecos();
+		c.setEnderecos(e);
+
+		pjr.save(c);
+		attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
+		return ("redirect:/clientesAdm/editarClientes/pf/{id_pessoa}");
 	}
 	
 	//Deletar Clientes Administrativo
@@ -265,7 +280,7 @@ public class ClienteController {
 		return ("redirect:/clientesAdm");
 	}
 	
-	
+	//Verifica Clientes antes de ele se cadastrar
 	@PostMapping("/clientes/verificarCliente")
 	public String verificaCliente(String email, RedirectAttributes attribute) {
 		Usuario usu = ur.findByEmail(email);
@@ -304,7 +319,7 @@ public class ClienteController {
 		
 		// deletar ENDERECO Administrativo
 		@GetMapping("/clientesAdm/deletarEndereco/{id}/{id_pessoa}")
-		public String deletarUsuarios(@PathVariable ("id") Long id,@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute) {
+		public String deletarEndereco(@PathVariable ("id") Long id,@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute) {
 			Optional<Endereco> endereco = er.findById(id);
 			Optional<Pessoa> pessoa = pr.findById(id_pessoa);
 			Endereco end = endereco.get();
@@ -319,14 +334,14 @@ public class ClienteController {
 			
 		}
 	
-		// Salva ENDERECO  
+		// Salva ENDERECO Administrativo 
 		@RequestMapping(value="/clientesAdm/cadastrarEndereco/{id_pessoa}", method=RequestMethod.GET)
 		public ModelAndView salvarEndereco() {
 			ModelAndView mv = new ModelAndView("/admin/clienteAdm/cadastroEndereco");
 			return mv;
 		}
 		
-		// Salva ENDERECO  
+		// Salva ENDERECO Administrativo 
 		@RequestMapping(value="/clientesAdm/cadastrarEndereco/{id_pessoa}", method=RequestMethod.POST)
 		public String salvar(@PathVariable Long id_pessoa, Endereco endereco, BindingResult result, RedirectAttributes attribute) {
 			if(result.hasErrors()) {
@@ -344,7 +359,7 @@ public class ClienteController {
 			return ("redirect:/clientesAdm/cadastrarEndereco/"+id_pessoa);
 		}
 		
-		//Edição CLIENTE USUARIO
+		//Edição CLIENTE USUARIO PF
 		
 		@RequestMapping(value="/minhaConta/editarClientes/pf/{id_pessoa}", method=RequestMethod.GET)
 		public ModelAndView minhaContaEditaPf(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
@@ -359,21 +374,20 @@ public class ClienteController {
 		}
 						
 		@RequestMapping(value="/minhaConta/editarClientes/pf/{id_pessoa}", method=RequestMethod.POST)
-		public String salvaMinhaContaEditaPf(PessoaFisica c, Usuario u, RedirectAttributes attribute) {
-				Set<Endereco> enderecosadicionado = c.getEnderecos();
-				ur.save(u);
-				pfr.save(c);
-				Set<Endereco> enderecos = new HashSet<>();
-				for(Endereco end : enderecosadicionado) {
-					enderecos.add(end);
-					er.save(end);
-					c.setEnderecos(enderecos);
-				}
-				pfr.save(c);
-				attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
-				return ("redirect:/minhaConta/editarClientes/pf/{id_pessoa}");
+		public String salvaMinhaContaEditaPf(PessoaFisica c, RedirectAttributes attribute) {
+			Optional<PessoaFisica> p = pfr.findById(c.getId_pessoa());
+			PessoaFisica consultada = p.get();
+			Set<Endereco> e = consultada.getEnderecos();
+			c.setEnderecos(e);
+
+			pfr.save(c);
+							
+			attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
+			return ("redirect:/minhaConta/editarClientes/pf/{id_pessoa}");
 			
 		}
+		
+		//Edição CLIENTE USUARIO PJ
 		@RequestMapping(value="/minhaConta/editarClientes/pj/{id_pessoa}", method=RequestMethod.GET)
 		public ModelAndView minhaContaEditaPj(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
 			ModelAndView mv = new ModelAndView("/cliente/minhaContaEditar");
@@ -388,22 +402,19 @@ public class ClienteController {
 		
 		@RequestMapping(value="/minhaConta/editarClientes/pj/{id_pessoa}/pj", method=RequestMethod.POST)
 		public String salvaMinhaContaEditaPj(PessoaJuridica c, Usuario u, RedirectAttributes attribute) {
-				Set<Endereco> enderecosadicionado = c.getEnderecos();
-				ur.save(u);
-				pjr.save(c);
-				Set<Endereco> enderecos = new HashSet<>();
-				for(Endereco end : enderecosadicionado) {
-					enderecos.add(end);
-					er.save(end);
-					c.setEnderecos(enderecos);
-				}
-				pjr.save(c);
-				attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
-				return ("redirect:/minhaConta/editarClientes/pj/{id_pessoa}");
+			Optional<PessoaJuridica> p = pjr.findById(c.getId_pessoa());
+			PessoaJuridica consultada = p.get();
+			Set<Endereco> e = consultada.getEnderecos();
+			c.setEnderecos(e);
+
+			pjr.save(c);
+			
+			attribute.addFlashAttribute("mensagem", "Alterado com sucesso");
+			return ("redirect:/minhaConta/editarClientes/pj/{id_pessoa}");
 			
 		}
 		
-		
+		// Cliente Histórico de Pedido
 		@RequestMapping(value = "/historicoPedidos", method = RequestMethod.GET)
 	    public ModelAndView historico(Principal principal) {
 	    	ModelAndView mv = new ModelAndView("/cliente/historico");
@@ -414,12 +425,14 @@ public class ClienteController {
 			return mv;
 	    }
 		
+		// Cliente Detalhes de Pedido
 		@RequestMapping(value = "/detalhesPedido/{id}", method = RequestMethod.GET)
 	    public ModelAndView detalhes(@PathVariable Long id) {
 	    	ModelAndView mv = new ModelAndView("/cliente/detalhesPedido");
 	    	Optional<Compra> c = cr.findById(id);
 	    	Compra compra = c.get();
 	    	Iterable<ItensCompra> ic = icr.findByCompra(compra);
+	    	mv.addObject("itens", ic);
 	    	for(ItensCompra i : ic) {
 	    		mv.addObject("item", i);
 	    		mv.addObject("produto", i.getProduto());
@@ -428,5 +441,83 @@ public class ClienteController {
 	    	mv.addObject("compras", compra);		
 			return mv;
 	    }
+		
+		//Cliente Trocar a Senha
+		@PostMapping("/minhaConta/editarSenha/{id_usuario}")
+		public String editarStatus(@PathVariable("id_usuario") Long id_usuario, String senha, RedirectAttributes attribute) {
 			
+			Optional<Usuario> usuario = ur.findById(id_usuario);
+			Usuario usu = usuario.get();
+			usu.setSenha(senha);
+			ur.save(usu);
+			
+			attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
+			return ("redirect:/minhaConta");
+		}
+		
+		//Edicao ENDERECO Cliente
+		@GetMapping("/minhaConta/editarEndereco/{id}")
+		public ModelAndView editarEnderecoCliente(@PathVariable ("id") Long id, RedirectAttributes attribute ) {
+			ModelAndView mv = new ModelAndView("/cliente/edicaoEndereco");
+			Optional<Endereco> e = er.findById(id);
+			Endereco endereco = e.get();
+			mv.addObject("endereco", endereco);
+			attribute.addFlashAttribute("mensagem", "Editado com sucesso");
+			return mv;
+					
+		}
+				
+		// Salva ENDERECO Edicao Cliente
+		@PostMapping("/minhaConta/editarEndereco/{id}")
+		public String SalvaEdicaoCliente(Endereco e, RedirectAttributes attribute ) {
+			er.save(e);
+			attribute.addFlashAttribute("mensagem", "Editado com sucesso");
+			return ("redirect:/minhaConta/editarEndereco/{id}");
+					
+		}
+		
+		// deletar ENDERECO Cliente
+		@GetMapping("/minhaConta/deletarEndereco/{id}/{id_pessoa}")
+		public String deletarEnderecoCliente(@PathVariable ("id") Long id,@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute) {
+			Optional<Endereco> endereco = er.findById(id);
+			Optional<Pessoa> pessoa = pr.findById(id_pessoa);
+			Endereco end = endereco.get();
+			Pessoa p = pessoa.get();
+			end.setStatus(false);
+			end.getClientes().remove(p);
+			p.getEnderecos().remove(end);
+					
+			er.save(end);
+			attribute.addFlashAttribute("mensagem", "Deletado com sucesso");
+			return ("redirect:/minhaConta");
+					
+		}
+		
+	// Salva ENDERECO  
+	@RequestMapping(value="/minhaConta/cadastrarEndereco/{id_pessoa}", method=RequestMethod.GET)
+	public ModelAndView salvarEnderecoCliente() {
+		ModelAndView mv = new ModelAndView("/cliente/cadastroEndereco");
+		return mv;
+	}
+				
+	// Salva ENDERECO  
+	@RequestMapping(value="/minhaConta/cadastrarEndereco/{id_pessoa}", method=RequestMethod.POST)
+	public String salvarEnderecoCliente(@PathVariable Long id_pessoa, Endereco endereco, BindingResult result, RedirectAttributes attribute) {
+		if(result.hasErrors()) {
+		attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
+		}
+		Optional<Pessoa> p = pr.findById(id_pessoa);
+		Pessoa pessoa = p.get();
+		endereco.getClientes().add(pessoa);
+		er.save(endereco);
+		pessoa.getEnderecos().add(endereco);
+		pr.save(pessoa);
+					
+		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
+		return ("redirect:/minhaConta/cadastrarEndereco/"+id_pessoa);
+	}
+
+		
+				
+		
 }

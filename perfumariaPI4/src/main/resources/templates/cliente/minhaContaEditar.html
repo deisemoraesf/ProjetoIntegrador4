@@ -3,6 +3,21 @@
 <head>
 <title>Perfumaria</title>
 <meta charset="utf-8">
+
+<script th:inline="javascript">
+    $(function() {
+        $('#excluir').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var idUsuario = button.data('id')
+            var actionUrl = button.data('actionurl');
+            var modal = $(this);
+            modal.find('.modal-title').text('Apagar Endereco');
+            modal.find('.modal-body p').text('Deseja apagar o Endereco '+ idUsuario+'?');
+            modal.find('.modal-footer form').attr('action', actionUrl);
+        });
+    });
+</script>
+
 </head>
 <body>
 	<div layout:fragment="conteudo">
@@ -17,16 +32,11 @@
 					<div th:object="${usuario}">
 						<div class="form-row">
 							<div class="form-group col-md-6">
+																
 								<label for="id">Email:</label> <input type="text"
 									class="form-control" id="email" autofocus="autofocus"
 									name="email" value="" th:field="*{email}" readonly="readonly" />
 
-								<label for="id">Senha:</label> <input type="text"
-									class="form-control" id="email" autofocus="autofocus"
-									name="email" value="" th:field="*{senha}"/> 
-									
-								<input type="hidden" id="tipo"
-								name="tipo" value="ROLE_COMPRADOR"></input>
 							</div>
 						</div>
 					</div>
@@ -37,6 +47,10 @@
 								
 								<input type="hidden" id="tipoPessoa" name="tipo"
 									th:field="*{tipoPessoa}" value=""></input>
+								
+								<input type="hidden" id="id_pessoa"
+								name="id_pessoa" th:field="*{id_pessoa}"></input>	
+									
 
 								<div th:if="${pessoa.tipoPessoa} == pf">
 
@@ -165,13 +179,38 @@
 					<button type="submit" class="btn btn-primary btn-md"
 						th:unless="${pessoa.tipoPessoa} == 'pf'"
 						th:action="${editaClientePj}">Salvar</button>
-					&nbsp;&nbsp; <a href="/index" class="btn btn-primary btn-md">Voltar</a>
+					&nbsp;&nbsp; <a href="/minhaConta" class="btn btn-primary btn-md">Voltar</a>
 
 
 				</form>
 
 			</div>
 		</section>
+		
+		<div layout:fragment="modal-area">
+	    <div class="modal fade" tabindex="-1" role="dialog" id="excluir">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h5 class="modal-title">Apagar Endereco</h5>
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                    </button>
+	                </div>
+	                <div class="modal-body">
+	                    <p></p>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+	                    <form method="GET">
+	                       <button type="submit" class="btn btn-danger">Apagar</button>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        
+	    </div>
+	   </div> 
 
 	</div>
 </body>

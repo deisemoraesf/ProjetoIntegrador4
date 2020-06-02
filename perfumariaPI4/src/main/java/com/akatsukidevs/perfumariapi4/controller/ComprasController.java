@@ -23,14 +23,14 @@ public class ComprasController {
 	
 	@RequestMapping("/compras")
 	public ModelAndView verificaCliente() {
-		ModelAndView mv=new ModelAndView("/admin/listaCompras");
+		ModelAndView mv=new ModelAndView("/admin/compras/listaCompras");
 		mv.addObject("compras", cr.findAll());
 		return mv;
 	}
 	
 	@GetMapping("/compras/editarStatus/{id}")
 	public ModelAndView editarStatus(@PathVariable("id") Long id) {
-		ModelAndView mv=new ModelAndView("/admin/editaCompras");
+		ModelAndView mv=new ModelAndView("/admin/compras/editaCompras");
 		Optional<Compra> compra = cr.findById(id);
 		Compra c = compra.get();
 		mv.addObject("compras", c);

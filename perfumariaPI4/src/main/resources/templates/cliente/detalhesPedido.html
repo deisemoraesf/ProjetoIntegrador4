@@ -28,6 +28,30 @@
               </div>
               <br>
               <br>
+              
+              <div class="table-responsive">
+	                <table class="table table-striped ">
+              
+              			<tr>
+	                        <th>Produto</th>
+	                        <th>Quantidade</th>
+	                        <th>Valor</th>
+	                        
+	                        
+	           			</tr>
+              
+              			<tr th:each="i : ${itens}">
+		       				
+		            		<td><span th:text="${i.quantidade}"></span></td>
+		            		
+		                                          
+		      			</tr>
+            		</table>  
+              </div>
+              
+              
+              
+              <!--  
               <div th:object="${item}">
               <label for=""><strong>Quantidade:</strong></label>
               <p type="number" id="quantidade" th:text="${item.quantidade}"/><br>
@@ -35,7 +59,7 @@
               <div th:object="${produto}">
               <label for=""><strong>Produto:</strong></label>
               <p type="text" name="" id="formaPagamento" th:text="${produto.nome_produto}"/ >
-              </div>
+              </div>-->
               
               <a href="/historicoPedidos" class="btn btn-primary btn-md">Voltar</a>
               

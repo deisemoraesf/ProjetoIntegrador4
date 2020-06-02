@@ -3,6 +3,19 @@
 <head>
 <title>Perfumaria</title>
 <meta charset="utf-8">
+
+<script th:inline="javascript">
+    $(function() {
+        $('#excluirSenha').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var actionUrl = button.data('actionurl');
+            var modal = $(this);
+            modal.find('.modal-title h5').text('Editar Senha');
+            modal.find('.modal-body form').attr('action', actionUrl);
+        });
+    });
+</script>
+
 </head>
 <body>
 	<div layout:fragment="conteudo">
@@ -13,9 +26,14 @@
 				<h3>Minha Conta</h3>
 				
 				<form method="POST" th:if{>
+					<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert"></div>
 					<div th:object="${usuario}">
 						<div class="form-row">
 							<div class="form-group col-md-6">
+								
+								
+								<input type="hidden" th:field="*{id_usuario}">
+															
 								<label for="id">Email:</label> <input type="text"
 									class="form-control" id="email" autofocus="autofocus"
 									name="email" value="" th:field="*{email}" readonly="readonly" />
@@ -136,6 +154,11 @@
 					<a type="submit" class="btn btn-success btn-md"
 						th:unless="${pessoa.tipoPessoa} == 'pf'"
 						th:href="@{/minhaConta/editarClientes/pj/{id_pessoa}(id_pessoa=${pessoa.id_pessoa})}">Editar</a>
+						
+					
+					<a class="btn btn-danger btn-md" href="#" data-toggle="modal" data-target="#editarSenha" 
+					>Editar Senha</a>	
+					
 					&nbsp;&nbsp; <a href="/index" class="btn btn-primary btn-md">Voltar</a>
 
 
@@ -143,6 +166,31 @@
 
 			</div>
 		</section>
+		
+<div class="modal fade" id="editarSenha" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Senha</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+          <form class="form-group" method="post" th:action="@{/minhaConta/editarSenha/{id_usuario}(id_usuario=${usuario.id_usuario})}" >
+            <label class="col-form-label">Digite nova senha:</label>
+            <input type="text" class="form-control" id="senha" name="senha" th:value="*{senha}">
+           	<br>
+          	<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          	<button type="submit" class="btn btn-primary">Enviar</button>
+          </form>
+      
+      </div>
+     
+    </div>
+  </div>
+</div>
 
 	</div>
 </body>
