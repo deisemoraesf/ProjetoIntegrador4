@@ -493,14 +493,14 @@ public class ClienteController {
 					
 		}
 		
-	// Salva ENDERECO  
+	// Salva ENDERECO  Cliente
 	@RequestMapping(value="/minhaConta/cadastrarEndereco/{id_pessoa}", method=RequestMethod.GET)
 	public ModelAndView salvarEnderecoCliente() {
 		ModelAndView mv = new ModelAndView("/cliente/cadastroEndereco");
 		return mv;
 	}
 				
-	// Salva ENDERECO  
+	// Salva ENDERECO  Cliente
 	@RequestMapping(value="/minhaConta/cadastrarEndereco/{id_pessoa}", method=RequestMethod.POST)
 	public String salvarEnderecoCliente(@PathVariable Long id_pessoa, Endereco endereco, BindingResult result, RedirectAttributes attribute) {
 		if(result.hasErrors()) {
