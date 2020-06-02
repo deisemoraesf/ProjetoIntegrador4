@@ -9,13 +9,13 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '306c3c1d-6d64-4917-89f6-a1cf21838c8f'
+  azureSubscription: 'e5941ee2-80c7-4db0-8f7e-26ef8ca43186'
   
   # Web app name
-  webAppName: 'MySQL-up2fygjaoceju'
+  webAppName: 'pi4'
 
   # Environment name
-  environmentName: 'MySQL-up2fygjaoceju'
+  environmentName: 'pi4'
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -60,7 +60,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Azure Web App Deploy: MySQL-up2fygjaoceju'
+            displayName: 'Azure Web App Deploy: pi4'
             inputs:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
