@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html layout:decorate="~{modeloSite}">
+
+<head>
+<title>Perfumaria</title>
+<meta charset="UTF-8" />
+
+
+<script type="text/javascript">
+	function limpa_formulário_cep() {
+		//Limpa valores do formulário de cep.
+		document.getElementById('rua').value = ("");
+		document.getElementById('bairro').value = ("");
+		document.getElementById('cidade').value = ("");
+		document.getElementById('estado').value = ("");
+		//document.getElementById('ibge').value=("");
+	}
+
+	function meu_callback(conteudo) {
+		if (!("erro" in conteudo)) {
+			//Atualiza os campos com os valores.
+			document.getElementById('rua').value = (conteudo.logradouro);
+			document.getElementById('bairro').value = (conteudo.bairro);
+			document.getElementById('cidade').value = (conteudo.localidade);
+			document.getElementById('estado').value = (conteudo.uf);
+			//document.getElementById('ibge').value=(conteudo.ibge);
+		} //end if.
+		else {
+			//CEP não Encontrado.
+			limpa_formulário_cep();
+			alert("CEP não encontrado.");
+		}
+	}
+
+	function pesquisacep(valor) {
+
+		//Nova variável "cep" somente com dígitos.
+		var cep = valor.replace(/\D/g, '');
+
+		//Verifica se campo cep possui valor informado.
+		if (cep != "") {
+
+			//Expressão regular para validar o CEP.
+			var validacep = /^[0-9]{8}$/;
+
+			//Valida o formato do CEP.
+			if (validacep.test(cep)) {
+
+				//Preenche os campos com "..." enquanto consulta webservice.
+				document.getElementById('rua').value = "...";
+				document.getElementById('bairro').value = "...";
+				document.getElementById('cidade').value = "...";
+				document.getElementById('estado').value = "...";
+				//document.getElementById('ibge').value="...";
+
+				//Cria um elemento javascript.
+				var script = document.createElement('script');
+
+				//Sincroniza com o callback.
+				script.src = 'https://viacep.com.br/ws/' + cep
+						+ '/json/?callback=meu_callback';
+
+				//Insere script no documento e carrega o conteúdo.
+				document.body.appendChild(script);
+
+			} //end if.
+			else {
+				//cep é inválido.
+				limpa_formulário_cep();
+				alert("Formato de CEP inválido.");
+			}
+		} //end if.
+		else {
+			//cep sem valor, limpa formulário.
+			limpa_formulário_cep();
+		}
+	};
+</script>
+
+</head>
+<body>
+	<div layout:fragment="conteudo">
+		<br>
+		<section class="layout-content">
+			
+			<div class="container" id="cadastro">
+
+				<form method="POST"  th:object="${endereco}" novalidate>
+
+					<div class="col-12 alert alert-success" th:if="${mensagem != null}" th:text="${mensagem}" role="alert"></div>
+					
+					<div class="form-row">
+
+						<div class="form-group col-md-6"
+							th:action="@{https://viacep.com.br/ws/{cep}/json/}">
+							
+							
+							<label class="small mb-1" for="id">ID:</label> <input
+								type="text" class="form-control py-3" id="id"
+								name="id" value="" th:field="*{id}" readonly="readonly">
+							
+							
+							<label class="small mb-1" for="tipoend">Local:</label> <input
+								type="text" class="form-control py-3" id="tipoend"
+								name="tipoend" value="" th:field="*{tipoend}">
+
+
+							<label class="small mb-1" for="cep">CEP:</label> 
+							<input type="text" class="form-control py-3" id="cep" name="cep"
+								th:field="*{cep}" onblur="pesquisacep(this.value);" />
+
+
+							<label class="small mb-1" for="endereco">Logradouro:</label> <input
+								type="text" class="form-control py-3" id="rua" name="rua"
+								th:field="*{rua}" value=""> 
+								
+							<label class="small mb-1" for="numero">Número:</label> <input
+								type="text" class="form-control py-3" id="numero" name="numero"
+								th:field="*{numero}" value=""> 
+								
+							<label class="small mb-1" for="complemento">Complemento:</label> <input
+								type="text" class="form-control py-3" id="complemento"
+								name="complemento" th:field="*{complemento}" value="">
+
+							<label class="small mb-1" for="bairro">Bairro:</label> <input
+								type="text" class="form-control py-3" id="bairro" name="bairro"
+								th:field="*{bairro}" value=""> 
+								
+							<label class="small mb-1" for="cidade">Cidade:</label> <input
+								type="text" class="form-control py-3" id="cidade" name="cidade"
+								th:field="*{cidade}" value=""> 
+								
+							<label class="small mb-1" for="estado">Estado:</label> <input
+								type="text" class="form-control py-3" id="estado" name="estado"
+								th:field="*{estado}" value="">
+							<br>
+							<button type="submit" class="btn btn-primary btn-md">Salvar</button>
+							<a href="javascript:history.back()"
+								class="btn btn-primary btn-md">Voltar</a>
+						</div>
+
+					</div>
+
+				</form>
+			</div>
+		</section>
+
+	</div>
+
+</body>
+</html>
