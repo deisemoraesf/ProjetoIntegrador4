@@ -73,22 +73,34 @@ public class IndexController {
 	
 	//Direcionar pagina de categoria
 	@GetMapping("categorias/masculino")
-	public String masculino() {
-		return ("categorias/masculino");
+	public ModelAndView masculino() {
+		ModelAndView mv = new ModelAndView("categorias/categorias");
+		Iterable<Produto> produtos = pr.findByCategoriaAndStatus("masculino", true);
+		mv.addObject("categoria", "Perfumes Masculinos");
+		mv.addObject("produtos", produtos);
+		return mv;
 	}
 	
 	
 	//Direcionar pagina de categoria
 	@GetMapping("categorias/feminino")
-	public String feminino() {
-		return ("categorias/feminino");
+	public ModelAndView feminino() {
+		ModelAndView mv = new ModelAndView("categorias/categorias");
+		Iterable<Produto> produtos = pr.findByCategoriaAndStatus("feminino", true);
+		mv.addObject("categoria", "Perfumes Femininos");
+		mv.addObject("produtos", produtos);
+		return mv;
 	}
 	
 	
 	//Direcionar pagina de categoria
 	@GetMapping("categorias/infantil")
-	public String infantil() {
-		return ("categorias/infantil");
+	public ModelAndView infantil() {
+		ModelAndView mv = new ModelAndView("categorias/categorias");
+		Iterable<Produto> produtos = pr.findByCategoriaAndStatus("infantil", true);
+		mv.addObject("categoria", "Perfumes Infantis");
+		mv.addObject("produtos", produtos);
+		return mv;
 	}
 	
 	

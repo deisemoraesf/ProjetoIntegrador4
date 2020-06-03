@@ -1,0 +1,46 @@
+<!doctype html>
+<html layout:decorate="~{modeloSite}">
+  <head>
+    <title>Perfumaria - Feminino</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    
+
+  </head>
+  <body>     
+   <div layout:fragment="conteudo">
+   <br>
+   <div class="container mt-4" width="1000px" height="1000px">
+		<div class="container mt-5">
+		
+			
+			<h4 style="text-align: center;" th:text=${categoria}></h4>
+			<hr>
+			
+			<div class="row mb-2">
+				<div class="col-md-3 col-sm-6" th:each="produto : ${produtos}">
+					<div class="card">
+
+						<img class="card-img-top" th:src="@{__${produto.fotoIndex}__}">	
+
+						
+						<div class="card-body">
+							<input type="hidden" th:value="${produto.id_produto}">
+							<h7 name="nome_produto" id="nome" th:text="${produto.nome_produto}"></h7>
+							<br>
+							<br>
+							<label>R$</label><span th:text="${produto.preco}"></span>
+							<br>
+							<br>
+							<a class="btn btn-info btn-sm" th:href="@{/clientes/produtos/visualizarProdutos/{id_produto}(id_produto=${produto.id_produto})}" role="button">Descrição</a>
+						    <a class="btn btn-info btn-sm" th:href="@{/carrinho/addcarrinho/{id_produto}(id_produto=${produto.id_produto})}" role="button">Comprar</a>
+								
+						</div>	
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+    </body>
+</html>
