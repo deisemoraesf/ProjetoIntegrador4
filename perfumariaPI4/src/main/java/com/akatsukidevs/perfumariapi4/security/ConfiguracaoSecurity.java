@@ -27,7 +27,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests()
 				// todas as paginas que tem"/" vão ser autenticados por todos
 				// As restantes com hasRole eu identifico quem usar
-				.antMatchers("/**").permitAll()
+				.antMatchers("/").permitAll()
 				.antMatchers("/index").permitAll()
 				.antMatchers("/categorias/**").permitAll()
 				.antMatchers("/clientes/**").permitAll()
