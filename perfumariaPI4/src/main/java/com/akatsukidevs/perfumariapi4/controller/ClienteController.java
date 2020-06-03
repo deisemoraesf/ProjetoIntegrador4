@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -516,7 +517,18 @@ public class ClienteController {
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/minhaConta/cadastrarEndereco/"+id_pessoa);
 	}
-
+	
+	//Pesquisa Administrativo
+	@PostMapping("**/pesquisaCliente")
+	public ModelAndView pesquisar(@RequestParam ("pesquisanome") String pesquisanome, RedirectAttributes attribute) {
+		ModelAndView mv = new ModelAndView("/admin/clienteAdm/listaClientes");
+		Iterable<Pessoa> cliente = pr.findByNomeContainingIgnoreCaseAndStatus(pesquisanome, true);
+			
+		mv.addObject("pessoas", cliente);
+		
+		return mv;
+		
+	}
 		
 				
 		

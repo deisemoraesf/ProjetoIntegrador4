@@ -45,7 +45,7 @@
 	
 	           <form class="form-inline" method="POST" th:action="@{pesquisaProduto}">
 					<input class="form-control mr-sm-2" type="text" aria-label="Search"
-						name="termoBusca" placeholder="Pesquisa por nome"> <span></span>
+						name="pesquisanome" placeholder="Pesquisa por nome"> <span></span>
 					
 
 					<button class="btn btn-primary" type="submit">
@@ -74,7 +74,7 @@
 	                  
 		                    <tr th:each="produto : ${produtos}">
 		                        <td><span th:text="${produto.id_produto}"></span></td>
-		                        <td><span th:text="${produto.nome_produto}"></span></td>
+		                        <td><span th:text="${produto.nomeProduto}"></span></td>
 		                        <td><span th:text="${produto.quantidade}"></span></td>
 		                        <td><span th:text="${produto.preco}"></span></td>
 		                        <td><span th:text="${produto.categoria}"></span></td>
@@ -94,7 +94,7 @@
 		                        </td>
 		                        <td colspan="2">
 		                         	<a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#excluir" 
-		                        		th:attr="data-id=${produto.nome_produto}, data-actionurl=@{/produtos/deletarProdutos/{id_produto}(id_produto=${produto.id_produto})}">
+		                        		th:attr="data-id=${produto.nomeProduto}, data-actionurl=@{/produtos/deletarProdutos/{id_produto}(id_produto=${produto.id_produto})}">
 		                            <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
 		                            </a>
 		                        </td>

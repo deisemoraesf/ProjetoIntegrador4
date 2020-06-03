@@ -27,7 +27,7 @@
       
         <div class="card" >
             <div class="card-header">
-                <h1 name="nome" th:text="*{nome_produto}"></h1>
+                <h1 name="nome" th:text="*{nomeProduto}"></h1>
             </div>
             <div class="card-body">
                 <div class="container" th:object="${FotoProduto}">
@@ -66,7 +66,8 @@
                     <h2 class="ml-auto" style="text-align: left;">Valor: R$ <span name="preco" id="preco" th:text="*{preco}"></span></h2>&nbsp;&nbsp;&nbsp;&nbsp;
                     
                 </div>
-                <a class="btn btn-info btn-lg ml-auto" th:href="@{/carrinho/addcarrinho/{id_produto}(id_produto=${produto.id_produto})}" role="button">Comprar</a>
+                <a class="btn btn-info btn-lg ml-auto" th:if="${produto.quantidade} > 0" th:href="@{/carrinho/addcarrinho/{id_produto}(id_produto=${produto.id_produto})}" role="button">Comprar</a>
+                <button class="btn btn-light btn-lg ml-auto" th:unless="${produto.quantidade} > 0">Indisponível</button>
                 </div><br><br>
 
             </div>

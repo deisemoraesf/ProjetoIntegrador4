@@ -11,6 +11,8 @@ public interface CompraRepository extends JpaRepository<Compra, Long> {
 	
 	Iterable<Compra>findByCliente(Pessoa p);
 	Optional<Compra> findById(Long id);
+	
+	Iterable<Compra> findByStatusCompraContainingIgnoreCase(String pesquisaid);
 		
 	
 }

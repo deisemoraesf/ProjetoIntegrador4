@@ -40,6 +40,8 @@
 
 
 <style>
+
+
 .footer {
 	position:relative;
 	bottom: 0;
@@ -51,6 +53,8 @@
 #carrinho{
 	color:white;
 }
+
+
 </style>
 
 </head>
@@ -74,9 +78,9 @@
 					</li>
 				</ul>
 
-				<form class="form-inline" action="">
-					<input class="form-control ml-2 mr-2 " type="search" name=""
-						placeholder="Buscar...">
+				<form class="form-inline" method="post" th:action="@{pesquisaIndex}">
+					<input class="form-control ml-2 mr-2 " type="search" name="pesquisanome"
+						placeholder="Buscar Perfumes">
 					<button class="btn btn-outline-light" type="submit">OK</button>
 				</form>
 

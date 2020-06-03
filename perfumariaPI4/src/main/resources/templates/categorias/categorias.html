@@ -19,14 +19,14 @@
 			
 			<div class="row mb-2">
 				<div class="col-md-3 col-sm-6" th:each="produto : ${produtos}">
-					<div class="card">
+					<div class="card mt-4">
 
 						<img class="card-img-top" th:src="@{__${produto.fotoIndex}__}">	
 
 						
 						<div class="card-body">
 							<input type="hidden" th:value="${produto.id_produto}">
-							<h7 name="nome_produto" id="nome" th:text="${produto.nome_produto}"></h7>
+							<h7 name="nomeProduto" id="nome" th:text="${produto.nomeProduto}"></h7>
 							<br>
 							<br>
 							<label>R$</label><span th:text="${produto.preco}"></span>

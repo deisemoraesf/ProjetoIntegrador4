@@ -48,5 +48,17 @@ public class ComprasController {
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/compras/editarStatus/{id}");
 	}
+	
+	//Pesquisa Administrativo
+	@PostMapping("**/pesquisaPedido")
+	public ModelAndView pesquisar(@RequestParam ("pesquisastatus") String pesquisastatus, RedirectAttributes attribute) {
+		ModelAndView mv = new ModelAndView("/admin/compras/listaCompras");
+		Iterable<Compra> compra = cr.findByStatusCompraContainingIgnoreCase(pesquisastatus);
+			
+		mv.addObject("compras", compra);
+		
+		return mv;
+			
+	}
 
 }

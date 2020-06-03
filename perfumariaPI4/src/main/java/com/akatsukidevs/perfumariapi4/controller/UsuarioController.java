@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -79,15 +81,14 @@ public class UsuarioController {
 		
 	}
 	
-	//tem que melhorar o método
-	//@PostMapping("**/pesquisaUsuario")
-	/*public ModelAndView pesquisar(@RequestParam ("pesquisaemail") String pesquisaemail, RedirectAttributes attribute) {
+	@PostMapping("**/pesquisaUsuario")
+	public ModelAndView pesquisar(@RequestParam ("pesquisaemail") String pesquisaemail, RedirectAttributes attribute) {
 		ModelAndView mv = new ModelAndView("/admin/usuarios/listaUsuarios");
-		Usuario usu = ur.findByEmail(pesquisaemail);
-			if(usu.getStatus() == true) {
-				mv.addObject("usuarios", usu);
-			}
+		Iterable<Usuario> usu = ur.findByEmailContainingIgnoreCaseAndStatus(pesquisaemail, true);
+			
+		mv.addObject("usuarios", usu);
+		
 		return mv;
 		
-	}*/
+	}
 }

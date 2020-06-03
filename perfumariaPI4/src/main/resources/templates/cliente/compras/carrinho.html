@@ -30,7 +30,7 @@
 						<tr th:each="item : ${listaItens}">
 							<td><img height="100px" weight="100px" th:src="@{__${item.produto.fotoIndex}__}" />
 							</td>
-							<td th:text="${item.produto.nome_produto}">Produto Nome</td>
+							<td th:text="${item.produto.nomeProduto}">Produto Nome</td>
 							<td>Em estoque</td>
 							
 							<td>							

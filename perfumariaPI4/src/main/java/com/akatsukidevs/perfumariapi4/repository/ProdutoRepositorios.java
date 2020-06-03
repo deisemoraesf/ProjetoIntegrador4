@@ -12,7 +12,9 @@ public interface ProdutoRepositorios extends CrudRepository<Produto, Long>{
 	
 	Iterable<Produto> findByCategoriaAndStatus(String categoria, boolean status);
 	
-	//<Produto> findByNome_produtoContainingIgnoreCase(String nome);
+	Iterable<Produto> findByNomeProdutoContainingIgnoreCaseAndStatus(String nome_produto, boolean status);
+	
+	//Iterable<Produto> findByNome_ProdutoContainingIgnoreCase(String nome);
 	
 	//@Query("SELECT p FROM Produto p WHERE lower(p.nome_produto) LIKE %:termo% OR lower(p.categoria) LIKE %:termo%")
 	//List<Produto> searchJpql(@Param("termo") String termoBusca);

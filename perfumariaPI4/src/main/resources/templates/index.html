@@ -29,21 +29,21 @@
 					<img th:src="@{imgCarousel/perfume-960_540.jpg}"
 						class="img-fluid d-block" width="1000px" height="540px">
 					<div class="carousel-caption d-none d-md-block">
-						<h3>Perfumes Masculinos</h3>
+						<h3>Perfumes Nacionais</h3>
 					</div>
 				</div>
 				<div class="carousel-item">
 					<img th:src="@{imgCarousel/perfume1-960_540.jpg}"
 						class="img-fluid d-block" width="1000px" height="540px">
 					<div class="carousel-caption d-none d-md-block">
-						<h3>Perfumes Femininos</h3>
+						<h3>Perfumes Importados</h3>
 					</div>
 				</div>
 				<div class="carousel-item">
 					<img th:src="@{imgCarousel/perfume3-960_540.jpg}"
 						class="img-fluid d-block" width="1000px" height="540px">
 					<div class="carousel-caption d-none d-md-block">
-						<h3>Perfumes Infantis</h3>
+						<h3>Perfumes Sofisticados</h3>
 						<p></p>
 					</div>
 				</div>
@@ -71,22 +71,23 @@
 			<hr>
 			<div class="row mb-2">
 				<div class="col-md-3 col-sm-6" th:each="produto : ${produtos}">
-					<div class="card">
+					<div class="card mt-4">
 
 						<img class="card-img-top" th:src="@{__${produto.fotoIndex}__}">	
 
 						
 						<div class="card-body">
 							<input type="hidden" th:value="${produto.id_produto}">
-							<h7 name="nome_produto" id="nome" th:text="${produto.nome_produto}"></h7>
+							<h7 name="nomeProduto" id="nome" th:text="${produto.nomeProduto}"></h7>
 							<br>
 							<br>
 							<label>R$</label><span th:text="${produto.preco}"></span>
 							<br>
 							<br>
 							<a class="btn btn-info btn-sm" th:href="@{/clientes/produtos/visualizarProdutos/{id_produto}(id_produto=${produto.id_produto})}" role="button">Descrição</a>
-						    <a class="btn btn-info btn-sm" th:href="@{/carrinho/addcarrinho/{id_produto}(id_produto=${produto.id_produto})}" role="button">Comprar</a>
-								
+						    
+						    <a class="btn btn-info btn-sm" th:if="${produto.quantidade} > 0" th:href="@{/carrinho/addcarrinho/{id_produto}(id_produto=${produto.id_produto})}" role="button">Comprar</a>
+							<button class="btn btn-light btn-sm" th:unless="${produto.quantidade} > 0">Indisponível</button>	
 						</div>	
 					</div>
 				</div>
