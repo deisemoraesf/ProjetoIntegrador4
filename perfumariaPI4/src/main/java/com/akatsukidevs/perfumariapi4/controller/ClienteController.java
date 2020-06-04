@@ -69,13 +69,13 @@ public class ClienteController {
 	//Cadastro cliente tela Comprador
 	@RequestMapping(value="/clientes/cadastrarCliente", method=RequestMethod.GET)
 	public String salvarCliente() {
-		return("/cliente/cadastroClientePF");
+		return("cliente/cadastroClientePF");
 	}
 	
 	//Cadastro cliente tela Comprador
 	@RequestMapping(value="/clientes/cadastrarCliente/PJ", method=RequestMethod.GET)
 	public String salvarClientePj() {
-		return("/cliente/cadastroClientePJ");
+		return("cliente/cadastroClientePJ");
 	}
 		
 	//Cadastro cliente tela Comprador
@@ -119,13 +119,13 @@ public class ClienteController {
 	//Cadastro cliente tela Administrativo
 	@RequestMapping(value="/clientesAdm/cadastrarCliente", method=RequestMethod.GET)
 	public String salvar() {
-		return("/admin/clienteAdm/cadastroPF");
+		return("admin/clienteAdm/cadastroPF");
 	}
 	
 	//Cadastro cliente tela Administrativo
 	@RequestMapping(value="/clientesAdm/cadastrarCliente/PJ", method=RequestMethod.GET)
 	public String salvarPj() {
-		return("/admin/clienteAdm/cadastroPJ");
+		return("admin/clienteAdm/cadastroPJ");
 	}
 	
 	//Cadastro cliente tela Administrativo
@@ -168,7 +168,7 @@ public class ClienteController {
 	//Listar Clientes Administrativo
 	@GetMapping("/clientesAdm")
 	public ModelAndView listaClientes(){
-		ModelAndView mv = new ModelAndView("/admin/clienteAdm/listaClientes");
+		ModelAndView mv = new ModelAndView("admin/clienteAdm/listaClientes");
 		Iterable<Pessoa> clientes = pr.findByStatus(true); 
 		mv.addObject("pessoas", clientes);
 		return mv;
@@ -178,7 +178,7 @@ public class ClienteController {
     @RequestMapping(value = "/minhaConta", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView currentUserName(Principal principal) {
-    	ModelAndView mv = new ModelAndView("/cliente/minhaConta");
+    	ModelAndView mv = new ModelAndView("cliente/minhaConta");
 		Usuario u = ur.findByEmail(principal.getName());
 		Pessoa cliente = u.getPessoa();
 		mv.addObject("enderecos", cliente.getEnderecos());
@@ -191,7 +191,7 @@ public class ClienteController {
     @RequestMapping(value = "/minhaConta", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView metodoPost(Principal principal) {
-    	ModelAndView mv = new ModelAndView("/cliente/minhaConta");
+    	ModelAndView mv = new ModelAndView("cliente/minhaConta");
 		Usuario u = ur.findByEmail(principal.getName());
 		Pessoa cliente = u.getPessoa();
 		mv.addObject("enderecos", cliente.getEnderecos());
@@ -204,7 +204,7 @@ public class ClienteController {
 	//Cliente Visualizar Dados
 	@RequestMapping(value="/clientesAdm/visualizarClientes/{id_pessoa}", method=RequestMethod.GET)
 	public ModelAndView visualizarCliente(@PathVariable ("id_pessoa") Long id_pessoa) {
-		ModelAndView mv = new ModelAndView("/admin/clienteAdm/visualizarCliente");
+		ModelAndView mv = new ModelAndView("admin/clienteAdm/visualizarCliente");
 		Optional<Pessoa> p = pr.findById(id_pessoa);
 		Pessoa cliente = p.get();
 		mv.addObject("pessoas", cliente);
@@ -216,7 +216,7 @@ public class ClienteController {
 	// Edicao Cliente Administrativo PF
 	@RequestMapping(value="/clientesAdm/editarClientes/pf/{id_pessoa}", method=RequestMethod.GET)
 	public ModelAndView editarClientepf(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
-		ModelAndView mv = new ModelAndView("/admin/clienteAdm/editarCliente");
+		ModelAndView mv = new ModelAndView("admin/clienteAdm/editarCliente");
 		Optional<Pessoa> p = pr.findById(id_pessoa);
 		Pessoa cli = p.get();
 		mv.addObject("pessoas", cli);
@@ -229,7 +229,7 @@ public class ClienteController {
 	// Edicao Cliente Administrativo PJ
 	@RequestMapping(value="/clientesAdm/editarClientes/pj/{id_pessoa}", method=RequestMethod.GET)
 	public ModelAndView editarClientepj(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
-		ModelAndView mv = new ModelAndView("/admin/clienteAdm/editarCliente");
+		ModelAndView mv = new ModelAndView("admin/clienteAdm/editarCliente");
 		Optional<Pessoa> p = pr.findById(id_pessoa);
 		Pessoa cli = p.get();
 		mv.addObject("pessoas", cli);
@@ -300,7 +300,7 @@ public class ClienteController {
 	//Edicao ENDERECO Administrativo
 		@GetMapping("/clientesAdm/editarEndereco/{id}")
 		public ModelAndView editarEndereco(@PathVariable ("id") Long id, RedirectAttributes attribute ) {
-			ModelAndView mv = new ModelAndView("/admin/clienteAdm/edicaoEndereco");
+			ModelAndView mv = new ModelAndView("admin/clienteAdm/edicaoEndereco");
 			Optional<Endereco> e = er.findById(id);
 			Endereco endereco = e.get();
 			mv.addObject("endereco", endereco);
@@ -338,7 +338,7 @@ public class ClienteController {
 		// Salva ENDERECO Administrativo 
 		@RequestMapping(value="/clientesAdm/cadastrarEndereco/{id_pessoa}", method=RequestMethod.GET)
 		public ModelAndView salvarEndereco() {
-			ModelAndView mv = new ModelAndView("/admin/clienteAdm/cadastroEndereco");
+			ModelAndView mv = new ModelAndView("admin/clienteAdm/cadastroEndereco");
 			return mv;
 		}
 		
@@ -364,7 +364,7 @@ public class ClienteController {
 		
 		@RequestMapping(value="/minhaConta/editarClientes/pf/{id_pessoa}", method=RequestMethod.GET)
 		public ModelAndView minhaContaEditaPf(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
-			ModelAndView mv = new ModelAndView("/cliente/minhaContaEditar");
+			ModelAndView mv = new ModelAndView("cliente/minhaContaEditar");
 			Optional<Pessoa> p = pr.findById(id_pessoa);
 			Pessoa cli = p.get();
 			mv.addObject("pessoa", cli);
@@ -391,7 +391,7 @@ public class ClienteController {
 		//Edição CLIENTE USUARIO PJ
 		@RequestMapping(value="/minhaConta/editarClientes/pj/{id_pessoa}", method=RequestMethod.GET)
 		public ModelAndView minhaContaEditaPj(@PathVariable ("id_pessoa") Long id_pessoa, RedirectAttributes attribute ) {
-			ModelAndView mv = new ModelAndView("/cliente/minhaContaEditar");
+			ModelAndView mv = new ModelAndView("cliente/minhaContaEditar");
 			Optional<Pessoa> p = pr.findById(id_pessoa);
 			Pessoa cli = p.get();
 			mv.addObject("pessoa", cli);
@@ -418,7 +418,7 @@ public class ClienteController {
 		// Cliente Histórico de Pedido
 		@RequestMapping(value = "/historicoPedidos", method = RequestMethod.GET)
 	    public ModelAndView historico(Principal principal) {
-	    	ModelAndView mv = new ModelAndView("/cliente/historico");
+	    	ModelAndView mv = new ModelAndView("cliente/historico");
 			Usuario u = ur.findByEmail(principal.getName());
 			Pessoa cliente = u.getPessoa();
 			Iterable<Compra> c = cr.findByCliente(cliente);
@@ -429,7 +429,7 @@ public class ClienteController {
 		// Cliente Detalhes de Pedido
 		@RequestMapping(value = "/detalhesPedido/{id}", method = RequestMethod.GET)
 	    public ModelAndView detalhes(@PathVariable Long id) {
-	    	ModelAndView mv = new ModelAndView("/cliente/detalhesPedido");
+	    	ModelAndView mv = new ModelAndView("cliente/detalhesPedido");
 	    	Optional<Compra> c = cr.findById(id);
 	    	Compra compra = c.get();
 	    	Iterable<ItensCompra> ic = icr.findByCompra(compra);
@@ -459,7 +459,7 @@ public class ClienteController {
 		//Edicao ENDERECO Cliente
 		@GetMapping("/minhaConta/editarEndereco/{id}")
 		public ModelAndView editarEnderecoCliente(@PathVariable ("id") Long id, RedirectAttributes attribute ) {
-			ModelAndView mv = new ModelAndView("/cliente/edicaoEndereco");
+			ModelAndView mv = new ModelAndView("cliente/edicaoEndereco");
 			Optional<Endereco> e = er.findById(id);
 			Endereco endereco = e.get();
 			mv.addObject("endereco", endereco);
@@ -497,7 +497,7 @@ public class ClienteController {
 	// Salva ENDERECO  Cliente
 	@RequestMapping(value="/minhaConta/cadastrarEndereco/{id_pessoa}", method=RequestMethod.GET)
 	public ModelAndView salvarEnderecoCliente() {
-		ModelAndView mv = new ModelAndView("/cliente/cadastroEndereco");
+		ModelAndView mv = new ModelAndView("cliente/cadastroEndereco");
 		return mv;
 	}
 				
@@ -521,7 +521,7 @@ public class ClienteController {
 	//Pesquisa Administrativo
 	@PostMapping("**/pesquisaCliente")
 	public ModelAndView pesquisar(@RequestParam ("pesquisanome") String pesquisanome, RedirectAttributes attribute) {
-		ModelAndView mv = new ModelAndView("/admin/clienteAdm/listaClientes");
+		ModelAndView mv = new ModelAndView("admin/clienteAdm/listaClientes");
 		Iterable<Pessoa> cliente = pr.findByNomeContainingIgnoreCaseAndStatus(pesquisanome, true);
 			
 		mv.addObject("pessoas", cliente);

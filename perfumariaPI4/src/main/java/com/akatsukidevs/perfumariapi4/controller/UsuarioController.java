@@ -27,7 +27,7 @@ public class UsuarioController {
 	
 	@RequestMapping(value="/usuarios/cadastrarUsuario", method=RequestMethod.GET)
 	public String salvar() {
-		return("/admin/usuarios/cadastroUsuarios");
+		return("admin/usuarios/cadastroUsuarios");
 	}
 	
 	//para cadastro do usuario solicitando o post
@@ -45,7 +45,7 @@ public class UsuarioController {
 
 	@GetMapping("/usuarios")
 	public ModelAndView listaUsuarios() {
-		ModelAndView mv = new ModelAndView("/admin/usuarios/listaUsuarios");
+		ModelAndView mv = new ModelAndView("admin/usuarios/listaUsuarios");
 		Iterable<Usuario> usuarios = ur.findByStatus(true);
 			mv.addObject("usuarios", usuarios);
 			return mv;
@@ -54,7 +54,7 @@ public class UsuarioController {
 	
 	@RequestMapping(value="/usuarios/editarUsuarios/{id_usuario}", method=RequestMethod.GET)
 	public ModelAndView editarUsuario(@PathVariable ("id_usuario") Long id_usuario, RedirectAttributes attribute ) {
-		ModelAndView mv = new ModelAndView("/admin/usuarios/editarUsuario");
+		ModelAndView mv = new ModelAndView("admin/usuarios/editarUsuario");
 		Optional<Usuario> u = ur.findById(id_usuario);
 		Usuario usu = u.get();
 		mv.addObject("usuario", usu);
@@ -83,7 +83,7 @@ public class UsuarioController {
 	
 	@PostMapping("**/pesquisaUsuario")
 	public ModelAndView pesquisar(@RequestParam ("pesquisaemail") String pesquisaemail, RedirectAttributes attribute) {
-		ModelAndView mv = new ModelAndView("/admin/usuarios/listaUsuarios");
+		ModelAndView mv = new ModelAndView("admin/usuarios/listaUsuarios");
 		Iterable<Usuario> usu = ur.findByEmailContainingIgnoreCaseAndStatus(pesquisaemail, true);
 			
 		mv.addObject("usuarios", usu);

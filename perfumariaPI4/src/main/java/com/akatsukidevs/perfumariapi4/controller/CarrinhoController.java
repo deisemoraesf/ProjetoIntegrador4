@@ -66,7 +66,7 @@ public class CarrinhoController {
 
 	@GetMapping("/carrinho")
 	public ModelAndView carrinho() {
-		ModelAndView mv = new ModelAndView("/cliente/compras/carrinho");
+		ModelAndView mv = new ModelAndView("cliente/compras/carrinho");
 		calcularTotal();
 		mv.addObject("compra", compra);
 		mv.addObject("listaItens", itensCompra);
@@ -77,7 +77,7 @@ public class CarrinhoController {
     @RequestMapping(value = "/finalizar", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView currentUserName(Principal principal) {
-    	ModelAndView mv = new ModelAndView("/cliente/compras/finalizar");
+    	ModelAndView mv = new ModelAndView("cliente/compras/finalizar");
     	calcularTotal();
 		Usuario u = ur.findByEmail(principal.getName());
 		Pessoa cliente = u.getPessoa();
@@ -92,7 +92,7 @@ public class CarrinhoController {
     
     @PostMapping("/finalizar/confirmar")
     public ModelAndView confirmarCompra(String formaPagamento,String statusCompra, Pessoa p,@RequestParam("id") Long id) {
-    	ModelAndView mv = new ModelAndView("/cliente/compras/mensagemFinalizado");
+    	ModelAndView mv = new ModelAndView("cliente/compras/mensagemFinalizado");
     	Optional<Endereco> e = er.findById(id);
     	Endereco end = e.get();
     	cr.saveAndFlush(compra);

@@ -40,7 +40,7 @@ public class ProdutoController {
 	
 	@RequestMapping(value="/produtos/cadastrarProduto", method=RequestMethod.GET)
 	public String salvar() {
-		return("/admin/produtos/cadastroProdutos");
+		return("admin/produtos/cadastroProdutos");
 	}
 	
 
@@ -87,7 +87,7 @@ public class ProdutoController {
 
 	@GetMapping("/produtos/listarProdutos")
 	public ModelAndView listaProdutos() {
-		ModelAndView mv = new ModelAndView("/admin/produtos/listaProdutos");
+		ModelAndView mv = new ModelAndView("admin/produtos/listaProdutos");
 		Iterable<Produto> produtos = pr.findByStatus(true);
 			mv.addObject("produtos", produtos);
 			return mv;
@@ -96,7 +96,7 @@ public class ProdutoController {
 	
 	@RequestMapping(value="/produtos/editarProdutos/{id_produto}", method=RequestMethod.GET)
 	public ModelAndView editarProduto(@PathVariable ("id_produto") Long id_produto, RedirectAttributes attribute ) {
-		ModelAndView mv = new ModelAndView("/admin/produtos/editarProduto");
+		ModelAndView mv = new ModelAndView("admin/produtos/editarProduto");
 		Optional<Produto> p = pr.findById(id_produto);
 		Produto prod = p.get();
 		mv.addObject("produto", prod);
@@ -165,7 +165,7 @@ public class ProdutoController {
 	
 	@RequestMapping(value="/produtos/visualizarProdutos/{id_produto}", method=RequestMethod.GET)
 	public ModelAndView visualizarProduto(@PathVariable ("id_produto") Long id_produto) {
-		ModelAndView mv = new ModelAndView("/admin/produtos/detalhesProduto");
+		ModelAndView mv = new ModelAndView("admin/produtos/detalhesProduto");
 		Optional<Produto> p = pr.findById(id_produto);
 		Produto prod = p.get();
 		Iterable<FotoProduto> fotos = fpr.findByProduto(prod);
@@ -200,7 +200,7 @@ public class ProdutoController {
 	
 	@PostMapping("**/pesquisaProduto")
 	public ModelAndView pesquisar(@RequestParam ("pesquisanome") String pesquisanome) {
-		ModelAndView mv = new ModelAndView("/admin/produtos/listaProdutos");
+		ModelAndView mv = new ModelAndView("admin/produtos/listaProdutos");
 		Iterable<Produto> produto = pr.findByNomeProdutoContainingIgnoreCaseAndStatus(pesquisanome, true);
 		mv.addObject("produtos", produto);
 		return mv;

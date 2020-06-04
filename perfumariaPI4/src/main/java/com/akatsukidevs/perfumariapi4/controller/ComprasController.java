@@ -23,14 +23,14 @@ public class ComprasController {
 	
 	@RequestMapping("/compras")
 	public ModelAndView verificaCliente() {
-		ModelAndView mv=new ModelAndView("/admin/compras/listaCompras");
+		ModelAndView mv=new ModelAndView("admin/compras/listaCompras");
 		mv.addObject("compras", cr.findAll());
 		return mv;
 	}
 	
 	@GetMapping("/compras/editarStatus/{id}")
 	public ModelAndView editarStatus(@PathVariable("id") Long id) {
-		ModelAndView mv=new ModelAndView("/admin/compras/editaCompras");
+		ModelAndView mv=new ModelAndView("admin/compras/editaCompras");
 		Optional<Compra> compra = cr.findById(id);
 		Compra c = compra.get();
 		mv.addObject("compras", c);
@@ -52,7 +52,7 @@ public class ComprasController {
 	//Pesquisa Administrativo
 	@PostMapping("**/pesquisaPedido")
 	public ModelAndView pesquisar(@RequestParam ("pesquisastatus") String pesquisastatus, RedirectAttributes attribute) {
-		ModelAndView mv = new ModelAndView("/admin/compras/listaCompras");
+		ModelAndView mv = new ModelAndView("admin/compras/listaCompras");
 		Iterable<Compra> compra = cr.findByStatusCompraContainingIgnoreCase(pesquisastatus);
 			
 		mv.addObject("compras", compra);
