@@ -13,8 +13,8 @@ public class DataConfiguration {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://mysql-bmxvftuzefoug.mysql.database.azure.com:3306/perfumaria");
-        dataSource.setUsername("suporte@mysql-bmxvftuzefoug");
+        dataSource.setUrl("jdbc:mysql://pi4spring.mysql.database.azure.com:3306/perfumaria");
+        dataSource.setUsername("suporte@pi4spring");
         dataSource.setPassword("Contec@1115");
         return dataSource;
     }
