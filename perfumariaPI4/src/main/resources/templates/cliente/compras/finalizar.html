@@ -29,13 +29,12 @@
 							<h4
 								class="d-flex justify-content-between align-items-center mb-3">
 								<span class="text-muted">Resumo Pedido</span> <span
-									class="badge badge-secondary badge-pill">3</span>
+									class="badge badge-secondary badge-pill" th:text="${qtda}"></span>
 							</h4>
 							</div>
 							<!-- Lista de itens do carrinho -->
-							<ul class="list-group mb-3" th:each="item : ${listaItens}">
-								<li
-									class="list-group-item d-flex justify-content-between lh-condensed">
+							<ul class="list-group mb-3" >
+								<li class="list-group-item d-flex justify-content-between lh-condensed" th:each="item : ${listaItens}">
 									<div>
 										<h6 class="my-0">
 											<span th:text="${item.produto.nomeProduto}"></span>
@@ -44,12 +43,10 @@
 											th:text="${item.quantidade}"></span> Un</small>
 									</div> <span class="text-muted" th:text="${item.valorTotal}"></span>
 								</li>
-								
 								<li class="list-group-item d-flex justify-content-between">
 								<span>Total</span> <strong>R$<span
 									th:text="${compra.valorTotal}"></span></strong>
-							</li>
-							
+								</li>							
 							</ul>
 							
 							

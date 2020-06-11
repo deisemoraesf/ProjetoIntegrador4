@@ -33,6 +33,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/clientes/**").permitAll()
 				.antMatchers("/acessofoto/**").permitAll()
 				.antMatchers("/carrinho/**").permitAll()
+				.antMatchers("/quemSomos").permitAll()
 				.antMatchers("/finalizar/**").hasAnyRole("ADMIN", "ESTOQUE", "COMPRADOR")
 				.antMatchers("/clientes/produtos/visualizarProdutos/**").permitAll()
 				.antMatchers("https://viacep.com.br/**").permitAll()
@@ -93,7 +94,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 	// para não bloquear paginas estaticas, passa as pastas para o spring security ignorar
 	@Override
 	public void configure(WebSecurity WEB) throws Exception {
-		WEB.ignoring().antMatchers("/css/**", "/image/**","/imgCarousel/**");
+		WEB.ignoring().antMatchers("/css/**", "/image/**","/imgCarousel/**", "/Integrantes/**");
 	}
 
 }

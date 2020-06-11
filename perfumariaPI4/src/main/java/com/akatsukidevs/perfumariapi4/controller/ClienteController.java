@@ -434,11 +434,6 @@ public class ClienteController {
 	    	Compra compra = c.get();
 	    	Iterable<ItensCompra> ic = icr.findByCompra(compra);
 	    	mv.addObject("itens", ic);
-	    	for(ItensCompra i : ic) {
-	    		mv.addObject("item", i);
-	    		mv.addObject("produto", i.getProduto());
-	    	}
-	    	
 	    	mv.addObject("compras", compra);		
 			return mv;
 	    }

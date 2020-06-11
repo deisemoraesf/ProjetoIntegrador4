@@ -113,7 +113,12 @@ public class IndexController {
 		return mv;
 	}
 	
-	
+	//Direcionar quem somos
+	@GetMapping("/quemSomos")
+	public ModelAndView quemSomos() {
+	ModelAndView mv = new ModelAndView("quemSomos");
+	return mv;
+	}
 	
 
 }

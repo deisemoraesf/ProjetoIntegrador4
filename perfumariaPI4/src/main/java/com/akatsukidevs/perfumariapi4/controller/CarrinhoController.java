@@ -81,6 +81,11 @@ public class CarrinhoController {
     	calcularTotal();
 		Usuario u = ur.findByEmail(principal.getName());
 		Pessoa cliente = u.getPessoa();
+		int quantidadeTotal = 0;
+			for(ItensCompra it: itensCompra) {
+				quantidadeTotal = quantidadeTotal +it.getQuantidade();
+			}
+		mv.addObject("qtda", quantidadeTotal);	
 		mv.addObject("compra", compra);
 		mv.addObject("listaItens", itensCompra);
 		mv.addObject("enderecos", cliente.getEnderecos());

@@ -11,61 +11,55 @@
 	<br><br>
     <div class="container">
         <div class="card text">
+        	<div class="card-header">
+        	<h3 class="card-title"><b>Detalhes do Pedido</b></h3>
+        	</div>
            <div class="card-body">
-              <h5 class="card-title"><b>Detalhes do Pedido</b></h5>
+              
+              <br>
+              
+               <div class="table-responsive">
+	                <table class="table">
+	                	<thead class="thead-light">
+               			<tr>
+	                        <th>Produtos</th>
+	                        <th>Quantidade</th>
+	                        <th>Valor</th>
+	                    
+	           			</tr>
+              			</thead>
+              			<tr th:each="i : ${itens}">
+              				<td><span th:text="${i.produto.nomeProduto}"></span></td>
+              				<td><span th:text="${i.quantidade}"></span></td>
+		       				<td><span th:text="${i.produto.preco}"></span></td>        
+		      			</tr>
+		      			
+            		</table> 
+            		<hr> 
+              </div>
               
               <div th:object="${compras}">
               <label for=""><strong>Pedido:</strong></label>
               <p type="text" id="id" th:text="${compras.id}"/>
               <label for=""><strong>Data</strong></label>
               <p type="date" id="dataCompra" th:text="${compras.dataCompra}"/>
-              <label for=""><strong> Total: R$</strong></label>
-              <p type="text" id="valorTotal" th:text="${compras.valorTotal}"/>
+              <label for=""><strong> Total: </strong></label>
+              <p>R$ <span type="text" id="valorTotal" th:text="${compras.valorTotal}"></span></p>
               <label for=""><strong>Forma de pagemento:</strong></label>
               <p type="text" name="formaPagamento" id="formaPagamento" th:text="${compras.formaPagamento}"/>
               <label for=""><strong>Status:</strong></label>
               <p type="text" name="formaPagamento" id="formaPagamento" th:text="${compras.statusCompra}"/>
               </div>
               <br>
-              <br>
               
-              <div class="table-responsive">
-	                <table class="table table-striped ">
-              
-              			<tr>
-	                        <th>Produto</th>
-	                        <th>Quantidade</th>
-	                        <th>Valor</th>
-	                        
-	                        
-	           			</tr>
-              
-              			<tr th:each="i : ${itens}">
-		       				
-		            		<td><span th:text="${i.quantidade}"></span></td>
-		            		
-		                                          
-		      			</tr>
-            		</table>  
-              </div>
-              
-              
-              
-              <!--  
-              <div th:object="${item}">
-              <label for=""><strong>Quantidade:</strong></label>
-              <p type="number" id="quantidade" th:text="${item.quantidade}"/><br>
-              </div>
-              <div th:object="${produto}">
-              <label for=""><strong>Produto:</strong></label>
-              <p type="text" name="" id="formaPagamento" th:text="${produto.nomeProduto}"/ >
-              </div>-->
               
               <a href="/historicoPedidos" class="btn btn-primary btn-md">Voltar</a>
               
             </div>
         </div>    
 	</div>
+	<br>
+	<br>
 </div>	  
 </body>
 </html>
