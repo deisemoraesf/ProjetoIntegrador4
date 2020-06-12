@@ -43,23 +43,25 @@
 
 
 .footer {
-	position:relative;
+	position:responsive;
 	bottom: 0;
 	width: 100%;
 	left: 0;
 }
 
 
+
 #carrinho{
 	color:white;
+	font-size: 2em;
 }
 
 
 </style>
 
 </head>
-<body style="background: #FFF5EE;">
-
+<body class="d-flex flex-column h-100" style="background: #FFF5EE;">
+	
 	<!--NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_NAVBAR_-->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
@@ -116,8 +118,10 @@
 					
 					
 				</li>
+				&nbsp;&nbsp;&nbsp;
 				<li class="btn btn-outline-light btn-md">
 					<a class="nav-link" href="/carrinho"><i id="carrinho" class="fa fa-cart-plus"></i></a>
+					
 				</li>
 			</ul>
 			</div>
@@ -128,10 +132,9 @@
 	<div class="layout-main" layout:fragment="conteudo">
 	</div>
 	
-
 	<!--FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_-->
 	<div class="footer">
-		<footer class="py-2 bg-dark mt-auto">
+		<footer class="footer navbar-fixed-bottom">
 			<div class="container-fluid">
 				<div class="d-flex align-items-center justify-content-between small">
 					<div class="text-muted">Projeto integrador 4</div>
@@ -140,6 +143,9 @@
 			</div>
 		</footer>
 	</div>
+	
 	<!--FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_FOOTER_-->
+
 </body>
+
 </html>		

@@ -63,7 +63,7 @@
                 <div class="container">
                 <div class="form-inline">
                     <h6>Detalhes: <span name="desc_produto" th:text="*{desc_produto}"></span> </h6>
-                    <h2 class="ml-auto" style="text-align: left;">Valor: R$ <span name="preco" id="preco" th:text="*{preco}"></span></h2>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h2 class="ml-auto" style="text-align: left;">Valor: R$ <span name="preco" id="preco" th:text="*{#numbers.formatDecimal(preco, 0, 'POINT', 2, 'COMMA')}"></span></h2>&nbsp;&nbsp;&nbsp;&nbsp;
                     
                 </div>
                 <a class="btn btn-info btn-lg ml-auto" th:if="${produto.quantidade} > 0" th:href="@{/carrinho/addcarrinho/{id_produto}(id_produto=${produto.id_produto})}" role="button">Comprar</a>

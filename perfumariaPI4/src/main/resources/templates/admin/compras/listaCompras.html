@@ -55,14 +55,14 @@
 		                    <tr th:each="compra : ${compras}">
 		                        <td><span th:text="${compra.id}"></span></td>
 		                        <td><span th:text="${compra.dataCompra}"></span></td>
-		                        <td><span th:text="${comprarTotal}"></span></td>
+		                        <td><span th:text="${#numbers.formatDecimal(compra.valorTotal, 0, 'POINT', 2, 'COMMA')}"></span></td>
 		                        <td><span th:text="${compra.statusCompra}"></span></td>
 		                        
 		                        
 		                        <td colspan="2">
 									<a  class="btn btn-success btn-sm" role="button"
 									th:href="@{/compras/editarStatus/{id}(id=${compra.id})}">
-									<span class="oi oi-magnifying-glass" title="Visualizar" aria-hidden="true"></span>
+									<span class="oi oi-brush" title="Visualizar" aria-hidden="true"></span>
 									</a>
 								</td>
 										                       

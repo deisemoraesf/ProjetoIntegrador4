@@ -19,8 +19,8 @@
 							<li class="nav-item active"><i class="oi oi-caret-right"></i>
 								<span>Visualização Cliente</span></li>
 						</ul>
-						<div class="navbar-nav ml-auto">
-							<a class="btn btn-info btn-md" th:href="@{/clientesAdm/editarClientes/{id_pessoa}(id_pessoa=${pessoas.id_pessoa})}"
+						<div class="navbar-nav ml-auto" th:object="${pessoas}">
+							<a class="btn btn-info btn-md" th:href="@{/clientesAdm/editarClientes/{tp}/{id_pessoa}(id_pessoa=${pessoas.id_pessoa}, tp=${pessoas.tipoPessoa})}"
 								role="button"> <span class="oi oi-brush" title="adicionar"
 								aria-hidden="true"></span> <span>Editar</span>
 							</a>
@@ -76,7 +76,7 @@
 									id="cpf" readonly="readonly" autofocus="autofocus" name="cpf"
 									value="" th:field="*{cpf}" /> 
 								
-								<label>Data de Nascimento:</label> <input type="text" class="form-control"
+								<label>Data de Nascimento:</label> <input type="date" class="form-control"
 									id="dtnascimento" readonly="readonly" autofocus="autofocus"
 									name="dtnascimento" value="" th:field="*{dtnascimento}" /> 
 								

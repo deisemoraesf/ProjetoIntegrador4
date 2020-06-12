@@ -9,11 +9,23 @@
 <body>
  <div layout:fragment="conteudo">
  	<br>
- 	<br>
+ 	
  	<div class="container">
 	<!-- Lista de itens do carrinho -->
-	<div class="row">
-		<div class="col-12">
+	<h3>Meu Carrinho</h3>
+	<br>
+	<div class="row" th:object="${compra}">
+		
+		<div class="alert alert-light col-12" role="alert" th:if="${compra.valorTotal} == 0">
+  			<h4>Seu carrinho está vazio</h4>
+  			<hr>
+  			<p>Voltar para página inicial ou escolha outros produtos</p>
+  			<div class="center">
+				<a class="btn btn-block btn-secondary" href="/" role="button">Continuar Comprando</a>	
+			</div>
+		</div>	
+	
+		<div class="col-12" th:unless="${compra.valorTotal} == 0">
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<thead>
@@ -31,7 +43,7 @@
 							<td><img height="100px" weight="100px" th:src="@{__${item.produto.fotoIndex}__}" />
 							</td>
 							<td th:text="${item.produto.nomeProduto}">Produto Nome</td>
-							<td>Em estoque</td>
+							<td style="color:green"><strong>Em estoque</strong></td>
 							
 							<td>							
 							<a class="btn btn-sm btn-primary"
@@ -46,7 +58,7 @@
 								role="button"><i class="fa fa-minus"></i></a>						
 							</td>
 
-							<td class="text-right" th:text="${item.valorTotal}">
+							<td class="text-right" th:text="${#numbers.formatDecimal(item.valorTotal, 0, 'POINT', 2, 'COMMA')}">
 							</td>
 
 							<td class="text-right"><a class="btn btn-sm btn-danger"
@@ -60,7 +72,7 @@
 							<td></td>
 							<td></td>
 							<td>Sub-Total</td>
-							<td class="text-right">R$ <span th:text="${compra.valorTotal}"></span></td>
+							<td class="text-right">R$ <span th:text="${#numbers.formatDecimal(compra.valorTotal, 0, 'POINT', 2, 'COMMA')}"></span></td>
 						</tr>
 						<tr>
 							<td></td>
@@ -76,7 +88,7 @@
 							<td></td>
 							<td></td>
 							<td><strong>Total</strong></td>
-							<td class="text-right"><strong>R$ <span th:text="${compra.valorTotal}"></strong></td>
+							<td class="text-right"><strong>R$ <span th:text="${#numbers.formatDecimal(compra.valorTotal, 0, 'POINT', 2, 'COMMA')}"></strong></td>
 						</tr>
 					</tbody>
 				</table>

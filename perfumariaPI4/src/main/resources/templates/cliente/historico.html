@@ -35,7 +35,7 @@
 							<td th:text="${compra.id}"></td>
 							<td th:text="${compra.statusCompra}"></td>
 							<td th:text="${compra.dataCompra}"></td>
-							<td th:text="${compra.valorTotal}">
+							<td th:text="${#numbers.formatDecimal(compra.valorTotal, 0, 'POINT', 2, 'COMMA')}">
 													
 												
 							<td colspan="2">
