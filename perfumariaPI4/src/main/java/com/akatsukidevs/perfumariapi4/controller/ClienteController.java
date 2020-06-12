@@ -416,7 +416,7 @@ public class ClienteController {
 		}
 		
 		// Cliente Histórico de Pedido
-		@RequestMapping(value = "/historicoPedidos", method = RequestMethod.GET)
+		@GetMapping(value = "/historicoPedidos")
 	    public ModelAndView historico(Principal principal) {
 	    	ModelAndView mv = new ModelAndView("cliente/historico");
 			Usuario u = ur.findByEmail(principal.getName());
@@ -440,7 +440,7 @@ public class ClienteController {
 		
 		//Cliente Trocar a Senha
 		@PostMapping("/minhaConta/editarSenha/{id_usuario}")
-		public String editarStatus(@PathVariable("id_usuario") Long id_usuario, String senha, RedirectAttributes attribute) {
+		public String editarSenha(@PathVariable("id_usuario") Long id_usuario, String senha, RedirectAttributes attribute) {
 			
 			Optional<Usuario> usuario = ur.findById(id_usuario);
 			Usuario usu = usuario.get();
@@ -523,6 +523,22 @@ public class ClienteController {
 		
 		return mv;
 		
+	}
+	
+	//Cliente Cancelar Pedido só se os status tiverem 
+	//aguardando confirmacao pagamento
+	//pagamento aprovado
+	//entrega não realizada
+	@PostMapping("/historicoPedidos/cancelarPedido/{id}")
+	public String cancelar(@PathVariable("id") Long id, RedirectAttributes attribute) {
+		
+		Optional<Compra> compra = cr.findById(id);
+		Compra com = compra.get();
+		com.setStatusCompra("cancelado");
+		cr.save(com);
+		
+		attribute.addFlashAttribute("mensagem", "Cancelado com sucesso");
+		return ("redirect:/historicoPedidos");
 	}
 		
 				

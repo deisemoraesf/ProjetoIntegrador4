@@ -42,13 +42,17 @@
               <label for=""><strong>Pedido:</strong></label>
               <p type="text" id="id" th:text="${compras.id}"/>
               <label for=""><strong>Data</strong></label>
-              <p type="date" id="dataCompra" th:text="${compras.dataCompra}"/>
+              <p type="date" id="dataCompra" th:text="${#dates.format(compras.dataCompra, 'dd/MM/yyyy HH:mm')}"/>
               <label for=""><strong> Total: </strong></label>
               <p>R$ <span type="text" id="valorTotal" th:text="${#numbers.formatDecimal(compras.valorTotal, 0, 'POINT', 2, 'COMMA')}"></span></p>
               <label for=""><strong>Forma de pagemento:</strong></label>
               <p type="text" name="formaPagamento" id="formaPagamento" th:text="${compras.formaPagamento}"/>
               <label for=""><strong>Status:</strong></label>
-              <p type="text" name="formaPagamento" id="formaPagamento" th:text="${compras.statusCompra}"/>
+              <p type="text" name="formaPagamento" id="formaPagamento" th:switch="${compras.statusCompra}">
+              		<strong><span th:case="'cancelado'" style="color:red;"  th:text="${compras.statusCompra}"></span></strong>
+					<strong><span th:case="'entregue'" style="color:green;"  th:text="${compras.statusCompra}"></span></strong>
+					<strong><span th:case="*" style="color:blue;"  th:text="${compras.statusCompra}"></span></strong>
+              </p>
               </div>
               <br>
               

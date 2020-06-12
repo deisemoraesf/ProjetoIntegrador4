@@ -5,6 +5,23 @@
 <title>Perfumaria Administrativo</title>
 <meta charset="UTF-8" />
 
+<script th:inline="javascript">
+	$(function() {
+		$('#excluir').on(
+				'show.bs.modal',
+				function(event) {
+					var button = $(event.relatedTarget)
+					var idUsuario = button.data('id')
+					var actionUrl = button.data('actionurl');
+					var modal = $(this);
+					modal.find('.modal-title').text('Cancelar Pedido');
+					modal.find('.modal-body label').text(
+							'Deseja cancelar o Pedido ' + idUsuario + '?');
+					modal.find('.modal-body form').attr('action', actionUrl);
+				});
+	});
+</script>
+
 </head>
 <body>
 
@@ -25,23 +42,43 @@
 						<tr>
 							<th>Pedido</th>
 							<th>Status</th>
-							<th>Data</th>
+							<th>Data/Hora</th>
 							<th>Valor</th>
 							<th>Detalhes</th>
+							<th></th>
 																				
 						</tr>
 				
 						<tr th:each="compra : ${compras}">
 							<td th:text="${compra.id}"></td>
-							<td th:text="${compra.statusCompra}"></td>
-							<td th:text="${compra.dataCompra}"></td>
+							<td th:switch="${compra.statusCompra}" >
+								<strong><span th:case="'cancelado'" style="color:red;"  th:text="${compra.statusCompra}"></span></strong>
+								<strong><span th:case="'entregue'" style="color:green;"  th:text="${compra.statusCompra}"></span></strong>
+								<strong><span th:case="*" style="color:blue;"  th:text="${compra.statusCompra}"></span></strong>
+							</td>
+							<td th:text="${#dates.format(compra.dataCompra, 'dd/MM/yyyy HH:mm')}"></td>
 							<td th:text="${#numbers.formatDecimal(compra.valorTotal, 0, 'POINT', 2, 'COMMA')}">
 													
 												
-							<td colspan="2">
+							<td colspan="2" >
 								<a  class="btn btn-success btn-sm" role="button"
 									th:href="@{/detalhesPedido/{id}(id=${compra.id})}">
 									<span class="fa fa-eye" title="Visualizar" aria-hidden="true"></span>
+								</a>
+							</td>
+							
+							<td colspan="2" th:switch="${compra.statusCompra}" >
+								<a th:case="'aguardando confirmacao pagamento'" href="#" class="badge badge-pill badge-danger" 
+									role="button" data-toggle="modal" data-target="#excluir"
+									th:attr="data-id=${compra.id}, data-actionurl=@{/historicoPedidos/cancelarPedido/{id}(id=${compra.id})}">Cancelar
+								</a>
+								<a th:case="'pagamento aprovado'" href="#" class="badge badge-pill badge-danger" role="button"
+									data-toggle="modal" data-target="#excluir"
+									th:attr="data-id=${compra.id}, data-actionurl=@{/historicoPedidos/cancelarPedido/{id}(id=${compra.id})}">Cancelar
+								</a>
+								<a th:case="'entrega nao realizada'" href="#" class="badge badge-pill badge-danger" role="button"
+									data-toggle="modal" data-target="#excluir"
+									th:attr="data-id=${compra.id}, data-actionurl=@{/historicoPedidos/cancelarPedido/{id}(id=${compra.id})}">Cancelar
 								</a>
 							</td>
 							
@@ -52,7 +89,32 @@
 				</div>
 			</div>
 		</section>
+	<div layout:fragment="modal-area">
+		<div class="modal fade" tabindex="-1" role="dialog" id="excluir">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Cancelar Produto</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form method="POST">
+							<label></label>
+							<br>
+							<button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+						
+							<button type="submit" class="btn btn-danger">Cancelar</button>
+						</form>
+					</div>
+					
+				</div>
+			</div>
 
+		</div>
+	</div>
 	</div>
 	
 	  

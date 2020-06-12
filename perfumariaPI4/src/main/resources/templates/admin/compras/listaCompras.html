@@ -54,9 +54,13 @@
 	                  
 		                    <tr th:each="compra : ${compras}">
 		                        <td><span th:text="${compra.id}"></span></td>
-		                        <td><span th:text="${compra.dataCompra}"></span></td>
+		                        <td><span th:text="${#dates.format(compra.dataCompra, 'dd/MM/yyyy HH:mm')}"></span></td>
 		                        <td><span th:text="${#numbers.formatDecimal(compra.valorTotal, 0, 'POINT', 2, 'COMMA')}"></span></td>
-		                        <td><span th:text="${compra.statusCompra}"></span></td>
+		                        <td th:switch="${compra.statusCompra}">
+		                        	<strong><span th:case="'cancelado'" style="color:red;"  th:text="${compra.statusCompra}"></span></strong>
+									<strong><span th:case="'entregue'" style="color:green;"  th:text="${compra.statusCompra}"></span></strong>
+									<strong><span th:case="*" style="color:blue;"  th:text="${compra.statusCompra}"></span></strong>
+		                        </td>
 		                        
 		                        
 		                        <td colspan="2">
