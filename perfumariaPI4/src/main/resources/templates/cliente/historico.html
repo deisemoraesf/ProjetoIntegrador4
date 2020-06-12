@@ -46,6 +46,8 @@
 							<th>Valor</th>
 							<th>Detalhes</th>
 							<th></th>
+							<th></th>
+							<th></th>
 																				
 						</tr>
 				
@@ -80,6 +82,13 @@
 									data-toggle="modal" data-target="#excluir"
 									th:attr="data-id=${compra.id}, data-actionurl=@{/historicoPedidos/cancelarPedido/{id}(id=${compra.id})}">Cancelar
 								</a>
+								<i th:case="*" class="fa fa-question-circle" aria-hidden="true" title="O cancelamento só é feito para os seguintes status:
+		aguardando confirmacao pagamento, 
+		pagamento aprovado, 
+		entrega nao realizada. 
+Dúvidas? Ligue para central de atendimento">
+								</i>
+									
 							</td>
 							
 											
