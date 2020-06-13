@@ -119,6 +119,10 @@ public class ProdutoController {
 		//Set Imagens
 		Set<FotoProduto> fp = produto.getImagens();
 		p.setImagens(fp);
+		
+		pr.save(p);		
+		attribute.addFlashAttribute("mensagem", "Editado com sucesso");
+		return ("redirect:/produtos/editarProdutos/{id_produto}");
 			
 		}else {
 		String urlPasta = "C:/Users/Deise/Documents/workspace-spring-tool-suite-4-4.5.1.RELEASE/perfumariaPI4/src/main/resources/static/";
@@ -145,11 +149,12 @@ public class ProdutoController {
 				attribute.addFlashAttribute("mensagem", "Erro: "+e.getMessage()); 
 			}
 		}	
-		}
-		
 		pr.save(p);		
 		attribute.addFlashAttribute("mensagem", "Editado com sucesso");
 		return ("redirect:/produtos/editarProdutos/{id_produto}");
+		}
+		
+		
 	}
 	
 	@GetMapping("/produtos/deletarProdutos/{id_produto}")
