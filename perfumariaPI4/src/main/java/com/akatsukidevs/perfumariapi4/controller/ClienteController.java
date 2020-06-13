@@ -540,7 +540,7 @@ public class ClienteController {
 		attribute.addFlashAttribute("mensagem", "Cancelado com sucesso");
 		return ("redirect:/historicoPedidos");
 	}
-		
-				
+	
+	
 		
 }

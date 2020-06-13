@@ -6,6 +6,8 @@
 <title>Perfumaria - Carrinho de Compras</title>
 <meta charset="utf-8">
 
+
+
 <body>
  <div layout:fragment="conteudo">
  	<br>
@@ -80,7 +82,10 @@
 							<td></td>
 							<td></td>
 							<td>Frete</td>
-							<td class="text-right">R$ 0,00</td>
+							<!--  <td class="text-right">R$ 0,00</td> -->
+							<td>CEP:<div class="form-group"><input type="text" class="form-control" id="cep" name="cep"></input><button onclick="calculo();" class="btn btn-success" >OK</button></div>
+							<div class="col-md-4" id="retorno"></div>
+							</td>
 						</tr>
 						<tr>
 							<td></td>
@@ -106,6 +111,19 @@
 		</div>
 	</div>
 </div>	
+<!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <!-- JavaScript-->
+    <script>
+      function calculo(){
+        var cep = $("#cep").val();
+        $.post('calcula.php',{cep:cep},function(data){
+          $("#retorno").html(data);
+        });
+      }
+    </script>
+
 </div>
 </body>
 </html>
