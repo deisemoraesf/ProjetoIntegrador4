@@ -24,6 +24,7 @@ import com.akatsukidevs.perfumariapi4.model.ItensCompra;
 import com.akatsukidevs.perfumariapi4.model.Pessoa;
 import com.akatsukidevs.perfumariapi4.model.PessoaFisica;
 import com.akatsukidevs.perfumariapi4.model.PessoaJuridica;
+import com.akatsukidevs.perfumariapi4.model.Produto;
 import com.akatsukidevs.perfumariapi4.model.Usuario;
 import com.akatsukidevs.perfumariapi4.repository.CompraRepository;
 import com.akatsukidevs.perfumariapi4.repository.EnderecoRepository;
@@ -31,6 +32,7 @@ import com.akatsukidevs.perfumariapi4.repository.ItensCompraRepository;
 import com.akatsukidevs.perfumariapi4.repository.PessoaFisicaRepository;
 import com.akatsukidevs.perfumariapi4.repository.PessoaJuridicaRepository;
 import com.akatsukidevs.perfumariapi4.repository.PessoaRepository;
+import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
 import com.akatsukidevs.perfumariapi4.repository.UsuarioRepository;
 
 
@@ -58,6 +60,9 @@ public class ClienteController {
 	
 	@Autowired
 	private ItensCompraRepository icr;
+	
+	@Autowired
+	private ProdutoRepositorios prodr;
 	
 	@RequestMapping("/clientes/verificarCliente")
 	public ModelAndView verificaCliente() {
@@ -536,6 +541,14 @@ public class ClienteController {
 		Compra com = compra.get();
 		com.setStatusCompra("cancelado");
 		cr.save(com);
+		for (ItensCompra c: com.getItensCompra()) {
+			Produto produtoitem = c.getProduto();
+    		int quantdadeproduto = produtoitem.getQuantidade();
+    		int quantidadeitem = c.getQuantidade();
+    		int recalculaquantidade = quantdadeproduto + quantidadeitem;
+    		produtoitem.setQuantidade(recalculaquantidade);
+    		prodr.save(produtoitem);
+		}
 		
 		attribute.addFlashAttribute("mensagem", "Cancelado com sucesso");
 		return ("redirect:/historicoPedidos");

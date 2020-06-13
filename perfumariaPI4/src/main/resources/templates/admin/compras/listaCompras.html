@@ -63,11 +63,14 @@
 		                        </td>
 		                        
 		                        
-		                        <td colspan="2">
-									<a  class="btn btn-success btn-sm" role="button"
+		                        <td colspan="2" >
+									<a  class="btn btn-success btn-sm" role="button" th:if="${compra.statusCompra} != 'cancelado'"
 									th:href="@{/compras/editarStatus/{id}(id=${compra.id})}">
-									<span class="oi oi-brush" title="Visualizar" aria-hidden="true"></span>
+									<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 									</a>
+									<i th:unless="${compra.statusCompra} != 'cancelado'" class="oi oi-circle-x" title="Compras canceladas não podem ser alteradas."></i>
+									
+																	
 								</td>
 										                       
 		                    </tr>

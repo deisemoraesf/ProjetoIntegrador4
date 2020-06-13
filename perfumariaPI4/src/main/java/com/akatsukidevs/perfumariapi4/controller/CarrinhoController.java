@@ -104,6 +104,13 @@ public class CarrinhoController {
     	for(ItensCompra c:itensCompra) {
     		c.setCompra(compra);
     		itensCompraRepo.saveAndFlush(c);
+    		Produto produtoitem = c.getProduto();
+    		int quantdadeproduto = produtoitem.getQuantidade();
+    		int quantidadeitem = c.getQuantidade();
+    		int recalculaquantidade = quantdadeproduto - quantidadeitem;
+    		produtoitem.setQuantidade(recalculaquantidade);
+    		pr.save(produtoitem);
+    		
     	}
     	compra.setCliente(p);
     	p.getCompras().add(compra);

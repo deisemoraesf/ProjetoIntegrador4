@@ -13,13 +13,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.akatsukidevs.perfumariapi4.model.Compra;
+import com.akatsukidevs.perfumariapi4.model.ItensCompra;
+import com.akatsukidevs.perfumariapi4.model.Produto;
 import com.akatsukidevs.perfumariapi4.repository.CompraRepository;
+import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
 
 @Controller
 public class ComprasController {
 	
 	@Autowired
 	private CompraRepository cr;
+	
+	@Autowired
+	private ProdutoRepositorios prodr;
 	
 	@RequestMapping("/compras")
 	public ModelAndView verificaCliente() {
@@ -42,8 +48,19 @@ public class ComprasController {
 		
 		Optional<Compra> compra = cr.findById(id);
 		Compra com = compra.get();
+		if(statusCompra.equalsIgnoreCase("cancelado")) {
+			for (ItensCompra c: com.getItensCompra()) {
+				Produto produtoitem = c.getProduto();
+	    		int quantdadeproduto = produtoitem.getQuantidade();
+	    		int quantidadeitem = c.getQuantidade();
+	    		int recalculaquantidade = quantdadeproduto + quantidadeitem;
+	    		produtoitem.setQuantidade(recalculaquantidade);
+	    		prodr.save(produtoitem);
+			}
+		}	
 		com.setStatusCompra(statusCompra);
 		cr.save(com);
+		
 		
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
 		return ("redirect:/compras/editarStatus/{id}");

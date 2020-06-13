@@ -29,7 +29,7 @@
 							<h7 name="nomeProduto" id="nome" th:text="${produto.nomeProduto}"></h7>
 							<br>
 							<br>
-							<label>R$</label><span th:text="${produto.preco}"></span>
+							<label>R$</label><span th:text="${#numbers.formatDecimal(produto.preco, 0, 'POINT', 2, 'COMMA')}"></span>
 							<br>
 							<br>
 							<a class="btn btn-info btn-sm" th:href="@{/clientes/produtos/visualizarProdutos/{id_produto}(id_produto=${produto.id_produto})}" role="button">Descrição</a>
