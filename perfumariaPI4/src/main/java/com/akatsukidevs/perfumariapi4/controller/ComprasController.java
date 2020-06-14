@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -16,6 +17,7 @@ import com.akatsukidevs.perfumariapi4.model.Compra;
 import com.akatsukidevs.perfumariapi4.model.ItensCompra;
 import com.akatsukidevs.perfumariapi4.model.Produto;
 import com.akatsukidevs.perfumariapi4.repository.CompraRepository;
+import com.akatsukidevs.perfumariapi4.repository.ItensCompraRepository;
 import com.akatsukidevs.perfumariapi4.repository.ProdutoRepositorios;
 
 @Controller
@@ -26,6 +28,9 @@ public class ComprasController {
 	
 	@Autowired
 	private ProdutoRepositorios prodr;
+	
+	@Autowired
+	private ItensCompraRepository icr;
 	
 	@RequestMapping("/compras")
 	public ModelAndView verificaCliente() {
@@ -63,8 +68,21 @@ public class ComprasController {
 		
 		
 		attribute.addFlashAttribute("mensagem", "Salvo com sucesso");
-		return ("redirect:/compras/editarStatus/{id}");
+		return ("redirect:/compras");
 	}
+	
+	// Detalhes da Compra administrativo
+	@RequestMapping(value = "/compras/detalhesCompra/{id}", method = RequestMethod.GET)
+	public ModelAndView detalhes(@PathVariable Long id) {
+	   	ModelAndView mv = new ModelAndView("admin/compras/detalhesCompra");
+	   	Optional<Compra> c = cr.findById(id);
+	   	Compra compra = c.get();
+	   	Iterable<ItensCompra> ic = icr.findByCompra(compra);
+	   	mv.addObject("itens", ic);
+	   	mv.addObject("compras", compra);		
+		return mv;
+	}
+			
 	
 	//Pesquisa Administrativo
 	@PostMapping("**/pesquisaPedido")
