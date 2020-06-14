@@ -54,7 +54,7 @@
 						</div>
 
 						<div class="col-md-8 order-md-1">
-							<h4 class="mb-3">Endereço de cobrança</h4>
+							<h4 class="mb-3">Dados de cobrança</h4>
 							
 							<form action="finalizar/confirmar" method="post">
 								<div class="row" th:object="${pessoas}">
@@ -106,7 +106,7 @@
 											<tr th:each="endereco : ${enderecos}">
 
 												<td class="custom-control custom-radio"><input
-													type="radio" name="id" id="id" th:value="${endereco.id}" /></td>
+													type="radio" name="id" id="id" th:value="${endereco.id}" required /></td>
 												<td th:text="${endereco.tipoend}"></td>
 												<td th:text="${endereco.cep}"></td>
 												<td th:text="${endereco.rua}"></td>
@@ -133,64 +133,72 @@
 
 								<h4 class="mb-3">Pagamento</h4>
 								
-							<div class="d-block my-3">
-								<div class="row">								
-								<div class="col-sm-10">
+						
+							<!-- TESTE TESTE TESTE TESTE -->
+							
+								<div class="accordion" id="accordionExample">
+								  <div class="card">
+								    <div class="card-header" id="headingOne">
+								      <h7 class="mb-0">
+								        <div class="custom-control custom-radio" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+											<input class="form-check-input" type="radio" name="formaPagamento" id="optFormaPagamento" value="Boleto" >
+											<label class="form-check-label" for="optFormaPagamento">Boleto</label>
+										</div>
+								      </h7>
+								    </div>
+								    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+								      <div id="escolha pagamento">
+								      <div class="card-body">
+								        <a href="#">Imprimir</a>
+								      </div>
+								    </div>
+								  </div>
+								  </div>
+								  <div class="card">
+								    <div class="card-header" id="headingTwo">
+								      <h7 class="mb-0">
+								        <div class="custom-control custom-radio"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+											<input class="form-check-input" type="radio" name="formaPagamento" id="optFormaPagamento" value="Cartao Credito" >
+											<label class="form-check-label" for="optFormaPagamento">Cartão Crédito</label>
+										</div>
+								      </h7>
+								    </div>
+								    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+								    	<div class="card-body">
+								      		<div class="row">
+												<div class="col-md-6 mb-3">
+													<label for="cc-nome">Nome no cartão</label>
+													<input type="text" class="form-control" id="cc-nome" placeholder="">
+													<small class="text-muted">Nome completo, como mostrado no cartão.</small>
+													<div class="invalid-feedback">O nome que está no cartão é obrigatório.</div>
+												</div>
+												<div class="col-md-6 mb-3">
+													<label for="cc-numero">Número do cartão de crédito</label>
+													<input type="text" class="form-control" id="cc-numero" placeholder="">
+													<div class="invalid-feedback">O número do cartão de crédito é obrigatório.</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-3 mb-3">
+													<label for="cc-expiracao">Data de expiração</label> 
+													<input type="text" class="form-control" id="cc-expiracao" placeholder="">
+													<div class="invalid-feedback">Data de expiração é obrigatória.</div>
+												</div>
+												<div class="col-md-3 mb-3">
+													<label for="cc-cvv">CVV</label> 
+													<input type="text" class="form-control" id="cc-cvv" placeholder="">
+													<div class="invalid-feedback">Código de segurança é	obrigatório.</div>
+												</div>
+											</div>
+								    	</div>  
+								    </div>
+								  </div>   
+								</div>  						
+						<!-- TESTE TESTE TESTE TESTE -->	
 								
-								<div class="custom-control custom-radio">
-									<input class="form-check-input" type="radio" name="formaPagamento"
-										id="optFormaPagamento" value="Boleto" >
-									<label class="form-check-label" for="optFormaPagamento">Boleto
-									</label>
-								</div>
-																
-								
-								<div class="custom-control custom-radio">
-									<input class="form-check-input" type="radio" name="formaPagamento"
-										id="optFormaPagamento" value="Cartao Credito" >
-									<label class="form-check-label" for="optFormaPagamento">Cartão Crédito
-									</label>
-								</div>
-								
-								
-								</div>
-								</div>
-							</div>
-								
-
 								<input type="hidden" id="statusCompra" name="statusCompra" value="aguardando confirmacao pagamento">
-								<div class="row">
-									<div class="col-md-6 mb-3">
-										<label for="cc-nome">Nome no cartão</label> <input type="text"
-											class="form-control" id="cc-nome" placeholder="" required>
-										<small class="text-muted">Nome completo, como mostrado
-											no cartão.</small>
-										<div class="invalid-feedback">O nome que está no cartão
-											é obrigatório.</div>
-									</div>
-									<div class="col-md-6 mb-3">
-										<label for="cc-numero">Número do cartão de crédito</label> <input
-											type="text" class="form-control" id="cc-numero"
-											placeholder="" required>
-										<div class="invalid-feedback">O número do cartão de
-											crédito é obrigatório.</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-3 mb-3">
-										<label for="cc-expiracao">Data de expiração</label> <input
-											type="text" class="form-control" id="cc-expiracao"
-											placeholder="" required>
-										<div class="invalid-feedback">Data de expiração é
-											obrigatória.</div>
-									</div>
-									<div class="col-md-3 mb-3">
-										<label for="cc-cvv">CVV</label> <input type="text"
-											class="form-control" id="cc-cvv" placeholder="" required>
-										<div class="invalid-feedback">Código de segurança é
-											obrigatório.</div>
-									</div>
-								</div>
+								
+								
 								<hr class="mb-4">
 								<button class="btn btn-primary btn-lg btn-block" type="submit">Confirmar Pedido</button>
 							</form>
