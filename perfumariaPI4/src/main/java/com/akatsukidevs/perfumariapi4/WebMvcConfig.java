@@ -9,10 +9,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("**/acessofoto/**")
+		registry.addResourceHandler("/image/**")
 		//manter o file:/// toda vez que trocar a pasta, e reiniciar a Aplicação
-		.addResourceLocations("file:///http://pi4spring.azurewebsites.net/images/");
-		//.addResourceLocations("file:///./images");
+		//.addResourceLocations("file:///http://pi4spring.azurewebsites.net/images/");
+		.addResourceLocations("file:///./images");
 		//.addResourceLocations("file:///C:/Users/Fernanda Raeli/git/ProjetoIntegrador4/perfumariaPI4/src/main/resources/static/");
 		//.addResourceLocations("file:///C:/Users/Deise/Documents/workspace-spring-tool-suite-4-4.5.1.RELEASE/perfumariaPI4/src/main/resources/static/");
 
