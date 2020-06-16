@@ -48,7 +48,7 @@ public class ProdutoController {
 	@SuppressWarnings("null")
 	@RequestMapping(value="/produtos/cadastrarProduto", method=RequestMethod.POST)
 	public String salvar(Produto produto, @RequestParam("files") MultipartFile [] files, BindingResult result, RedirectAttributes attribute) {
-		String urlPasta = "C:/Users/Deise/Documents/workspace-spring-tool-suite-4-4.5.1.RELEASE/perfumariaPI4/src/main/resources/static/";
+		String urlPasta = "http://pi4spring.azurewebsites.net/images/";
 		
 		if(result.hasErrors()) {
 			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
@@ -125,7 +125,7 @@ public class ProdutoController {
 		return ("redirect:/produtos/editarProdutos/{id_produto}");
 			
 		}else {
-		String urlPasta = "C:/Users/Deise/Documents/workspace-spring-tool-suite-4-4.5.1.RELEASE/perfumariaPI4/src/main/resources/static/";
+		String urlPasta = "http://pi4spring.azurewebsites.net/images/";
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
 			Path diretorio = Paths.get(urlPasta + file.getOriginalFilename());

@@ -30,14 +30,13 @@
                 <h1 name="nome" th:text="*{nomeProduto}"></h1>
             </div>
             <div class="card-body">
-                <div class="container" th:object="${FotoProduto}">
-                   
-                       
+                <div class="container">
+                                          
                         	<div  id="carouselSite" class="carousel slide" data-ride="carousel"  >
                                  <div align="center">                        
                            		 <div class="carousel-inner">
                            		 <div class="carousel-item active">
-                           		 	<img th:src="@{/imgCarousel/logoakatsukidevs.jpg}" class="img-fluid d-block" width="300px" height="300px">
+                           		 	<img th:src="@{__${produto.fotoIndex}__}" class="img-fluid d-block" width="300px" height="300px">
                            		 </div>
                            		 	<div class="carousel-item" th:each="foto : ${fotos}">
                                		       	<img th:src="@{__${foto.name}__}" class="img-fluid d-block" width="300px" height="300px">
