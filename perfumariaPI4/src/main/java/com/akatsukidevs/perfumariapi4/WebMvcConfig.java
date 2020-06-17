@@ -1,6 +1,6 @@
 package com.akatsukidevs.perfumariapi4;
 
-import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
 	
 	@Autowired 
-	private ServletContext context;
+	private HttpServletRequest context;
 	
 	
 	@Override
@@ -19,7 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/acessofoto/**")
 		//manter o file:/// toda vez que trocar a pasta, e reiniciar a Aplicação
 		
-		.addResourceLocations("file:///"+System.getProperty("user.dir")+"/src/main/resources/static/acessofoto/");	
+		.addResourceLocations("file:///"+context.getServletContext().getRealPath("resources/static/acessofoto"));	
 		//.addResourceLocations("file:acessofoto/");
 		//.addResourceLocations("file:///./images");
 		
