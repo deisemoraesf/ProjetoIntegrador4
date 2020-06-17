@@ -15,10 +15,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("**/acessofoto/**")
+		registry.addResourceHandler("/acessofoto/**")
 		//manter o file:/// toda vez que trocar a pasta, e reiniciar a Aplicação
 		
-		.addResourceLocations(context.getRealPath("/resources/static/acessofoto/"));		
+		.addResourceLocations(context.getRealPath("acessofoto/"));		
 		//.addResourceLocations("file:acessofoto/");
 		//.addResourceLocations("file:///./images");
 		//.addResourceLocations("file:///C:/Users/Fernanda Raeli/git/ProjetoIntegrador4/perfumariaPI4/src/main/resources/static/");

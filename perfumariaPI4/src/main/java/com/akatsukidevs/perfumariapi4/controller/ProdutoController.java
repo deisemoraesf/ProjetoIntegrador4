@@ -64,12 +64,12 @@ public class ProdutoController {
 		}
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
-			Path diretorio = Paths.get(context.getRealPath("/resources/static/acessofoto/") + file.getOriginalFilename());
+			Path diretorio = Paths.get(context.getRealPath("acessofoto/") + file.getOriginalFilename());
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
 			pr.save(produto);
-			fp.setName(context.getRealPath("/resources/static/acessofoto/")+file.getOriginalFilename());
+			fp.setName("/acessofoto/"+file.getOriginalFilename());
 			fp.setProduto(produto);
 			fp.setStatus(true);
 			fp.setUrl(url);
@@ -135,12 +135,12 @@ public class ProdutoController {
 			//String urlPasta = "acessofoto";
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
-			Path diretorio = Paths.get(context.getRealPath("/resources/static/acessofoto/") + file.getOriginalFilename());
+			Path diretorio = Paths.get(context.getRealPath("acessofoto/") + file.getOriginalFilename());
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
 			
-			fp.setName(context.getRealPath("/resources/static/acessofoto/")+file.getOriginalFilename());
+			fp.setName("/acessofoto/"+file.getOriginalFilename());
 			fp.setProduto(p);
 			fp.setStatus(true);
 			fp.setUrl(url);
