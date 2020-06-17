@@ -13,6 +13,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Autowired 
 	private ServletContext context;
 	
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/acessofoto/**")
