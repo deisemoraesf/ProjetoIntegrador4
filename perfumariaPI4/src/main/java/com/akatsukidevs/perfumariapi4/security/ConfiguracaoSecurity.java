@@ -41,7 +41,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/indexLog").hasAnyRole("ADMIN", "ESTOQUE", "COMPRADOR")
 				.antMatchers("/usuarios/**").hasAnyRole("ADMIN")
 				.antMatchers("/clientesAdm/**").hasAnyRole("ADMIN")
-				
+				.antMatchers("/acessofoto/**").permitAll()
 				.antMatchers("/produtos/**").hasAnyRole("ADMIN", "ESTOQUE")
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
 				.successHandler(myAuthenticationSuccessHandler())
