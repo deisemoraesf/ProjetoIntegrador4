@@ -94,7 +94,7 @@ public class ConfiguracaoSecurity extends WebSecurityConfigurerAdapter {
 	// para não bloquear paginas estaticas, passa as pastas para o spring security ignorar
 	@Override
 	public void configure(WebSecurity WEB) throws Exception {
-		WEB.ignoring().antMatchers("/css/**", "/image/**","/imgCarousel/**", "/Integrantes/**", "**/images/**");
+		WEB.ignoring().antMatchers("/css/**", "/image/**","/imgCarousel/**", "/Integrantes/**", "/acessofoto/**");
 	}
 
 }

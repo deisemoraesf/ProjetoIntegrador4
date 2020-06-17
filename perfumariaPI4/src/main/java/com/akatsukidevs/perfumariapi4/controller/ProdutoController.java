@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -37,6 +39,9 @@ public class ProdutoController {
 	@Autowired
 	private FotoProdutoRepository fpr;
 	
+	@Autowired 
+	private ServletContext context;
+	
 	
 	@RequestMapping(value="/produtos/cadastrarProduto", method=RequestMethod.GET)
 	public String salvar() {
@@ -48,7 +53,8 @@ public class ProdutoController {
 	@SuppressWarnings("null")
 	@RequestMapping(value="/produtos/cadastrarProduto", method=RequestMethod.POST)
 	public String salvar(Produto produto, @RequestParam("files") MultipartFile [] files, BindingResult result, RedirectAttributes attribute) {
-		String urlPasta = "acessofoto";
+		//String urlPasta = "acessofoto";
+		//context.getRealPath("/resources") + /fotos/;
 		
 		if(result.hasErrors()) {
 			attribute.addFlashAttribute("mensagem", "Verifique os campos em branco"); 
@@ -58,12 +64,12 @@ public class ProdutoController {
 		}
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
-			Path diretorio = Paths.get(urlPasta + file.getOriginalFilename());
+			Path diretorio = Paths.get(context.getRealPath("/resources/static/acessofoto/") + file.getOriginalFilename());
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
 			pr.save(produto);
-			fp.setName("/acessofoto/"+file.getOriginalFilename());
+			fp.setName(context.getRealPath("/resources/static/acessofoto/")+file.getOriginalFilename());
 			fp.setProduto(produto);
 			fp.setStatus(true);
 			fp.setUrl(url);
@@ -125,15 +131,16 @@ public class ProdutoController {
 		return ("redirect:/produtos/editarProdutos/{id_produto}");
 			
 		}else {
-		String urlPasta = "acessofoto";
+		
+			//String urlPasta = "acessofoto";
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
-			Path diretorio = Paths.get(urlPasta + file.getOriginalFilename());
+			Path diretorio = Paths.get(context.getRealPath("/resources/static/acessofoto/") + file.getOriginalFilename());
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
 			
-			fp.setName("/acessofoto/"+file.getOriginalFilename());
+			fp.setName(context.getRealPath("/resources/static/acessofoto/")+file.getOriginalFilename());
 			fp.setProduto(p);
 			fp.setStatus(true);
 			fp.setUrl(url);
