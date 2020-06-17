@@ -137,7 +137,7 @@ public class ProdutoController {
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
 			
-			Path diretorio = Paths.get(context.getServletContext().getRealPath("resources/static/acessofoto"));
+			Path diretorio = Paths.get(System.getProperty("user.dir")+"/src/main/resources/static/acessofoto/"+ file.getOriginalFilename());
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
