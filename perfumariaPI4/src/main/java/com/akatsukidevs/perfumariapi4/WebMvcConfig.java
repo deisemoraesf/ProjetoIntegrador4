@@ -18,11 +18,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/acessofoto/**")
 		//manter o file:/// toda vez que trocar a pasta, e reiniciar a Aplicação
 		
-		.addResourceLocations("file:///"+System.getProperty("user.dir")+"/src/main/resources/static/acessofoto/");		
+		.addResourceLocations("file:///"+System.getProperty("user.home")+"/src/main/resources/static/acessofoto/");	
 		//.addResourceLocations("file:acessofoto/");
 		//.addResourceLocations("file:///./images");
-		//.addResourceLocations("file:///C:/Users/Fernanda Raeli/git/ProjetoIntegrador4/perfumariaPI4/src/main/resources/static/");
-		//.addResourceLocations("file:///C:/Users/Deise/Documents/workspace-spring-tool-suite-4-4.5.1.RELEASE/perfumariaPI4/src/main/resources/static/");
+		
+		//Funciona para qualquer diretorio Local
+		//.addResourceLocations("file:///"+System.getProperty("user.dir")+"/src/main/resources/static/acessofoto/");		
 
 	}
 
