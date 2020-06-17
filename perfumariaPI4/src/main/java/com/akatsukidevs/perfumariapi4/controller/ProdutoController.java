@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,7 @@ public class ProdutoController {
 	private FotoProdutoRepository fpr;
 	
 	@Autowired 
-	private HttpServletRequest context;
+	private ServletContext context;
 	
 	
 	@RequestMapping(value="/produtos/cadastrarProduto", method=RequestMethod.GET)

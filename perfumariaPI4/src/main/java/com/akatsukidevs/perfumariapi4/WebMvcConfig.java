@@ -1,6 +1,6 @@
 package com.akatsukidevs.perfumariapi4;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
 	
 	@Autowired 
-	private HttpServletRequest context;
+	private ServletContext context;
 	
 	
 	@Override
