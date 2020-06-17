@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,7 @@ public class ProdutoController {
 	private FotoProdutoRepository fpr;
 	
 	@Autowired 
-	private ServletContext context;
+	private HttpServletRequest context;
 	
 	
 	@RequestMapping(value="/produtos/cadastrarProduto", method=RequestMethod.GET)
@@ -64,7 +64,8 @@ public class ProdutoController {
 		}
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
-			Path diretorio = Paths.get(context.getRealPath("acessofoto/") + file.getOriginalFilename());
+			@SuppressWarnings("deprecation")
+			Path diretorio = Paths.get(context.getRealPath("/perfumariaPI4/src/main/resources/static/acessofoto")+ file.getOriginalFilename());
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
@@ -135,7 +136,8 @@ public class ProdutoController {
 			//String urlPasta = "acessofoto";
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
-			Path diretorio = Paths.get(context.getRealPath("acessofoto/") + file.getOriginalFilename());
+			
+			Path diretorio = Paths.get(System.getProperty("user.dir")+"/src/main/resources/static/acessofoto/"+ file.getOriginalFilename());
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
