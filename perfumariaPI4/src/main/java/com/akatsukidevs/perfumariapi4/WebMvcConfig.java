@@ -16,7 +16,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/imgCarousel/**")
+		registry.addResourceHandler("/acessofoto/**")
 		//manter o file:/// toda vez que trocar a pasta, e reiniciar a Aplicação
 		
 		
@@ -24,7 +24,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		//.addResourceLocations("file:///./images");
 		
 		//Funciona para qualquer diretorio Local
-		.addResourceLocations("file:///"+System.getProperty("user.dir")+"/src/main/resources/static/imgCarousel/");		
+		.addResourceLocations("file:///"+System.getProperty("user.dir")+"/src/main/resources/static/acessofoto/");		
 
 	}
 
