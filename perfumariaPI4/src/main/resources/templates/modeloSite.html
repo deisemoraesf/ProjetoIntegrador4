@@ -120,7 +120,10 @@
 				</li>
 				&nbsp;&nbsp;&nbsp;
 				<li class="btn btn-outline-light btn-md">
-					<a class="nav-link" href="/carrinho"><i id="carrinho" class="fa fa-cart-plus"></i></a>
+					<a class="nav-link" href="/carrinho">
+						<i id="carrinho" class="fa fa-cart-plus"></i>
+						<span class="badge badge-secondary badge-pill" th:text="${session.qtda}"></span>
+					</a>
 					
 				</li>
 			</ul>

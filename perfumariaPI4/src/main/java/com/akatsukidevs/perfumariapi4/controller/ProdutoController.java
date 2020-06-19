@@ -65,7 +65,7 @@ public class ProdutoController {
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
 			@SuppressWarnings("deprecation")
-			Path diretorio = Paths.get(context.getRealPath("/perfumariaPI4/src/main/resources/static/image")+ file.getOriginalFilename());
+			Path diretorio = Paths.get(context.getRealPath("/perfumariaPI4/src/main/resources/static/image/")+ file.getOriginalFilename());
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
@@ -137,7 +137,7 @@ public class ProdutoController {
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
 			
-			Path diretorio = Paths.get(System.getProperty("user.dir")+"/src/main/resources/static/image/"+ file.getOriginalFilename());
+			Path diretorio = Paths.get("/perfumariaPI4/src/main/resources/static/image/"+ file.getOriginalFilename());
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();

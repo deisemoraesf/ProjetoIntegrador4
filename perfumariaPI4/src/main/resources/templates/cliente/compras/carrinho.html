@@ -6,8 +6,21 @@
 <title>Perfumaria - Carrinho de Compras</title>
 <meta charset="utf-8">
 
+ <script th:inline="javascript">
+    $(function() {
+        $('#excluir').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var idUsuario = button.data('id')
+            var actionUrl = button.data('actionurl');
+            var modal = $(this);
+            modal.find('.modal-title').text('Excluir Produto');
+            modal.find('.modal-body p').text('Deseja Excluir o Produto '+ idUsuario+' do carrinho?');
+            modal.find('.modal-footer form').attr('action', actionUrl);
+        });
+    });
+	</script>
 
-
+</head>
 <body>
  <div layout:fragment="conteudo">
  	<br>
@@ -55,16 +68,18 @@
 							<span th:text="${item.quantidade}"></span>&nbsp;&nbsp; 
 								
 								
-							<a class="btn btn-sm btn-primary"
+							<a class="btn btn-sm btn-primary" 
 								th:href="@{/carrinho/alterarQtde/{id_produto}/{acao}(id_produto=${item.produto.id_produto},acao=${0})}"
-								role="button"><i class="fa fa-minus"></i></a>						
+								role="button"><i class="fa fa-minus"></i></a>
+							
+							
 							</td>
 
 							<td class="text-right" th:text="${#numbers.formatDecimal(item.valorTotal, 0, 'POINT', 2, 'COMMA')}">
 							</td>
 
-							<td class="text-right"><a class="btn btn-sm btn-danger"
-								th:href="@{/carrinho/removerItem/{id_produto}(id_produto=${item.produto.id_produto})}"
+							<td class="text-right"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#excluir"
+								th:attr="data-id=${item.produto.nomeProduto}, data-actionurl=@{/carrinho/removerItem/{id_produto}(id_produto=${item.produto.id_produto})}"
 								role="button"><i class="fa fa-trash"></i></a></td>
 
 						</tr>
@@ -107,19 +122,32 @@
 			</div>
 		</div>
 	</div>
+	
 </div>	
-<!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-    <!-- JavaScript-->
-    <script>
-      function calculo(){
-        var cep = $("#cep").val();
-        $.post('calcula.php',{cep:cep},function(data){
-          $("#retorno").html(data);
-        });
-      }
-    </script>
+    <div layout:fragment="modal-area">
+	    <div class="modal fade" tabindex="-1" role="dialog" id="excluir">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h5 class="modal-title">Excluir produto do carrinho</h5>
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">&times;</span>
+	                    </button>
+	                </div>
+	                <div class="modal-body">
+	                    <p></p>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancelar</button>
+	                    <form method="GET">
+	                       <button type="submit" class="btn btn-danger">Apagar</button>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        
+	    </div>
+	   </div> 
 
 </div>
 </body>

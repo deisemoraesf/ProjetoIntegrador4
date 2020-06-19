@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -199,7 +197,18 @@ public class CarrinhoController {
 		return "redirect:/carrinho";
 	}
 	
-	
-  
+	/*
+	 
+	// Acesso a quantidade do carrinho
+	@RequestMapping({"/**"})
+    public int qtda(HttpSession session) {
+		int quantidadeTotal = 0;
+		for(ItensCompra it: itensCompra) {
+			quantidadeTotal = quantidadeTotal +it.getQuantidade();
+		}
+    session.setAttribute("qtda", quantidadeTotal);
+    
+    return quantidadeTotal;
+    }*/
 	
 }

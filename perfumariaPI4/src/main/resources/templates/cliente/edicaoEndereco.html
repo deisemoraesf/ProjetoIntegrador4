@@ -95,28 +95,28 @@
 							th:action="@{https://viacep.com.br/ws/{cep}/json/}">
 							
 							
-							<label class="small mb-1" for="id">ID:</label> <input
-								type="text" class="form-control py-3" id="id"
+							 <input
+								type="hidden" class="form-control py-3" id="id"
 								name="id" value="" th:field="*{id}" readonly="readonly">
 							
 							
 							<label class="small mb-1" for="tipoend">Local:</label> <input
 								type="text" class="form-control py-3" id="tipoend"
-								name="tipoend" value="" th:field="*{tipoend}">
+								name="tipoend" value="" th:field="*{tipoend}" required>
 
 
 							<label class="small mb-1" for="cep">CEP:</label> 
 							<input type="text" class="form-control py-3" id="cep" name="cep"
-								th:field="*{cep}" onblur="pesquisacep(this.value);" />
+								th:field="*{cep}" onblur="pesquisacep(this.value);" required />
 
 
 							<label class="small mb-1" for="endereco">Logradouro:</label> <input
 								type="text" class="form-control py-3" id="rua" name="rua"
-								th:field="*{rua}" value=""> 
+								th:field="*{rua}" value="" required> 
 								
 							<label class="small mb-1" for="numero">Número:</label> <input
 								type="text" class="form-control py-3" id="numero" name="numero"
-								th:field="*{numero}" value=""> 
+								th:field="*{numero}" value="" required> 
 								
 							<label class="small mb-1" for="complemento">Complemento:</label> <input
 								type="text" class="form-control py-3" id="complemento"
@@ -124,15 +124,15 @@
 
 							<label class="small mb-1" for="bairro">Bairro:</label> <input
 								type="text" class="form-control py-3" id="bairro" name="bairro"
-								th:field="*{bairro}" value=""> 
+								th:field="*{bairro}" value="" required> 
 								
 							<label class="small mb-1" for="cidade">Cidade:</label> <input
 								type="text" class="form-control py-3" id="cidade" name="cidade"
-								th:field="*{cidade}" value=""> 
+								th:field="*{cidade}" value="" required> 
 								
 							<label class="small mb-1" for="estado">Estado:</label> <input
 								type="text" class="form-control py-3" id="estado" name="estado"
-								th:field="*{estado}" value="">
+								th:field="*{estado}" value="" required>
 							<br>
 							<button type="submit" class="btn btn-primary btn-md">Salvar</button>
 							<a href="javascript:history.back()"
