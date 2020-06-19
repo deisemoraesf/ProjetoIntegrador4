@@ -1,69 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html layout:decorate="~{modeloSite}">
-<head>
+  <head>
+    <title>Perfumaria</title>
+    <meta charset="utf-8">
+    
+    <style>
+       
+        .carousel-control-prev-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+        }
+        
+        .carousel-control-next-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+        }
 
-<title>Perfumaria Administrativo</title>
-<meta charset="UTF-8" />
-
-</head>
-<body>
-<div layout:fragment="conteudo">
-	<br><br>
-    <div class="container">
-        <div class="card text">
-        	<div class="card-header">
-        	<h3 class="card-title"><b>Detalhes do Pedido</b></h3>
-        	</div>
-           <div class="card-body">
-              
-              <br>
-              
-               <div class="table-responsive">
-	                <table class="table">
-	                	<thead class="thead-light">
-               			<tr>
-	                        <th>Produtos</th>
-	                        <th>Quantidade</th>
-	                        <th>Valor</th>
-	                    
-	           			</tr>
-              			</thead>
-              			<tr th:each="i : ${itens}">
-              				<td><span th:text="${i.produto.nomeProduto}"></span></td>
-              				<td><span th:text="${i.quantidade}"></span></td>
-		       				<td><span th:text="${#numbers.formatDecimal(i.produto.preco, 0, 'POINT', 2 , 'COMMA')}"></span></td>        
-		      			</tr>
-		      			
-            		</table> 
-            		<hr> 
-              </div>
-              
-              <div th:object="${compras}">
-              <label for=""><strong>Pedido:</strong></label>
-              <p type="text" id="id" th:text="${compras.id}"/>
-              <label for=""><strong>Data</strong></label>
-              <p type="date" id="dataCompra" th:text="${#dates.format(compras.dataCompra, 'dd/MM/yyyy HH:mm')}"/>
-              <label for=""><strong> Total: </strong></label>
-              <p>R$ <span type="text" id="valorTotal" th:text="${#numbers.formatDecimal(compras.valorTotal, 0, 'POINT', 2, 'COMMA')}"></span></p>
-              <label for=""><strong>Forma de pagemento:</strong></label>
-              <p type="text" name="formaPagamento" id="formaPagamento" th:text="${compras.formaPagamento}"/>
-              <label for=""><strong>Status:</strong></label>
-              <p type="text" name="formaPagamento" id="formaPagamento" th:switch="${compras.statusCompra}">
-              		<strong><span th:case="'cancelado'" style="color:red;"  th:text="${compras.statusCompra}"></span></strong>
-					<strong><span th:case="'entregue'" style="color:green;"  th:text="${compras.statusCompra}"></span></strong>
-					<strong><span th:case="*" style="color:blue;"  th:text="${compras.statusCompra}"></span></strong>
-              </p>
-              </div>
-              <br>
-              
-              
-              <a href="/historicoPedidos" class="btn btn-primary btn-md">Voltar</a>
-              
+    </style>
+    
+  
+  </head>
+  <body>  
+  
+    <div layout:fragment="conteudo">
+    <br>
+ 	
+    <div class="container" th:object="${produto}">
+      
+        <div class="card" >
+            <div class="card-header">
+                <h1 name="nome" th:text="*{nomeProduto}"></h1>
             </div>
-        </div>    
-	</div>
-	<br>
-	<br>
-</div>	  
+            <div class="card-body">
+                <div class="container">
+                                          
+                        	<div  id="carouselSite" class="carousel slide" data-ride="carousel"  >
+                                 <div align="center" th:object="${FotoProduto}">                        
+                           		 <div class="carousel-inner">
+                           		 <div class="carousel-item active">
+                           		 	<img th:src="@{__${produto.fotoIndex}__}" class="img-fluid d-block" width="300px" height="300px">
+                           		 </div>
+                           		 	<div class="carousel-item" th:each="foto : ${fotos1}">
+                               		       	<img th:src="@{__${foto.name}__}" class="img-fluid d-block" width="300px" height="300px">
+                                    	
+                                    </div>		
+                                                            
+                               	</div>
+                           		</div>
+                            <a class="carousel-control-prev" href="#carouselSite" role="button" data-slide="prev"><!--Carousel ir pra trás-->
+                                <span class="carousel-control-prev-icon"></span>
+                                <span style="color: black;" class="sr-only">Voltar</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselSite" role="button" data-slide="next"><!--Carousel ir pra frente-->
+                                <span class="carousel-control-next-icon"></span>
+                                <span style="color: black;" class="sr-only"> Próximo</span>
+                            </a>
+                           
+                        </div>    
+                        
+                    </div>
+                    
+                </div>
+                <div class="container">
+                <div class="form-inline">
+                    <h6>Detalhes: <span name="desc_produto" th:text="*{desc_produto}"></span> </h6>
+                    <h2 class="ml-auto" style="text-align: left;">Valor: R$ <span name="preco" id="preco" th:text="*{#numbers.formatDecimal(preco, 0, 'POINT', 2, 'COMMA')}"></span></h2>&nbsp;&nbsp;&nbsp;&nbsp;
+                    
+                </div>
+                <a class="btn btn-info btn-lg ml-auto" th:if="${produto.quantidade} > 0" th:href="@{/carrinho/addcarrinho/{id_produto}(id_produto=${produto.id_produto})}" role="button">Comprar</a>
+                <button class="btn btn-light btn-lg ml-auto" th:unless="${produto.quantidade} > 0">Indisponível</button>
+                </div><br><br>
+
+            </div>
+            
+            <div class="card-footer">
+                <h6>Perguntas Frequentes</h6><br>
+                <p><span name="perg_resp" th:text="*{perg_resp}"></span></p>
+                
+                <p><b>O produto é de qualidade?</b><br> Sim, temos os melhores produtos do mercado!</p>
+
+                <p><b>Essa quantidade dura por quanto tempo?</b><br> Depende da frequência de uso, mas pode durar meses :)</p>
+
+    
+            </div>
+        </div>
+ </div>
 </body>
 </html>
