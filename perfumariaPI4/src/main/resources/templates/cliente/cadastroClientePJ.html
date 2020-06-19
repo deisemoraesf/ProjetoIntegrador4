@@ -87,9 +87,9 @@
 	<div class="row justify-content-center">
 		<nav aria-label="Navegação de página exemplo">
 			<ul class="pagination pagination-md">
-				<li class="page-item active"><a class="page-link"
-					href="/clientes/cadastrarCliente">Pessoa Física</a></li>
 				<li class="page-item"><a class="page-link"
+					href="/clientes/cadastrarCliente">Pessoa Física</a></li>
+				<li class="page-item active"><a class="page-link"
 					href="/clientes/cadastrarCliente/PJ">Pessoa Jurídica</a></li>
 			</ul>
 		</nav>
@@ -112,11 +112,11 @@
 																
 								<label class="small mb-1" for="inputEmailAdress">E-mail:</label>
 								<input type="email" class="form-control py-4" id="email" name="email"
-									placeholder="Digite seu e-mail">
+									placeholder="Digite seu e-mail" required>
 							
 								<label class="small mb-1" for="password">Senha:</label> <input
 									type="password" class="form-control py-4" id="senha" name="senha"
-									placeholder="Digite sua senha">
+									placeholder="Digite sua senha" required>
 							
 								<input type="hidden" id="tipo" name="tipo"
 									value="ROLE_COMPRADOR"></input>
@@ -136,16 +136,16 @@
 								
 								<label class="small mb-1" for="inputEmailAdress">Razão
 									Social:</label> <input type="text" class="form-control py-4"
-									id="nome" name="nome"
+									id="nome" name="nome" required
 									placeholder="Digite Razão Social">
 							
 								<label class="small mb-1" for="password">Nome Fantasia:</label>
 								<input type="text" class="form-control py-4" id="nome2"
-									name="nome2" placeholder="Digite Nome Fantasia">
+									name="nome2" placeholder="Digite Nome Fantasia" required>
 							
 								<label class="small mb-1" for="cpf">CNPJ: </label> <input
 									type="text" class="form-control py-4" id="cnpj" name="cnpj"
-									placeholder="Digite o CNPF">
+									placeholder="Digite o CNPF" required>
 							
 								<label class="small mb-1" for="dtnasc">Inscrição
 									Estadual:</label> <input type="text" class="form-control py-4"
@@ -158,11 +158,11 @@
 							
 								<label class="small mb-1" for="celular">Celular:</label> <input
 									type="text" class="form-control py-4" id="celular"
-									name="celular" placeholder="Digite número do celular">
+									name="celular" placeholder="Digite número do celular" required>
 							
 								<label class="small mb-1" for="telefone">Telefone Fixo:</label>
 								<input type="text" class="form-control py-4" id="telefonefixo"
-									name="telefonefixo" placeholder="Digite número do telefone fixo">
+									name="telefonefixo" placeholder="Digite número do telefone fixo" required>
 							</div>
 					</div>
 						</div>
@@ -177,21 +177,21 @@
 									
 									<label class="small mb-1" for="tipoend">Local:</label> <input
 										type="text" class="form-control py-4" id="tipoend" name="tipoend"
-										placeholder="Exemplo: Casa, Comercial">
+										placeholder="Exemplo: Casa, Comercial" required>
 								
 									<label class="small mb-1" for="cep">CEP:</label> 
 								<input type="text" class="form-control py-4" id="cep" name="cep" 
-									placeholder="Digite seu CEP" onblur="pesquisacep(this.value);"/>
+									placeholder="Digite seu CEP" onblur="pesquisacep(this.value);" required/>
 									
 																
 								
 								<label class="small mb-1" for="endereco">Logradouro:</label> 
 								<input type="text" class="form-control py-4" id="rua" name="rua"
-									placeholder="Digite o lograduro" value="">
+									placeholder="Digite o lograduro" value="" required>
 							
 								<label class="small mb-1" for="numero">Número:</label> <input
 									type="text" class="form-control py-4" id="numero" name="numero"
-									placeholder="Digite o número" value="">
+									placeholder="Digite o número" value="" required>
 							
 								<label class="small mb-1" for="complemento">Complemento:</label>
 								<input type="text" class="form-control py-4" id="complemento"
@@ -199,15 +199,15 @@
 							
 								<label class="small mb-1" for="bairro">Bairro:</label> <input
 									type="text" class="form-control py-4" id="bairro" name="bairro"
-									placeholder="Digite o Bairro" value="" >
+									placeholder="Digite o Bairro" value="" required>
 							
 								<label class="small mb-1" for="cidade">Cidade:</label> <input
 									type="text" class="form-control py-4" id="cidade"
-									name="cidade" placeholder="Digite a Cidade" value="" >
+									name="cidade" placeholder="Digite a Cidade" value="" required>
 							
 								<label class="small mb-1" for="estado">Estado:</label> <input
 									type="text" class="form-control py-4" id="estado"
-									name="estado" placeholder="Digite o Estado" value="">
+									name="estado" placeholder="Digite o Estado" value="" required>
 									
 							</div>
 
