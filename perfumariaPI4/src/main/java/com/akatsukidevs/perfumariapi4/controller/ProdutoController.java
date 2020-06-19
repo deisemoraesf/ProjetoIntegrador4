@@ -65,12 +65,12 @@ public class ProdutoController {
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
 			@SuppressWarnings("deprecation")
-			Path diretorio = Paths.get(context.getRealPath("/imgCarousel")+ file.getOriginalFilename());
+			Path diretorio = Paths.get(context.getRealPath("/perfumariaPI4/src/main/resources/static/image")+ file.getOriginalFilename());
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
 			pr.save(produto);
-			fp.setName("/imgCarousel/"+file.getOriginalFilename());
+			fp.setName("/image/"+file.getOriginalFilename());
 			fp.setProduto(produto);
 			fp.setStatus(true);
 			fp.setUrl(url);
@@ -137,12 +137,12 @@ public class ProdutoController {
 		StringBuilder fileNames = new StringBuilder();
 		for(MultipartFile file : files) {
 			
-			Path diretorio = Paths.get(System.getProperty("user.dir")+"/src/main/resources/static/imgCarousel/"+ file.getOriginalFilename());
+			Path diretorio = Paths.get(System.getProperty("user.dir")+"/src/main/resources/static/image/"+ file.getOriginalFilename());
 			fileNames.append(file.getOriginalFilename()+" ");
 			String url = diretorio.toString();
 			FotoProduto fp = new FotoProduto();
 			
-			fp.setName("/imgCarousel/"+file.getOriginalFilename());
+			fp.setName("/image/"+file.getOriginalFilename());
 			fp.setProduto(p);
 			fp.setStatus(true);
 			fp.setUrl(url);
