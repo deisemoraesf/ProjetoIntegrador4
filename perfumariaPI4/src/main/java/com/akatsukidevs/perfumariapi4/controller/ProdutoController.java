@@ -177,7 +177,7 @@ public class ProdutoController {
 		
 	}
 	
-	@RequestMapping(value="**/produtos/visualizarProdutos/{id_produto}", method=RequestMethod.GET)
+	@RequestMapping(value="/produtos/visualizarProdutos/{id_produto}", method=RequestMethod.GET)
 	public ModelAndView visualizarProduto(@PathVariable ("id_produto") Long id_produto) {
 		ModelAndView mv = new ModelAndView("admin/produtos/detalhesProduto");
 		Optional<Produto> p = pr.findById(id_produto);
