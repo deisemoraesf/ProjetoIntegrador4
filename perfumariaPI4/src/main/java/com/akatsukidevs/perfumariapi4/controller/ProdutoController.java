@@ -184,7 +184,7 @@ public class ProdutoController {
 		Produto prod = p.get();
 		Iterable<FotoProduto> fotos = fpr.findByProduto(prod);
 		mv.addObject("produto", prod);
-		mv.addObject("fotos", fotos);
+		mv.addObject("fotos1", fotos);
 		return mv;
 	}
 	
