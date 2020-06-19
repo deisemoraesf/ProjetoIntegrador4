@@ -108,7 +108,7 @@ public class IndexController {
 	
 	@PostMapping("**/pesquisaIndex")
 	public ModelAndView pesquisar(@RequestParam ("pesquisanome") String pesquisanome) {
-		ModelAndView mv = new ModelAndView("/index");
+		ModelAndView mv = new ModelAndView("index");
 		Iterable<Produto> produto = pr.findByNomeProdutoContainingIgnoreCaseAndStatus(pesquisanome, true);
 		mv.addObject("produtos", produto);
 		return mv;
