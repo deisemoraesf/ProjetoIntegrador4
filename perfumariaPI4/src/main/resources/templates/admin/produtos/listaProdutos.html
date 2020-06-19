@@ -76,7 +76,7 @@
 		                        <td><span th:text="${produto.id_produto}"></span></td>
 		                        <td><span th:text="${produto.nomeProduto}"></span></td>
 		                        <td><span th:text="${produto.quantidade}"></span></td>
-		                        <td><span th:text="${produto.preco}"></span></td>
+		                        <td><span th:text="${#numbers.formatDecimal(produto.preco, 0, 'POINT', 2, 'COMMA')}"></span></td>
 		                        <td><span th:text="${produto.categoria}"></span></td>
 		                        
 		                        <td colspan="2">
